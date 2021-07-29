@@ -33,7 +33,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Courses</span>
-                                <span class="info-box-number">{{ $courses }}</span>
+                                <span class="info-box-number"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -46,7 +46,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Sessions</span>
-                                <span class="info-box-number">{{ $sessions }}</span>
+                                <span class="info-box-number"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -59,7 +59,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Teachers</span>
-                                <span class="info-box-number">{{ $teachers }}</span>
+                                <span class="info-box-number"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -72,7 +72,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Course Teacher</span>
-                                <span class="info-box-number">{{ $externals }}</span>
+                                <span class="info-box-number"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -86,7 +86,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Year Head</span>
-                                <span class="info-box-number">{{ $year_heads }}</span>
+                                <span class="info-box-number"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -100,7 +100,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Students</span>
-                                <span class="info-box-number">{{ $students }}</span>
+                                <span class="info-box-number"></span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

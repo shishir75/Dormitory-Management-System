@@ -16,7 +16,7 @@
 						@php
                             $dept = App\Models\Dept::where('name', Auth::user()->name)->first();
 						@endphp
-						{{ $dept->short_name }}
+						{{ $dept->short_name }} Office
 					@else
 						{{ Auth::user()->name }}
 					@endif
@@ -165,7 +165,7 @@
                         </a>
                     </li>
 
-					<li class="nav-item has-treeview {{ Request::is('dept-office/teacher*') ? 'menu-open' : '' }}">
+					{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/teacher*') ? 'menu-open' : '' }}">
 						<a href="#" class="nav-link {{ Request::is('dept-office/teacher*') ? 'active' : '' }}">
 							<i class="nav-icon fa fa-users"></i>
 							<p>
@@ -283,7 +283,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
 				<li class="nav-item has-treeview {{ Request::is('dept-office/student*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('dept-office/student*') ? 'active' : '' }}">
