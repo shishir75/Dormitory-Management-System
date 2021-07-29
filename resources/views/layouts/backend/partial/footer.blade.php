@@ -4,5 +4,5 @@
 		Anything you want
 	</div>
 	<!-- Default to the left -->
-	<strong>Copyright &copy; {{ \Carbon\Carbon::now()->format('Y') }} Group - I.</strong> All rights reserved.
+	<strong>Copyright &copy; {{ \Carbon\Carbon::now()->format('Y') }} Md. Obydullah Sarder - 1305.</strong> All rights reserved.
 </footer>

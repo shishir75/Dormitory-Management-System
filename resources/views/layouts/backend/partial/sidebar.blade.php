@@ -3,7 +3,7 @@
 	<a href="{{ route('home') }}" class="brand-link">
 		<img src="{{ asset('assets/backend/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
 		     style="opacity: .8">
-		<span class="brand-text font-weight-light">RMS</span>
+		<span class="brand-text font-weight-light">DMS</span>
 	</a>
 
 	<!-- Sidebar -->

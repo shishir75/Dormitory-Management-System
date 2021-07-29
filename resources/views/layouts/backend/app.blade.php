@@ -8,7 +8,7 @@
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>@yield('title') - {{ config('app.name', 'Result Management System') }}</title>
+	<title>@yield('title') - {{ config('app.name', 'Dormitory Management System') }}</title>
 
 	<!-- Font Awesome Icons -->
 	<link rel="stylesheet" href="{{ asset('assets/backend/plugins/font-awesome/css/font-awesome.min.css') }}">
