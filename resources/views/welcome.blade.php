@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>RMS - Result Management System</title>
+        <title>DMS - Dormitory Management System</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -22,7 +22,7 @@
 
             .bg {
                 position: relative;
-                background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/assets/backend/img/bg.jpg');
+                background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/assets/backend/img/hall.jpg');
                 -webkit-background-size: cover;
                 background-size: cover;
                 background-position: center;
@@ -91,8 +91,13 @@
 
             <div class="content">
                 <div class="title m-b-md" style="color: white !important;">
-                    <span class="h6">Result Management System</span>
-                    <h6 style="color: white !important;">Developed By : Group - I</h6>
+                    <span class="h6">Dormitory Management System</span>
+
+                </div>
+                <div style="color: white !important;">
+                    <h3>Design & Developed By : </h3>
+                    <h1>Md. Obydullah Sarder</h1>
+                    <h1>ID: 1305</h1>
                 </div>
             </div>
         </div>
