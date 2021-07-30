@@ -30,9 +30,10 @@
                     <!-- left column -->
                     <div class="col-md-12">
                         <!-- general form elements -->
-                        <div class="card card-primary">
+                        <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Show Batch Students</h3>
+                                <h3 class="card-title">Show Students for Session {{ $students[0]->session->name}} <span class="float-right">Change Status</span></h3>
+
                             </div>
                             <!-- /.card-header -->
 
@@ -45,7 +46,6 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
-                                        <th>Session</th>
                                         <th>Reg No</th>
                                         <th>Hall Name</th>
                                         <th>Status</th>
@@ -56,7 +56,6 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
-                                        <th>Session</th>
                                         <th>Reg No</th>
                                         <th>Hall Name</th>
                                         <th>Status</th>
@@ -68,7 +67,6 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
-                                            <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
                                             <td>
                                                 @if($student->hall == null)
@@ -77,7 +75,13 @@
                                                     {{ $student->hall }}
                                                 @endif
                                             </td>
-                                            <td></td>
+                                            <td>
+                                                @if($student->status == true)
+                                                    <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
+                                                @else
+                                                <p class="badge badge-warning"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{ route('dept_office.student.edit', $student->id) }}" class="btn btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
