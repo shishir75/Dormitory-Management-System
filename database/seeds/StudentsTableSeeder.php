@@ -14,7 +14,7 @@ class StudentsTableSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
-        for ( $i = 0; $i < 50; $i++ ) {
+        for ( $i = 0; $i < 350; $i++ ) {
             DB::table( 'students' )->insert( [
                 'name'       => $faker->name,
                 'session_id' => rand( 1, 7 ),

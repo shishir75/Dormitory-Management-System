@@ -16,14 +16,14 @@ class CreateStudentsTable extends Migration
         Schema::create( 'students', function ( Blueprint $table ) {
             $table->bigIncrements( 'id' );
             $table->string( 'name' );
-            $table->string( 'session_id' );
+            $table->unsignedBigInteger( 'session_id' );
             $table->unsignedBigInteger( 'dept_id' );
             $table->bigInteger( 'reg_no' );
             $table->string( 'hall' )->nullable();
             $table->string( 'image' )->nullable();
             $table->timestamps();
-            // $table->foreign( 'dept_id' )->references( 'id' )->on( 'depts' )->onDelete( 'cascade' );
-            //$table->foreign( 'session_id' )->references( 'id' )->on( 'sessions' )->onDelete( 'cascade' );
+            $table->foreign( 'dept_id' )->references( 'id' )->on( 'depts' )->onDelete( 'cascade' );
+            $table->foreign( 'session_id' )->references( 'id' )->on( 'sessions' )->onDelete( 'cascade' );
         } );
     }
 
