@@ -44,12 +44,8 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Session</th>
-                                        <th>Class Roll</th>
                                         <th>Reg No</th>
-                                        <th>Exam Roll</th>
                                         <th>Hall Name</th>
-                                        <th>Father's Name</th>
-                                        <th>Mother's Name</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -58,12 +54,8 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Session</th>
-                                        <th>Class Roll</th>
                                         <th>Reg No</th>
-                                        <th>Exam Roll</th>
                                         <th>Hall Name</th>
-                                        <th>Father's Name</th>
-                                        <th>Mother's Name</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -72,13 +64,15 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
-                                            <td>{{ $student->session }}</td>
-                                            <td>{{ $student->class_roll }}</td>
+                                            <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
-                                            <td>{{ $student->exam_roll }}</td>
-                                            <td>{{ $student->hall }}</td>
-                                            <td>{{ $student->father_name }}</td>
-                                            <td>{{ $student->mother_name }}</td>
+                                            <td>
+                                                @if($student->hall == null)
+                                                    <p class="badge badge-warning">Hall not allocated yet</p>
+                                                @else
+                                                    {{ $student->hall }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 <a href="{{ route('dept_office.student.edit', $student->id) }}" class="btn btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
