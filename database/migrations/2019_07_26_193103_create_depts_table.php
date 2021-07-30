@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateDeptsTable extends Migration
 {
@@ -13,14 +13,14 @@ class CreateDeptsTable extends Migration
      */
     public function up()
     {
-        Schema::create('depts', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
-            $table->string('short_name', 20)->unique();
-            $table->boolean('is_semester')->default(0);
+        Schema::create( 'depts', function ( Blueprint $table ) {
+            $table->bigIncrements( 'id' );
+            $table->string( 'name' )->unique();
+            $table->string( 'slug' )->unique();
+            $table->string( 'short_name', 20 )->unique();
+            $table->boolean( 'is_semester' )->default( 0 );
             $table->timestamps();
-        });
+        } );
     }
 
     /**
@@ -30,6 +30,6 @@ class CreateDeptsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('depts');
+        Schema::dropIfExists( 'depts' );
     }
 }

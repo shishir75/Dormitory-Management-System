@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateStudentsTable extends Migration
 {
@@ -13,21 +13,18 @@ class CreateStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('class_roll');
-            $table->string('session');
-            $table->unsignedBigInteger('dept_id');
-            $table->bigInteger('reg_no');
-            $table->bigInteger('exam_roll');
-            $table->string('hall');
-            $table->string('father_name');
-            $table->string('mother_name');
-            $table->string('image')->nullable();
+        Schema::create( 'students', function ( Blueprint $table ) {
+            $table->bigIncrements( 'id' );
+            $table->string( 'name' );
+            $table->string( 'session_id' );
+            $table->unsignedBigInteger( 'dept_id' );
+            $table->bigInteger( 'reg_no' );
+            $table->string( 'hall' )->nullable();
+            $table->string( 'image' )->nullable();
             $table->timestamps();
-            $table->foreign('dept_id')->references('id')->on('depts')->onDelete('cascade');
-        });
+            // $table->foreign( 'dept_id' )->references( 'id' )->on( 'depts' )->onDelete( 'cascade' );
+            //$table->foreign( 'session_id' )->references( 'id' )->on( 'sessions' )->onDelete( 'cascade' );
+        } );
     }
 
     /**
@@ -37,6 +34,6 @@ class CreateStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('students');
+        Schema::dropIfExists( 'students' );
     }
 }

@@ -12,48 +12,45 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'role_id' => 1,
-            'name' => 'Md. Register',
+        DB::table( 'users' )->insert( [
+            'role_id'  => 1,
+            'name'     => 'Md. Register',
             'username' => 'register',
-            'email' => 'register@gmail.com',
-            'password' => bcrypt(12345678),
-        ]);
+            'email'    => 'register@gmail.com',
+            'password' => bcrypt( 12345678 ),
+        ] );
 
-
-        DB::table('users')->insert([
-            'role_id' => 2,
-            'name' => 'Md. Exam Controller',
+        DB::table( 'users' )->insert( [
+            'role_id'  => 2,
+            'name'     => 'Md. Exam Controller',
             'username' => 'exam-controller',
-            'email' => 'exam-controller@gmail.com',
-            'password' => bcrypt(12345678),
-        ]);
+            'email'    => 'exam-controller@gmail.com',
+            'password' => bcrypt( 12345678 ),
+        ] );
 
-
-        DB::table('users')->insert([
-            'role_id' => 3,
-            'name' => 'Md. Dept Office',
+        DB::table( 'users' )->insert( [
+            'role_id'  => 3,
+            'name'     => 'Institute of Information Technology',
             'username' => 'dept-office',
-            'email' => 'dept-office@gmail.com',
-            'password' => bcrypt(12345678),
-        ]);
+            'email'    => 'dept-office@gmail.com',
+            'password' => bcrypt( 12345678 ),
+        ] );
 
-        DB::table('users')->insert([
-            'role_id' => 4,
-            'name' => 'Md. Teacher',
+        DB::table( 'users' )->insert( [
+            'role_id'  => 4,
+            'name'     => 'Md. Teacher',
             'username' => 'teacher',
-            'email' => 'teacher@gmail.com',
-            'password' => bcrypt(12345678),
-        ]);
+            'email'    => 'teacher@gmail.com',
+            'password' => bcrypt( 12345678 ),
+        ] );
 
-        DB::table('users')->insert([
-            'role_id' => 5,
-            'name' => 'Md. Student',
+        DB::table( 'users' )->insert( [
+            'role_id'  => 5,
+            'name'     => 'Md. Student',
             'username' => 'student',
-            'email' => 'student@gmail.com',
-            'password' => bcrypt(12345678),
-        ]);
-
+            'email'    => 'student@gmail.com',
+            'password' => bcrypt( 12345678 ),
+        ] );
 
     }
 }
