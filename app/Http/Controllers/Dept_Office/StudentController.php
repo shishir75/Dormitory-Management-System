@@ -11,22 +11,33 @@ use App\Models\Student;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
+
+    public function index()
+    {
+        $dept = Dept::where( 'name', Auth::user()->name )->first();
+        $sessions = Session::orderBy( 'id', 'desc' )->get();
+
+        return view( "dept_office.student.batch", compact( "dept", "sessions" ) );
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function all()
     {
-        $dept = Dept::select( 'id', 'name' )->where( 'name', Auth::user()->name )->first();
-        $students = Student::with( 'dept' )->latest()->where( 'dept_id', $dept->id )->orderBy( 'session_id', 'desc' )->orderBy( 'reg_no', 'asc' )->get();
 
-        return view( 'dept_office.student.index', compact( 'students', 'dept' ) );
+        // $dept = Dept::select( 'id', 'name' )->where( 'name', Auth::user()->name )->first();
+        // $students = Student::with( 'dept' )->latest()->where( 'dept_id', $dept->id )->orderBy( 'session_id', 'desc' )->orderBy( 'reg_no', 'asc' )->get();
+
+        // return view( 'dept_office.student.index', compact( 'students', 'dept' ) );
     }
 
     /**
@@ -97,9 +108,13 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show( Student $student )
+    public function show( $id )
     {
-        //
+        $session = Session::where( 'name', $id )->first();
+        $dept = Dept::where( 'name', Auth::user()->name )->first();
+        $students = Student::where( 'session_id', $session->id )->where( 'dept_id', $dept->id )->get();
+
+        return view( "dept_office.student.show", compact( 'dept', 'students' ) );
     }
 
     /**
@@ -185,5 +200,20 @@ class StudentController extends Controller
         Toastr::success( 'Students deleted successfully', 'Success' );
 
         return redirect()->route( 'dept_office.student.index' );
+    }
+
+    public function change_all_status( $session_id )
+    {
+        $dept = Dept::where( 'name', Auth::user()->name )->first();
+        $session = Session::findOrFail( $session_id );
+
+        DB::table( 'students' )
+            ->where( "dept_id", $dept->id )
+            ->where( "session_id", $session->id )
+            ->update( ['room_no' => false, 'status' => false] );
+
+        Toastr::success( 'Status updated successfully', 'Success' );
+
+        return redirect()->back();
     }
 }

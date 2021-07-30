@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Show Employee')
+@section('title', 'Show Batch Students')
 
 @push('css')
 
@@ -15,8 +15,8 @@
                 <div class="row mb-2">
                     <div class="col-sm-6 offset-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Show Employee</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dept_office.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Show Batch Students</li>
                         </ol>
                     </div>
                 </div>
@@ -30,67 +30,99 @@
                     <!-- left column -->
                     <div class="col-md-12">
                         <!-- general form elements -->
-                        <div class="card card-primary">
+                        <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Show Employee</h3>
+                                <h3 class="card-title">Show Students for Session {{ $students[0]->session->name}}
+                                    <button type="button" onclick="deleteItem({{ $students[0]->session->id }})" class="btn btn-sm btn-danger text-white float-right">Change Status</button>
+                                </h3>
+                                <form id="change-batch-form-{{ $students[0]->session->id }}" action="{{ route('dept_office.student.change_all_status', $students[0]->session->id) }}" method="post"
+                                    style="display:none;">
+                                  @csrf
+                                  @method('PUT')
+                              </form>
+
                             </div>
                             <!-- /.card-header -->
 
                             <!-- form start -->
 
 
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Name</label>
-                                                <p>{{ $employee->name }}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <p>{{ $employee->email }}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Phone</label>
-                                                <p>{{ $employee->phone }}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Address</label>
-                                                <p>{{ $employee->address }}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>City</label>
-                                                <p>{{ $employee->city }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Experience</label>
-                                                <p>{{ $employee->experience }}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="exampleInputFile">Photo</label>
-                                                <p>
-                                                    <img width="50" height="50" src="{{ URL::asset("storage/employee/".$employee->photo) }}" alt="{{ $employee->name }}">
-                                                </p>
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped text-center">
+                                    <thead>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Name</th>
+                                        <th>Dept Name</th>
+                                        <th>Session</th>
+                                        <th>Reg No</th>
+                                        <th>Hall Name</th>
+                                        <th>Room No</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Name</th>
+                                        <th>Dept Name</th>
+                                        <th>Session</th>
+                                        <th>Reg No</th>
+                                        <th>Hall Name</th>
+                                        <th>Room No</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    @foreach($students as $key => $student)
+                                        <tr>
+                                            <td>{{ $key + 1 }}</td>
+                                            <td>{{ $student->name }}</td>
+                                            <td>{{ $student->dept->name }}</td>
+                                            <td>{{ $student->session->name }}</td>
+                                            <td>{{ $student->reg_no }}</td>
+                                            <td>
+                                                @if($student->hall == null)
+                                                    <p class="badge badge-warning">Hall not allocated yet</p>
+                                                @else
+                                                    {{ $student->hall }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($student->room_no == null)
+                                                    <p class="badge badge-warning">Room not allocated yet</p>
+                                                @else
+                                                    {{ $student->room_no }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if($student->status == true)
+                                                    <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
+                                                @else
+                                                <p class="badge badge-warning"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{-- <a href="{{ route('dept_office.student.edit', $student->id) }}" class="btn btn-info">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $student->id }})">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </button>
+                                                <form id="delete-form-{{ $student->id }}" action="{{ route('dept_office.student.destroy', $student->id) }}" method="post"
+                                                      style="display:none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form> --}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
 
-                                            </div>
-                                            <div class="form-group">
-                                                <label>NID No</label>
-                                                <p>{{ $employee->nid_no }}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Salary</label>
-                                                <p>{{ $employee->salary }}</p>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Vacation</label>
-                                                <p>{{ $employee->vacation }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                </table>
+                            </div>
                                 <!-- /.card-body -->
 
                         </div>
@@ -109,5 +141,64 @@
 
 
 @push('js')
+  <!-- DataTables -->
+  <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
+  <script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+  <!-- SlimScroll -->
+  <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+  <!-- FastClick -->
+  <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
+  <!-- Sweet Alert Js -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+
+
+  <script>
+      $(function () {
+          $("#example1").DataTable();
+          $('#example2').DataTable({
+              "paging": true,
+              "lengthChange": false,
+              "searching": false,
+              "ordering": true,
+              "info": true,
+              "autoWidth": false
+          });
+      });
+  </script>
+
+
+  <script type="text/javascript">
+      function deleteItem(id) {
+          const swalWithBootstrapButtons = swal.mixin({
+              confirmButtonClass: 'btn btn-success',
+              cancelButtonClass: 'btn btn-danger',
+              buttonsStyling: false,
+          })
+
+          swalWithBootstrapButtons({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, Change it!',
+              cancelButtonText: 'No, cancel!',
+              reverseButtons: true
+          }).then((result) => {
+              if (result.value) {
+                  event.preventDefault();
+                  document.getElementById('change-batch-form-'+id).submit();
+              } else if (
+                  // Read more about handling dismissals
+                  result.dismiss === swal.DismissReason.cancel
+              ) {
+                  swalWithBootstrapButtons(
+                      'Cancelled',
+                      'Your data is safe :)',
+                      'error'
+                  )
+              }
+          })
+      }
+  </script>
 @endpush

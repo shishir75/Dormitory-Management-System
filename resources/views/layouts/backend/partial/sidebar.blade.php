@@ -165,14 +165,14 @@
                         </a>
                     </li>
 
-                    <li class="nav-item has-treeview">
+                    {{-- <li class="nav-item has-treeview">
                         <a href="{{ route('dept_office.batch.index') }}" class="nav-link {{ Request::is('dept-office/batch*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-dashboard"></i>
                             <p>
                                 Batch Students
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
 
 					{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/teacher*') ? 'menu-open' : '' }}">
 						<a href="#" class="nav-link {{ Request::is('dept-office/teacher*') ? 'active' : '' }}">

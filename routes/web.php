@@ -68,7 +68,9 @@ Route::group( ['as' => 'dept_office.', 'prefix' => 'dept-office', 'namespace' =>
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
     Route::resource( 'student', 'StudentController' );
-    Route::resource( 'batch', 'BatchController' );
+    Route::put( 'change_all_status/{id}', 'StudentController@change_all_status' )->name( "student.change_all_status" );
+
+    //Route::resource( 'batch', 'BatchController' );
 
     //Route::resource( 'teacher', 'TeacherController' );
     // Route::resource('course', 'CourseController');
