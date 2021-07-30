@@ -165,6 +165,15 @@
                         </a>
                     </li>
 
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('dept_office.batch.index') }}" class="nav-link {{ Request::is('dept-office/batch*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-dashboard"></i>
+                            <p>
+                                Batch Students
+                            </p>
+                        </a>
+                    </li>
+
 					{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/teacher*') ? 'menu-open' : '' }}">
 						<a href="#" class="nav-link {{ Request::is('dept-office/teacher*') ? 'active' : '' }}">
 							<i class="nav-icon fa fa-users"></i>
@@ -187,9 +196,9 @@
 								</a>
 							</li>
 						</ul>
-					</li>
+					</li> --}}
 
-					<li class="nav-item has-treeview {{ Request::is('dept-office/year-head*') ? 'menu-open' : '' }}">
+					{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/year-head*') ? 'menu-open' : '' }}">
 						<a href="#" class="nav-link {{ Request::is('dept-office/year-head*') ? 'active' : '' }}">
 							<i class="nav-icon fa fa-header"></i>
 							<p>
@@ -211,9 +220,9 @@
 								</a>
 							</li>
 						</ul>
-					</li>
+					</li> --}}
 
-					<li class="nav-item has-treeview {{ Request::is('dept-office/course*') ? 'menu-open' : '' }}">
+					{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/course*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('dept-office/course*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-book"></i>
 						<p>
@@ -235,9 +244,9 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> --}}
 
-				<li class="nav-item has-treeview {{ Request::is('dept-office/teacher-course*') ? 'menu-open' : '' }}">
+				{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/teacher-course*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('dept-office/teacher-course*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-user"></i>
 						<p>
@@ -259,8 +268,8 @@
 							</a>
 						</li>
 					</ul>
-				</li>
-
+				</li> --}}
+{{--
                 <li class="nav-item has-treeview {{ Request::is('dept-office/external*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('dept-office/external*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-user-plus"></i>

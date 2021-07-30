@@ -20,6 +20,8 @@ class CreateStudentsTable extends Migration
             $table->unsignedBigInteger( 'dept_id' );
             $table->bigInteger( 'reg_no' );
             $table->string( 'hall' )->nullable();
+            $table->integer( "room_no" )->nullable();
+            $table->boolean( "status" )->default( true );
             $table->string( 'image' )->nullable();
             $table->timestamps();
             $table->foreign( 'dept_id' )->references( 'id' )->on( 'depts' )->onDelete( 'cascade' );
