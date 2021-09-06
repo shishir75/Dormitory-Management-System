@@ -42,11 +42,22 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-8">
                                             <div class="form-group">
                                                 <label>Students Excel File</label>
                                                 <input type="file" class="form-control" name="file" placeholder="Enter Students Excel File">
                                             </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Select Session</label>
+                                                <select class="form-control" name="session_id" id="exampleFormControlSelect1">
+                                                    <option value="" disabled selected>Select Session</option>
+                                                    @foreach ($sessions as $session)
+                                                        <option value="{{ $session->id}}">{{ $session->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                              </div>
                                         </div>
                                     </div>
 

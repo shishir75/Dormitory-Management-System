@@ -47,7 +47,9 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view( 'dept_office.student.create' );
+        $sessions = Session::orderBy( 'id', 'desc' )->get();
+
+        return view( 'dept_office.student.create', compact( "sessions" ) );
     }
 
     /**
@@ -65,6 +67,8 @@ class StudentController extends Controller
 
             $dept = Dept::select( 'id' )->where( 'name', Auth::user()->name )->first();
 
+            $session_id = $request->session_id;
+
             if ( !empty( $data ) && count( $data ) > 0 ) {
 
                 foreach ( $data as $rows ) {
@@ -72,7 +76,7 @@ class StudentController extends Controller
                         if ( $key > 3 ) {
                             $student = new Student();
 
-                            $check = Student::where( 'session', $value[2] )->where( 'class_roll', $value[3] )->count();
+                            $check = Student::where( 'session_id', $session_id )->where( 'reg_no', $value[2] )->count();
 
                             if ( $check > 0 ) {
                                 continue;
@@ -80,14 +84,9 @@ class StudentController extends Controller
                             } else {
 
                                 $student->name = $value[1];
-                                $student->session = $value[2];
-                                $student->class_roll = $value[3];
-                                $student->reg_no = $value[4];
-                                $student->exam_roll = $value[5];
-                                $student->hall = $value[6];
-                                $student->father_name = $value[7];
-                                $student->mother_name = $value[8];
+                                $student->reg_no = $value[2];
                                 $student->dept_id = $dept->id;
+                                $student->session_id = $session_id;
                                 $student->save();
                             }
 
