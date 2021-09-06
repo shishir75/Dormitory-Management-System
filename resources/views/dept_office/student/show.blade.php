@@ -33,7 +33,7 @@
                         <div class="card card-info">
                             <div class="card-header">
                                 <h3 class="card-title">Show Students for Session {{ $students[0]->session->name}}
-                                    <button type="button" onclick="deleteItem({{ $students[0]->session->id }})" class="btn btn-sm btn-danger text-white float-right">Change Status</button>
+                                    <button type="button" onclick="deleteItem({{ $students[0]->session->id }})" class="btn btn-sm btn-danger text-white float-right">Change Status For All Students</button>
                                 </h3>
                                 <form id="change-batch-form-{{ $students[0]->session->id }}" action="{{ route('dept_office.student.change_all_status', $students[0]->session->id) }}" method="post"
                                     style="display:none;">
@@ -53,25 +53,28 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
-                                        <th>Dept Name</th>
+                                        {{-- <th>Dept Name</th> --}}
                                         <th>Session</th>
                                         <th>Reg No</th>
                                         <th>Hall Name</th>
                                         <th>Room No</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
+                                        <th>Student Status</th>
+                                        <th>
+                                            <input type="checkbox" id="checkAll" name="ids" class="mr-3" >
+                                            Select All
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
-                                        <th>Dept Name</th>
+                                        {{-- <th>Dept Name</th> --}}
                                         <th>Session</th>
                                         <th>Reg No</th>
                                         <th>Hall Name</th>
                                         <th>Room No</th>
-                                        <th>Status</th>
+                                        <th>Student Status</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -80,7 +83,7 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
-                                            <td>{{ $student->dept->name }}</td>
+                                            {{-- <td>{{ $student->dept->name }}</td> --}}
                                             <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
                                             <td>
@@ -105,17 +108,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                {{-- <a href="{{ route('dept_office.student.edit', $student->id) }}" class="btn btn-info">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $student->id }})">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                                <form id="delete-form-{{ $student->id }}" action="{{ route('dept_office.student.destroy', $student->id) }}" method="post"
-                                                      style="display:none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form> --}}
+                                                <input type="checkbox" name="ids" class="checkBoxClass" value="{{$student->id}}">
                                             </td>
                                         </tr>
                                     @endforeach
@@ -201,4 +194,13 @@
           })
       }
   </script>
+
+  <script>
+      $(function(e){
+        $("#checkAll").click(function(){
+            $(".checkBoxClass").prop('checked', $(this).prop('checked'));
+        });
+      });
+  </script>
+
 @endpush
