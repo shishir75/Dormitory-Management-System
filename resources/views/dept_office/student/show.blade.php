@@ -49,6 +49,7 @@
 
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped text-center">
+                                    <button type="button" class="btn btn-warning float-right mb-3" id="changeAllSelectedRecords">Change Status for Selected</button>
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
@@ -60,7 +61,7 @@
                                         <th>Room No</th>
                                         <th>Student Status</th>
                                         <th>
-                                            <input type="checkbox" id="checkAll" name="ids" class="mr-3" >
+                                            <input type="checkbox" id="checkAll"  class="mr-3" >
                                             Select All
                                         </th>
                                     </tr>
@@ -80,7 +81,7 @@
                                     </tfoot>
                                     <tbody>
                                     @foreach($students as $key => $student)
-                                        <tr>
+                                        <tr id="sid{{$student->id}}">
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
                                             {{-- <td>{{ $student->dept->name }}</td> --}}
@@ -146,7 +147,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
 
 
-  <script>
+  {{-- <script>
       $(function () {
           $("#example1").DataTable();
           $('#example2').DataTable({
@@ -158,7 +159,7 @@
               "autoWidth": false
           });
       });
-  </script>
+  </script> --}}
 
 
   <script type="text/javascript">
@@ -200,6 +201,31 @@
         $("#checkAll").click(function(){
             $(".checkBoxClass").prop('checked', $(this).prop('checked'));
         });
+
+        $("#changeAllSelectedRecords").click(function(e){
+            e.preventDefault();
+            var all_ids = [];
+            $("input:checkbox[name=ids]:checked").each(function(){
+                all_ids.push($(this).val());
+            })
+
+            $.ajax({
+                url: "{{ route('dept_office.student.change_status_selected') }}",
+                type: 'PUT',
+                data: {
+                    ids: all_ids,
+                    _token: $("input[name=_token]").val()
+                },
+                success: function(response) {
+                    $.each(all_ids, function(key, val){
+                        $('#sid'+val).remove();
+                    });
+                    location.reload();
+                }
+            });
+        });
+
+
       });
   </script>
 

@@ -225,4 +225,28 @@ class StudentController extends Controller
 
         return redirect()->back();
     }
+
+    public function changeStatusForSelectedStudents( Request $request )
+    {
+        $ids = $request->ids;
+
+        $dept = Dept::where( 'name', Auth::user()->name )->first();
+
+        foreach ( $ids as $student_id ) {
+            $check = Student::find( $student_id );
+
+            if ( $check->status == true ) {
+                DB::table( 'students' )
+                    ->where( "dept_id", $dept->id )
+                    ->where( "id", $student_id )
+                    ->update( ['room_no' => false, 'status' => false] );
+            } else {
+                DB::table( 'students' )
+                    ->where( "dept_id", $dept->id )
+                    ->where( "id", $student_id )
+                    ->update( ['room_no' => false, 'status' => true] );
+            }
+        }
+        Toastr::success( 'Status updated successfully', 'Success' );
+    }
 }
