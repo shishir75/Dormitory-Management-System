@@ -207,10 +207,19 @@ class StudentController extends Controller
         $dept = Dept::where( 'name', Auth::user()->name )->first();
         $session = Session::findOrFail( $session_id );
 
-        DB::table( 'students' )
-            ->where( "dept_id", $dept->id )
-            ->where( "session_id", $session->id )
-            ->update( ['room_no' => false, 'status' => false] );
+        $check = Student::where( "dept_id", $dept->id )->where( "session_id", $session->id )->first();
+
+        if ( $check->status == true ) {
+            DB::table( 'students' )
+                ->where( "dept_id", $dept->id )
+                ->where( "session_id", $session->id )
+                ->update( ['room_no' => false, 'status' => false] );
+        } else {
+            DB::table( 'students' )
+                ->where( "dept_id", $dept->id )
+                ->where( "session_id", $session->id )
+                ->update( ['room_no' => false, 'status' => true] );
+        }
 
         Toastr::success( 'Status updated successfully', 'Success' );
 
