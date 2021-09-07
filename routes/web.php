@@ -77,6 +77,7 @@ Route::group( ['as' => 'dept_office.', 'prefix' => 'dept-office', 'namespace' =>
 Route::group( ['as' => 'hall_office.', 'prefix' => 'hall-office', 'namespace' => 'Hall_Office', 'middleware' => ['auth', 'hallOffice']], function () {
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
+    Route::resource( 'rooms', 'RoomsController' );
 
 } );
 

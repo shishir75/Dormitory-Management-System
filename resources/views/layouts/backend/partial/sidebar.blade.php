@@ -171,159 +171,29 @@
                             </p>
                         </a>
                     </li>
-
-                    {{-- <li class="nav-item has-treeview">
-                        <a href="{{ route('dept_office.batch.index') }}" class="nav-link {{ Request::is('dept-office/batch*') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-dashboard"></i>
+                    <li class="nav-item has-treeview {{ Request::is('dept-office/student*') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ Request::is('dept-office/student*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-graduation-cap"></i>
                             <p>
-                                Batch Students
+                                Students
+                                <i class="right fa fa-angle-left"></i>
                             </p>
                         </a>
-                    </li> --}}
-
-					{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/teacher*') ? 'menu-open' : '' }}">
-						<a href="#" class="nav-link {{ Request::is('dept-office/teacher*') ? 'active' : '' }}">
-							<i class="nav-icon fa fa-users"></i>
-							<p>
-								Teacher
-								<i class="right fa fa-angle-left"></i>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="{{ route('dept_office.teacher.create') }}" class="nav-link {{ Request::is('dept-office/teacher/create') ? 'active' : '' }}">
-									<i class="fa fa-circle-o nav-icon"></i>
-									<p>Add Teacher</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="{{ route('dept_office.teacher.index') }}" class="nav-link {{ Request::is('dept-office/teacher') ? 'active' : '' }}">
-									<i class="fa fa-circle-o nav-icon"></i>
-									<p>All Teachers</p>
-								</a>
-							</li>
-						</ul>
-					</li> --}}
-
-					{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/year-head*') ? 'menu-open' : '' }}">
-						<a href="#" class="nav-link {{ Request::is('dept-office/year-head*') ? 'active' : '' }}">
-							<i class="nav-icon fa fa-header"></i>
-							<p>
-								Year Head
-								<i class="right fa fa-angle-left"></i>
-							</p>
-						</a>
-						<ul class="nav nav-treeview">
-							<li class="nav-item">
-								<a href="{{ route('dept_office.year-head.create') }}" class="nav-link {{ Request::is('dept-office/year-head/create') ? 'active' : '' }}">
-									<i class="fa fa-circle-o nav-icon"></i>
-									<p>Add Year Head</p>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="{{ route('dept_office.year-head.index') }}" class="nav-link {{ Request::is('dept-office/year-head') ? 'active' : '' }}">
-									<i class="fa fa-circle-o nav-icon"></i>
-									<p>All Year Heads</p>
-								</a>
-							</li>
-						</ul>
-					</li> --}}
-
-					{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/course*') ? 'menu-open' : '' }}">
-					<a href="#" class="nav-link {{ Request::is('dept-office/course*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-book"></i>
-						<p>
-							Courses
-							<i class="right fa fa-angle-left"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="{{ route('dept_office.course.create') }}" class="nav-link {{ Request::is('dept-office/course/create') ? 'active' : '' }}">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Add Course</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="{{ route('dept_office.course.index') }}" class="nav-link {{ Request::is('dept-office/course') ? 'active' : '' }}">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>All Courses</p>
-							</a>
-						</li>
-					</ul>
-				</li> --}}
-
-				{{-- <li class="nav-item has-treeview {{ Request::is('dept-office/teacher-course*') ? 'menu-open' : '' }}">
-					<a href="#" class="nav-link {{ Request::is('dept-office/teacher-course*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-user"></i>
-						<p>
-							Course Teacher
-							<i class="right fa fa-angle-left"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="{{ route('dept_office.teacher-course.create') }}" class="nav-link {{ Request::is('dept-office/teacher-course/create') ? 'active' : '' }}">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Add Course Teacher</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="{{ route('dept_office.teacher-course.index') }}" class="nav-link {{ Request::is('dept-office/teacher-course') ? 'active' : '' }}">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>All Course Teachers</p>
-							</a>
-						</li>
-					</ul>
-				</li> --}}
-{{--
-                <li class="nav-item has-treeview {{ Request::is('dept-office/external*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::is('dept-office/external*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-user-plus"></i>
-                        <p>
-                            Externals
-                            <i class="right fa fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('dept_office.external.create') }}" class="nav-link {{ Request::is('dept-office/external/create') ? 'active' : '' }}">
-                                <i class="fa fa-circle-o nav-icon"></i>
-                                <p>Add External</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('dept_office.external.index') }}" class="nav-link {{ Request::is('dept-office/external') ? 'active' : '' }}">
-                                <i class="fa fa-circle-o nav-icon"></i>
-                                <p>All Externals</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
-
-				<li class="nav-item has-treeview {{ Request::is('dept-office/student*') ? 'menu-open' : '' }}">
-					<a href="#" class="nav-link {{ Request::is('dept-office/student*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-graduation-cap"></i>
-						<p>
-							Students
-							<i class="right fa fa-angle-left"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="{{ route('dept_office.student.create') }}" class="nav-link {{ Request::is('dept-office/student/create') ? 'active' : '' }}">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Add Student</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="{{ route('dept_office.student.index') }}" class="nav-link {{ Request::is('dept-office/student') ? 'active' : '' }}">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>All Students</p>
-							</a>
-						</li>
-					</ul>
-				</li>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('dept_office.student.create') }}" class="nav-link {{ Request::is('dept-office/student/create') ? 'active' : '' }}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>Add Student</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('dept_office.student.index') }}" class="nav-link {{ Request::is('dept-office/student') ? 'active' : '' }}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>All Students</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
 
 			@elseif(Request::is('hall-office*')))
@@ -336,6 +206,30 @@
                         </p>
                     </a>
                 </li>
+
+                <li class="nav-item has-treeview {{ Request::is('hall-office/rooms*') ? 'menu-open' : '' }}">
+					<a href="#" class="nav-link {{ Request::is('hall-office/rooms*') ? 'active' : '' }}">
+						<i class="nav-icon fa fa-graduation-cap"></i>
+						<p>
+							Rooms
+							<i class="right fa fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a href="{{ route('hall_office.rooms.create') }}" class="nav-link {{ Request::is('hall-office/rooms/create') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>Add Rooms</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="{{ route('hall_office.rooms.index') }}" class="nav-link {{ Request::is('hall-office/rooms') ? 'active' : '' }}">
+								<i class="fa fa-circle-o nav-icon"></i>
+								<p>All Rooms</p>
+							</a>
+						</li>
+					</ul>
+				</li>
 
 
 			@elseif(Request::is('student*')))
