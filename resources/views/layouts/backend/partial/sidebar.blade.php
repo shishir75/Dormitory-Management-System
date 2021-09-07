@@ -171,6 +171,15 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('dept_office.halls.index') }}" class="nav-link {{ Request::is('dept-office/halls') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-dashboard"></i>
+                            <p>
+                                Halls
+                            </p>
+                        </a>
+                    </li>
+
                     <li class="nav-item has-treeview {{ Request::is('dept-office/student*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ Request::is('dept-office/student*') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-graduation-cap"></i>
