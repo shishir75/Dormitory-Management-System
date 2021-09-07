@@ -23,6 +23,7 @@ class CreateStudentsTable extends Migration
             $table->integer( "room_no" )->nullable();
             $table->boolean( "status" )->default( true );
             $table->string( 'image' )->nullable();
+            $table->string( "sex", 1 )->default( "M" );
             $table->timestamps();
             $table->foreign( 'dept_id' )->references( 'id' )->on( 'depts' )->onDelete( 'cascade' );
             $table->foreign( 'session_id' )->references( 'id' )->on( 'sessions' )->onDelete( 'cascade' );

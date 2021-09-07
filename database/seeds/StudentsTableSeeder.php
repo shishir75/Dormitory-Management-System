@@ -20,6 +20,7 @@ class StudentsTableSeeder extends Seeder
                 'session_id' => rand( 1, 7 ),
                 'dept_id'    => rand( 1, 5 ),
                 'reg_no'     => rand( 40000, 50000 ),
+                'sex'        => $faker->randomElement( ['M', 'F'] ),
             ] );
         };
 

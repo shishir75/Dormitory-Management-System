@@ -82,6 +82,13 @@ Route::group( ['as' => 'dept_office.', 'prefix' => 'dept-office', 'namespace' =>
 
 } );
 
+// Hall Office Route Group
+Route::group( ['as' => 'hall_office.', 'prefix' => 'hall_office', 'namespace' => 'Hall_Office', 'middleware' => ['auth', 'hall_office']], function () {
+
+    Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
+
+} );
+
 // Teacher Route Group
 Route::group( ['as' => 'teacher.', 'prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'teacher']], function () {
 

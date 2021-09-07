@@ -54,6 +54,7 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
+                                        <th>Sex</th>
                                         {{-- <th>Dept Name</th> --}}
                                         <th>Session</th>
                                         <th>Reg No</th>
@@ -70,6 +71,7 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
+                                        <th>Sex</th>
                                         {{-- <th>Dept Name</th> --}}
                                         <th>Session</th>
                                         <th>Reg No</th>
@@ -84,6 +86,7 @@
                                         <tr id="sid{{$student->id}}">
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
+                                            <td>{{ $student->sex }}</td>
                                             {{-- <td>{{ $student->dept->name }}</td> --}}
                                             <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
