@@ -49,7 +49,7 @@
                                         <th>Reg No</th>
                                         <th>Dept Name</th>
                                         <th>Room No</th>
-                                        <th>Allott Room</th>
+                                        <th>Room Allocation</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -60,7 +60,7 @@
                                         <th>Reg No</th>
                                         <th>Dept Name</th>
                                         <th>Room No</th>
-                                        <th>Actions</th>
+                                        <th>Room Allocation</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -79,17 +79,43 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('hall_office.allotted-students.edit', $student->id) }}" class="btn btn-info">
+                                                <!-- Button trigger modal -->
+                                                <a class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $student->id }})">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </button>
-                                                <form id="delete-form-{{ $student->id }}" action="{{ route('hall_office.allotted-students.destroy', $student->id) }}" method="post"
-                                                      style="display:none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-top" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Room Allocation</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="exampleFormControlSelect1">Select Room</label>
+                                                                        <select class="form-control" name="room_no" id="exampleFormControlSelect1">
+                                                                          <option value="" selected disabled>Select One</option>
+                                                                          @foreach ($available_hall_rooms as $available_hall_room)
+                                                                            <option value="{{ $available_hall_room->room_no }}">Room No {{ $available_hall_room->room_no }} - (S : {{ $available_hall_room->seat_count }} - A : {{ $available_hall_room->available_seat }})</option>
+                                                                          @endforeach
+                                                                        </select>
+                                                                      </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

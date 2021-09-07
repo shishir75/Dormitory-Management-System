@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Hall_Office;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hall;
+use App\Models\HallRoom;
 use App\Models\Session;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -57,7 +58,9 @@ class AllottedStudentsController extends Controller
         $hall = Hall::where( 'name', Auth::user()->name )->first();
         $students = Student::where( "session_id", $session->id )->where( "hall_id", $hall->id )->get();
 
-        return view( 'hall_office.allotted_student.index', compact( 'students', 'hall', 'session' ) );
+        $available_hall_rooms = HallRoom::where( 'hall_id', $hall->id )->where( 'available_seat', '>', 0 )->get();
+
+        return view( 'hall_office.allotted_student.index', compact( 'students', 'hall', 'session', 'available_hall_rooms' ) );
 
     }
 
