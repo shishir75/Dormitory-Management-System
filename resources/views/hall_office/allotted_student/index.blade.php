@@ -34,7 +34,9 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ strtoupper('Students list of '.$hall->name ) }}</h3>
+                                <h3 class="card-title">{{ strtoupper('Students list of '.$hall->name ) }}
+                                    <span class="float-right btn btn-sm btn-success">Session {{ $session->name}} </span>
+                                </h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -45,8 +47,9 @@
                                         <th>Name</th>
                                         <th>Session</th>
                                         <th>Reg No</th>
-                                        <th>Hall Name</th>
-                                        <th>Actions</th>
+                                        <th>Dept Name</th>
+                                        <th>Room No</th>
+                                        <th>Allott Room</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -55,7 +58,8 @@
                                         <th>Name</th>
                                         <th>Session</th>
                                         <th>Reg No</th>
-                                        <th>Hall Name</th>
+                                        <th>Dept Name</th>
+                                        <th>Room No</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -66,21 +70,22 @@
                                             <td>{{ $student->name }}</td>
                                             <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
+                                            <td>{{ $student->dept->short_name }}</td>
                                             <td>
-                                                @if($student->hall_id == null)
-                                                    <p class="badge badge-warning">Hall not allocated yet</p>
+                                                @if($student->room_no == null)
+                                                    <p class="badge badge-warning">Room not allocated yet</p>
                                                 @else
-                                                    {{ $student->hall->name }}
+                                                    {{ $student->room_no }}
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('dept_office.student.edit', $student->id) }}" class="btn btn-info">
+                                                <a href="{{ route('hall_office.allotted-students.edit', $student->id) }}" class="btn btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
                                                 <button class="btn btn-danger" type="button" onclick="deleteItem({{ $student->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
-                                                <form id="delete-form-{{ $student->id }}" action="{{ route('dept_office.student.destroy', $student->id) }}" method="post"
+                                                <form id="delete-form-{{ $student->id }}" action="{{ route('hall_office.allotted-students.destroy', $student->id) }}" method="post"
                                                       style="display:none;">
                                                     @csrf
                                                     @method('DELETE')
