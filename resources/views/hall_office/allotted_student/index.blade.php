@@ -94,25 +94,29 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label for="exampleFormControlSelect1">Select Room</label>
-                                                                        <select class="form-control" name="room_no" id="exampleFormControlSelect1">
-                                                                          <option value="" selected disabled>Select One</option>
-                                                                          @foreach ($available_hall_rooms as $available_hall_room)
-                                                                            <option value="{{ $available_hall_room->room_no }}">Room No {{ $available_hall_room->room_no }} - (S : {{ $available_hall_room->seat_count }} - A : {{ $available_hall_room->available_seat }})</option>
-                                                                          @endforeach
-                                                                        </select>
-                                                                      </div>
+                                                        <form role="form" action="{{ route('hall_office.allotted-students.update', $student->id) }}" method="POST" id="updateForm">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label for="exampleFormControlSelect1">Select Room</label>
+                                                                            <select class="form-control" name="room_no" id="room_no">
+                                                                              <option value="" selected disabled>Select One</option>
+                                                                              @foreach ($available_hall_rooms as $available_hall_room)
+                                                                                <option value="{{ $available_hall_room->room_no }}">Room No {{ $available_hall_room->room_no }} - (S : {{ $available_hall_room->seat_count }} - A : {{ $available_hall_room->available_seat }})</option>
+                                                                              @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save</button>
-                                                        </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                     </div>
                                                 </div>

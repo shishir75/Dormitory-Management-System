@@ -7,6 +7,7 @@ use App\Models\Hall;
 use App\Models\HallRoom;
 use App\Models\Session;
 use App\Models\Student;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -84,7 +85,21 @@ class AllottedStudentsController extends Controller
      */
     public function update( Request $request, $id )
     {
-        //
+        $student = Student::findOrFail( $id );
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+
+        $room_no = $request->input( 'room_no' );
+        $student->room_no = $room_no;
+        $student->save();
+
+        $hall_room = HallRoom::where( "hall_id", $hall->id )->where( "room_no", $room_no )->first();
+
+        $hall_room->available_seat = $hall_room->available_seat - 1;
+        $hall_room->save();
+
+        Toastr::success( 'Student Allocation successful', 'Success' );
+
+        return redirect()->back();
     }
 
     /**
