@@ -79,6 +79,7 @@ Route::group( ['as' => 'hall_office.', 'prefix' => 'hall-office', 'namespace' =>
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
     Route::resource( 'rooms', 'RoomsController' );
+    Route::resource( 'allotted-students', 'AllottedStudentsController' );
 
 } );
 
