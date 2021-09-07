@@ -79,10 +79,16 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <!-- Button trigger modal -->
-                                                <a class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
-                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                </a>
+                                                @if($student->room_no == null)
+                                                    <!-- Button trigger modal -->
+                                                    <a class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    </a>
+                                                @else
+                                                    <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
+                                                @endif
+
+
 
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
