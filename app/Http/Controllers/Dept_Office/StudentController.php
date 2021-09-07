@@ -88,6 +88,11 @@ class StudentController extends Controller
                                 $student->sex = $value[3];
                                 $student->dept_id = $dept->id;
                                 $student->session_id = $session_id;
+
+                                $hall_short_name = $value[4];
+                                $find_hall = Hall::where( "short_name", $hall_short_name )->first();
+                                $student->hall_id = $find_hall->id;
+
                                 $student->save();
                             }
 

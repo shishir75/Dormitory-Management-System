@@ -87,14 +87,13 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
                                             <td>{{ $student->sex }}</td>
-                                            {{-- <td>{{ $student->dept->name }}</td> --}}
                                             <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
                                             <td>
-                                                @if($student->hall == null)
+                                                @if($student->hall_id == null)
                                                     <p class="badge badge-warning">Hall not allocated yet</p>
                                                 @else
-                                                    {{ $student->hall }}
+                                                    {{ $student->hall->name }}
                                                 @endif
                                             </td>
                                             <td>

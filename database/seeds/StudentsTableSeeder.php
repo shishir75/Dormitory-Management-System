@@ -21,6 +21,7 @@ class StudentsTableSeeder extends Seeder
                 'dept_id'    => rand( 1, 5 ),
                 'reg_no'     => rand( 40000, 50000 ),
                 'sex'        => $faker->randomElement( ['M', 'F'] ),
+                'hall_id'    => rand( 1, 22 ),
             ] );
         };
 

@@ -118,7 +118,7 @@
                     </ul>
                 </li>
 
-				<li class="nav-item has-treeview {{ Request::is('register/designation*') ? 'menu-open' : '' }}">
+				{{-- <li class="nav-item has-treeview {{ Request::is('register/designation*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('register/designation*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-long-arrow-up"></i>
 						<p>
@@ -140,7 +140,7 @@
 							</a>
 						</li>
 					</ul>
-				</li>
+				</li> --}}
 
 				@elseif(Request::is('exam-controller*')))
                     <li class="nav-item has-treeview">

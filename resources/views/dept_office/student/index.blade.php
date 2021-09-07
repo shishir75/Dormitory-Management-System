@@ -67,10 +67,10 @@
                                             <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
                                             <td>
-                                                @if($student->hall == null)
+                                                @if($student->hall_id == null)
                                                     <p class="badge badge-warning">Hall not allocated yet</p>
                                                 @else
-                                                    {{ $student->hall }}
+                                                    {{ $student->hall->name }}
                                                 @endif
                                             </td>
                                             <td>

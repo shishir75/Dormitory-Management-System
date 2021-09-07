@@ -8,11 +8,17 @@ class Student extends Model
 {
     public function dept()
     {
-        return $this->belongsTo(Dept::class);
+        return $this->belongsTo( Dept::class );
     }
 
     public function session()
     {
-        return $this->belongsTo(Session::class);
+        return $this->belongsTo( Session::class );
     }
+
+    public function hall()
+    {
+        return $this->belongsTo( Hall::class );
+    }
+
 }
