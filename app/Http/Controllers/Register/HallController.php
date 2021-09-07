@@ -109,6 +109,9 @@ class HallController extends Controller
 
         $hall->name = $request->input( 'name' );
         $hall->slug = Str::slug( $request->input( 'name' ) );
+        $hall->short_name = $request->input( 'short_name' );
+        $hall->for_male_female = $request->input( 'for_male_female' );
+        $hall->total_seat = $request->input( 'total_seat' );
         $hall->save();
 
         Toastr::success( 'Hall updated successfully', 'Success!' );
