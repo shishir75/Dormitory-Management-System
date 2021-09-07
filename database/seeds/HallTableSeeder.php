@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class HallTableSeeder extends Seeder
 {
@@ -13,17 +14,35 @@ class HallTableSeeder extends Seeder
     public function run()
     {
         DB::table( 'halls' )->insert( [
-            'name'        => 'Rabindranath Tagore Hall',
-            'slug'        => 'rabindranath-tagore-hall',
-            'short_name'  => 'RTH',
-            'is_for_male' => true,
+            'name'            => 'Rabindranath Tagore Hall',
+            'slug'            => 'rabindranath-tagore-hall',
+            'short_name'      => 'RTH',
+            'for_male_female' => "M",
+            'total_seat'      => 1000,
+            'available_seat'  => 70,
         ] );
 
         DB::table( 'halls' )->insert( [
-            'name'        => 'Sheikh Hasina Hall',
-            'slug'        => 'sheikh-hasina-hall',
-            'short_name'  => 'SHH',
-            'is_for_male' => false,
+            'name'            => 'Sheikh Hasina Hall',
+            'slug'            => 'sheikh-hasina-hall',
+            'short_name'      => 'SHH',
+            'for_male_female' => "F",
+            'total_seat'      => 1000,
+            'available_seat'  => 65,
         ] );
+
+        $faker = Faker\Factory::create();
+
+        for ( $i = 0; $i < 20; $i++ ) {
+            DB::table( 'halls' )->insert( [
+                'name'            => $name = $faker->unique()->name,
+                'slug'            => $slug = Str::slug( $name ),
+                'short_name'      => $slug,
+                'for_male_female' => $faker->randomElement( ["M", "F"] ),
+                'total_seat'      => 1000,
+                'available_seat'  => $faker->randomElement( [50, 60, 70, 80, 90, 100, 110, 120] ),
+            ] );
+
+        }
     }
 }

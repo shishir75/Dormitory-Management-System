@@ -43,6 +43,9 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
+                                        <th>For M/F</th>
+                                        <th>Total Seat</th>
+                                        <th>Available Seat</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -50,6 +53,9 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
+                                        <th>For M/F</th>
+                                        <th>Total Seat</th>
+                                        <th>Available Seat</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -58,6 +64,9 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $hall->name }}</td>
+                                            <td>{{ $hall->for_male_female }}</td>
+                                            <td>{{ $hall->total_seat }}</td>
+                                            <td>{{ $hall->available_seat }}</td>
                                             <td>
                                                 <a href="{{ route('register.hall.edit', $hall->id) }}" class="btn btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

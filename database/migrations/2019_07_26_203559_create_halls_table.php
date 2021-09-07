@@ -18,7 +18,9 @@ class CreateHallsTable extends Migration
             $table->string( 'name' )->unique();
             $table->string( 'slug' )->unique();
             $table->string( "short_name" )->unique();
-            $table->boolean( "is_for_male" )->default( true );
+            $table->string( "for_male_female", 1 )->default( "M" );
+            $table->integer( "total_seat" );
+            $table->integer( "available_seat" );
             $table->timestamps();
         } );
     }
