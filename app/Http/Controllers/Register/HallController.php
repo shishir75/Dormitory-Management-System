@@ -100,7 +100,10 @@ class HallController extends Controller
     {
         $inputs = $request->except( '_token' );
         $rules = [
-            'name' => 'required',
+            'name'            => 'required',
+            'short_name'      => 'required',
+            'for_male_female' => 'required',
+            'total_seat'      => 'required | integer',
         ];
         $validator = Validator::make( $inputs, $rules );
         if ( $validator->fails() ) {
