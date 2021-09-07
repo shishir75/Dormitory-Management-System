@@ -13,14 +13,22 @@ class DeptsTableSeeder extends Seeder
      */
     public function run()
     {
+
+        DB::table( 'depts' )->insert( [
+            'name'        => 'Institute of Information Technology',
+            'slug'        => 'Institute-of-Information-Technology',
+            'short_name'  => "IIT",
+            'is_semester' => true,
+        ] );
+
         $faker = Faker\Factory::create();
 
-        for ( $i = 0; $i < 5; $i++ ) {
+        for ( $i = 0; $i < 4; $i++ ) {
             DB::table( 'depts' )->insert( [
                 'name'        => $name = $faker->unique()->firstNameMale,
                 'slug'        => Str::slug( $name ),
                 'short_name'  => $name,
-                'is_semester' => false,
+                'is_semester' => $faker->randomElement( ['True', 'False'] ),
             ] );
 
         }

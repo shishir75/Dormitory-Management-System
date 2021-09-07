@@ -4,9 +4,9 @@ namespace App\Http;
 
 use App\Http\Middleware\DeptOfficeMiddleware;
 use App\Http\Middleware\ExamControllerMiddleware;
-use App\Http\Middleware\StudentMiddleware;
-use App\Http\Middleware\TeacherMiddleware;
+use App\Http\Middleware\HallOfficeMiddleware;
 use App\Http\Middleware\RegisterMiddleware;
+use App\Http\Middleware\StudentMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -56,20 +56,20 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'register' => RegisterMiddleware::class,
+        'auth'           => \App\Http\Middleware\Authenticate::class,
+        'auth.basic'     => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings'       => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers'  => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can'            => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'          => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'signed'         => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'       => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'       => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'register'       => RegisterMiddleware::class,
         'examController' => ExamControllerMiddleware::class,
-        'deptOffice' => DeptOfficeMiddleware::class,
-        'teacher' => TeacherMiddleware::class,
-        'student' => StudentMiddleware::class,
+        'deptOffice'     => DeptOfficeMiddleware::class,
+        'hallOffice'     => HallOfficeMiddleware::class,
+        'student'        => StudentMiddleware::class,
     ];
 
     /**

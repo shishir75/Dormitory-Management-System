@@ -31,16 +31,16 @@ class UsersTableSeeder extends Seeder
         DB::table( 'users' )->insert( [
             'role_id'  => 3,
             'name'     => 'Institute of Information Technology',
-            'username' => 'dept-office',
-            'email'    => 'dept-office@gmail.com',
+            'username' => 'iit-office',
+            'email'    => 'iit-office@gmail.com',
             'password' => bcrypt( 12345678 ),
         ] );
 
         DB::table( 'users' )->insert( [
             'role_id'  => 4,
-            'name'     => 'Md. Teacher',
-            'username' => 'teacher',
-            'email'    => 'teacher@gmail.com',
+            'name'     => 'Rabindranath Tagore Hall',
+            'username' => 'RTH',
+            'email'    => 'rth_office@gmail.com',
             'password' => bcrypt( 12345678 ),
         ] );
 
