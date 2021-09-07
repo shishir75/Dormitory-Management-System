@@ -17,6 +17,13 @@
                             $dept = App\Models\Dept::where('name', Auth::user()->name)->first();
 						@endphp
 						{{ $dept->short_name }} Office
+
+                    @elseif(Auth::user()->role->id == 4)
+                        @php
+                            $hall = App\Models\Hall::where('name', Auth::user()->name)->first();
+                        @endphp
+                        {{ $hall->short_name }} Office
+
 					@else
 						{{ Auth::user()->name }}
 					@endif
@@ -319,10 +326,10 @@
 				</li>
 
 
-			@elseif(Request::is('teacher*')))
+			@elseif(Request::is('hall-office*')))
 
                 <li class="nav-item has-treeview">
-                    <a href="{{ route('teacher.dashboard') }}" class="nav-link {{ Request::is('teacher/dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('hall_office.dashboard') }}" class="nav-link {{ Request::is('hall-office/dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             Dashboard
@@ -330,49 +337,6 @@
                     </a>
                 </li>
 
-				<li class="nav-item has-treeview">
-					<a href="{{ route('teacher.course.index') }}" class="nav-link {{ Request::is('teacher/course*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-book"></i>
-						<p>
-							In-Courses
-						</p>
-					</a>
-				</li>
-
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('teacher.final-marks.index') }}" class="nav-link {{ Request::is('teacher/final-marks*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-map-marker"></i>
-                        <p>
-                            Final Marks
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('teacher.second-examiner.index') }}" class="nav-link {{ Request::is('teacher/second-examiner*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-user-md"></i>
-                        <p>
-                            Second Examiner Marks
-                        </p>
-                    </a>
-                </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('teacher.third-examiner.index') }}" class="nav-link {{ Request::is('teacher/third-examiner*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-user-secret"></i>
-                        <p>
-                            Third Examiner Marks
-                        </p>
-                    </a>
-                </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('teacher.year-head.index') }}" class="nav-link {{ Request::is('teacher/year-head*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-header"></i>
-                        <p>
-                            Year Head
-                        </p>
-                    </a>
-                </li>
 
 			@elseif(Request::is('student*')))
 				<li class="nav-item has-treeview">

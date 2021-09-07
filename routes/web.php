@@ -71,19 +71,10 @@ Route::group( ['as' => 'dept_office.', 'prefix' => 'dept-office', 'namespace' =>
     Route::put( 'change_all_status/{id}', 'StudentController@change_all_status' )->name( "student.change_all_status" );
     Route::put( 'change_status_selected', 'StudentController@changeStatusForSelectedStudents' )->name( 'student.change_status_selected' );
 
-    //Route::resource( 'batch', 'BatchController' );
-
-    //Route::resource( 'teacher', 'TeacherController' );
-    // Route::resource('course', 'CourseController');
-    //Route::resource( 'year-head', 'YearHeadController' );
-    // Route::resource('teacher-course', 'CourseTeacherController');
-    // Route::post('fetch-course', 'CourseTeacherController@fetch_course')->name('fetch_course');
-    // Route::resource('external', 'ExternalController');
-
 } );
 
 // Hall Office Route Group
-Route::group( ['as' => 'hall_office.', 'prefix' => 'hall_office', 'namespace' => 'Hall_Office', 'middleware' => ['auth', 'hallOffice']], function () {
+Route::group( ['as' => 'hall_office.', 'prefix' => 'hall-office', 'namespace' => 'Hall_Office', 'middleware' => ['auth', 'hallOffice']], function () {
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
 
