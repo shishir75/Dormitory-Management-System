@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Show Batch Students')
+@section('title', 'Rooms Students')
 
 @push('css')
 
@@ -16,7 +16,7 @@
                     <div class="col-sm-6 offset-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('dept_office.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Show Batch Students</li>
+                            <li class="breadcrumb-item active">Rooms Students</li>
                         </ol>
                     </div>
                 </div>
@@ -32,15 +32,7 @@
                         <!-- general form elements -->
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Show Students for Session {{ $students[0]->session->name}}
-                                    <button type="button" onclick="deleteItem({{ $students[0]->session->id }})" class="btn btn-sm btn-danger text-white float-right">Change Status For All Students</button>
-                                </h3>
-                                <form id="change-batch-form-{{ $students[0]->session->id }}" action="{{ route('dept_office.student.change_all_status', $students[0]->session->id) }}" method="post"
-                                    style="display:none;">
-                                  @csrf
-                                  @method('PUT')
-                              </form>
-
+                                <h3 class="card-title">Students of {{ $hall->name }} <span class="float-right btn btn-success">Room No {{ $room->room_no }}</span></h3>
                             </div>
                             <!-- /.card-header -->
 
@@ -49,54 +41,28 @@
 
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped text-center">
-                                    <button type="button" class="btn btn-warning float-right mb-3" id="changeAllSelectedRecords">Change Status for Selected</button>
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Sex</th>
-                                        {{-- <th>Dept Name</th> --}}
+                                        <th>Dept Name</th>
                                         <th>Session</th>
                                         <th>Reg No</th>
-                                        <th>Hall Name</th>
                                         <th>Room No</th>
                                         <th>Student Status</th>
-                                        <th>
-                                            <input type="checkbox" id="checkAll"  class="mr-3" >
-                                            Select All
-                                        </th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Sex</th>
-                                        {{-- <th>Dept Name</th> --}}
-                                        <th>Session</th>
-                                        <th>Reg No</th>
-                                        <th>Hall Name</th>
-                                        <th>Room No</th>
-                                        <th>Student Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </tfoot>
                                     <tbody>
                                     @foreach($students as $key => $student)
                                         <tr id="sid{{$student->id}}">
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
                                             <td>{{ $student->sex }}</td>
-                                            {{-- <td>{{ $student->dept->name }}</td> --}}
+                                            <td>{{ $student->dept->name }}</td>
                                             <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
-                                            <td>
-                                                @if($student->hall == null)
-                                                    <p class="badge badge-warning">Hall not allocated yet</p>
-                                                @else
-                                                    {{ $student->hall }}
-                                                @endif
-                                            </td>
                                             <td>
                                                 @if($student->room_no == null)
                                                     <p class="badge badge-warning">Room not allocated yet</p>
@@ -112,7 +78,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <input type="checkbox" name="ids" class="checkBoxClass" value="{{$student->id}}">
+
                                             </td>
                                         </tr>
                                     @endforeach

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\RoomsImport;
 use App\Models\Hall;
 use App\Models\HallRoom;
+use App\Models\Student;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,7 +94,13 @@ class RoomsController extends Controller
      */
     public function show( $id )
     {
-        //
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+
+        $room = HallRoom::with( 'hall' )->where( "hall_id", $hall->id )->where( 'id', $id )->first();
+
+        $students = Student::where( "hall_id", $hall->id )->where( "room_no", $room->room_no )->get();
+
+        return view( 'hall_office.rooms.show', compact( 'room', 'hall', 'students' ) );
     }
 
     /**
