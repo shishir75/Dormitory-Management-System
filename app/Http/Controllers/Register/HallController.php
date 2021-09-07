@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Register;
 
+use App\Http\Controllers\Controller;
 use App\Models\Hall;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -19,7 +19,8 @@ class HallController extends Controller
     public function index()
     {
         $halls = Hall::all();
-        return view('register.hall.index', compact('halls'));
+
+        return view( 'register.hall.index', compact( 'halls' ) );
     }
 
     /**
@@ -29,7 +30,7 @@ class HallController extends Controller
      */
     public function create()
     {
-        return view('register.hall.create');
+        return view( 'register.hall.create' );
     }
 
     /**
@@ -38,25 +39,32 @@ class HallController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store( Request $request )
     {
-        $inputs = $request->except('_token');
+        $inputs = $request->except( '_token' );
         $rules = [
-            'name' => 'required | unique:halls'
+            'name'            => 'required | unique:halls',
+            'short_name'      => 'required | unique:halls',
+            'for_male_female' => 'required',
+            'total_seat'      => 'required | integer',
         ];
-        $validator = Validator::make($inputs, $rules);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
+        $validator = Validator::make( $inputs, $rules );
+        if ( $validator->fails() ) {
+            return redirect()->back()->withErrors( $validator )->withInput();
         }
 
         $hall = new Hall();
-        $hall->name = $request->input('name');
-        $hall->slug = Str::slug($request->input('name'));
+        $hall->name = $request->input( 'name' );
+        $hall->slug = Str::slug( $request->input( 'name' ) );
+        $hall->short_name = $request->input( 'short_name' );
+        $hall->for_male_female = $request->input( 'for_male_female' );
+        $hall->total_seat = $request->input( 'total_seat' );
+        $hall->available_seat = 0;
         $hall->save();
 
-        Toastr::success('Hall created successfully', 'Success!');
-        return redirect()->route('register.hall.index');
+        Toastr::success( 'Hall created successfully', 'Success!' );
+
+        return redirect()->route( 'register.hall.index' );
     }
 
     /**
@@ -65,7 +73,7 @@ class HallController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function show(Hall $hall)
+    public function show( Hall $hall )
     {
         //
     }
@@ -76,9 +84,9 @@ class HallController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function edit(Hall $hall)
+    public function edit( Hall $hall )
     {
-        return view('register.hall.edit', compact('hall'));
+        return view( 'register.hall.edit', compact( 'hall' ) );
     }
 
     /**
@@ -88,24 +96,24 @@ class HallController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hall $hall)
+    public function update( Request $request, Hall $hall )
     {
-        $inputs = $request->except('_token');
+        $inputs = $request->except( '_token' );
         $rules = [
-            'name' => 'required'
+            'name' => 'required',
         ];
-        $validator = Validator::make($inputs, $rules);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
+        $validator = Validator::make( $inputs, $rules );
+        if ( $validator->fails() ) {
+            return redirect()->back()->withErrors( $validator )->withInput();
         }
 
-        $hall->name = $request->input('name');
-        $hall->slug = Str::slug($request->input('name'));
+        $hall->name = $request->input( 'name' );
+        $hall->slug = Str::slug( $request->input( 'name' ) );
         $hall->save();
 
-        Toastr::success('Hall updated successfully', 'Success!');
-        return redirect()->route('register.hall.index');
+        Toastr::success( 'Hall updated successfully', 'Success!' );
+
+        return redirect()->route( 'register.hall.index' );
     }
 
     /**
@@ -114,10 +122,11 @@ class HallController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hall $hall)
+    public function destroy( Hall $hall )
     {
         $hall->delete();
-        Toastr::success('Hall deleted successfully', 'Success!');
-        return redirect()->route('register.hall.index');
+        Toastr::success( 'Hall deleted successfully', 'Success!' );
+
+        return redirect()->route( 'register.hall.index' );
     }
 }
