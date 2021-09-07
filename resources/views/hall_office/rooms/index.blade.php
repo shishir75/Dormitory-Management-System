@@ -65,7 +65,7 @@
                                             <td>{{ $room->seat_count }}</td>
                                             <td>{{ $room->available_seat }}</td>
                                             <td>
-                                                <button type="button" class="btn btn-sm btn-info">See Details </button>
+                                                <a href="{{ route('hall_office.rooms.show', $room->id)}}" class="btn btn-sm btn-info">See Details</a>
                                             </td>
                                         </tr>
                                     @endforeach
