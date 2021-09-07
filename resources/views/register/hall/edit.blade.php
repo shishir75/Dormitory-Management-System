@@ -43,10 +43,35 @@
                                 @method('PUT')
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Hall Name</label>
-                                                <input type="text" class="form-control" name="name" value="{{ $hall->name }}" placeholder="Enter Hall Name">
+                                                <label>Hall Full Name</label>
+                                                <input type="text" class="form-control" name="name" value="{{ $hall->name }}" placeholder="Enter Hall Full Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Hall Short Name</label>
+                                                <input type="text" class="form-control" name="short_name" value="{{ $hall->short_name }}" placeholder="Enter Hall Short Name">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>For Male / Female</label>
+                                                <select class="form-control" name="for_male_female" id="exampleFormControlSelect1">
+                                                    <option value="" disabled>Select an Option</option>
+                                                    <option value='M' {{ ($hall->for_male_female) == 'M' ? 'selected' : '' }}>Male</option>
+                                                    <option value='F' {{ ($hall->for_male_female) == 'M' ? '' : 'selected' }}>Female</option>
+                                                  </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Total Seat</label>
+                                                <input type="number" class="form-control" name="total_seat" value="{{ $hall->total_seat }}" placeholder="Enter Total Seat">
                                             </div>
                                         </div>
                                     </div>
