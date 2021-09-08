@@ -159,6 +159,21 @@ class AllottedStudentsController extends Controller
 
     public function details( $student_id )
     {
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+        $student = Student::findOrFail( $student_id );
 
+        if ( $student->hall_id === $hall->id ) {
+
+            $transactions = Transaction::where( 'student_id', $student->id )->orderBy( 'id', 'desc' )->get();
+            $balance = Balance::where( "hall_id", $hall->id )->where( 'student_id', $student_id )->first();
+
+            return view( 'hall_office.allotted_student.show', compact( 'transactions', 'student', 'balance' ) );
+
+        } else {
+
+            Toastr::error( 'Unauthorized Access Denied', 'Error!!!' );
+
+            return redirect()->back();
+        }
     }
 }

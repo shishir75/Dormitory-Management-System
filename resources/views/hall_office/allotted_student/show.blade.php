@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Show Batch Students')
+@section('title', 'Show Students Trasction Details')
 
 @push('css')
 
@@ -15,8 +15,8 @@
                 <div class="row mb-2">
                     <div class="col-sm-6 offset-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('dept_office.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Show Batch Students</li>
+                            <li class="breadcrumb-item"><a href="{{ route('hall_office.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Show Students Trasction Details</li>
                         </ol>
                     </div>
                 </div>
@@ -27,96 +27,60 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p class="h4">Student Name : <span class="text-bold">{{ $student->name }}</span></p>
+                        <p class="h4">Department Name : <span class="text-bold">{{ $student->dept->name }}</span></p>
+                        <p class="h4">Available Balance :
+                            @if ($balance == null)
+                                <span class="text-bold my-2 badge badge-danger">0 BDT</span>
+                            @elseif ($balance->amount > 0)
+                                <span class="text-bold my-2 badge badge-success">{{ $balance->amount }} BDT</span>
+                            @else
+                                <span class="text-bold my-2 badge badge-danger">{{ $balance->amount }} BDT</span>
+                            @endif
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row">
                     <!-- left column -->
                     <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Show Students for Session {{ $students[0]->session->name}}
-                                    <button type="button" onclick="deleteItem({{ $students[0]->session->id }})" class="btn btn-sm btn-danger text-white float-right">Change Status For All Students</button>
-                                </h3>
-                                <form id="change-batch-form-{{ $students[0]->session->id }}" action="{{ route('dept_office.student.change_all_status', $students[0]->session->id) }}" method="post"
-                                    style="display:none;">
-                                  @csrf
-                                  @method('PUT')
-                              </form>
-
+                                <h3 class="card-title">Trasction Details <span class="float-right badge badge-success py3">Session {{ $student->session->name }}</span></h3>
                             </div>
                             <!-- /.card-header -->
 
                             <!-- form start -->
-
-
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped text-center">
-                                    <button type="button" class="btn btn-warning float-right mb-3" id="changeAllSelectedRecords">Change Status for Selected</button>
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Sex</th>
-                                        {{-- <th>Dept Name</th> --}}
-                                        <th>Session</th>
-                                        <th>Reg No</th>
-                                        <th>Hall Name</th>
-                                        <th>Room No</th>
-                                        <th>Student Status</th>
-                                        <th>
-                                            <input type="checkbox" id="checkAll"  class="mr-3" >
-                                            Select All
-                                        </th>
+                                        <th>Transaction Name</th>
+                                        <th>Transaction Type</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
                                     </tr>
                                     </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Serial</th>
-                                        <th>Name</th>
-                                        <th>Sex</th>
-                                        {{-- <th>Dept Name</th> --}}
-                                        <th>Session</th>
-                                        <th>Reg No</th>
-                                        <th>Hall Name</th>
-                                        <th>Room No</th>
-                                        <th>Student Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </tfoot>
                                     <tbody>
-                                    @foreach($students as $key => $student)
-                                        <tr id="sid{{$student->id}}">
+                                    @foreach($transactions as $key => $transaction)
+                                        <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $student->name }}</td>
-                                            <td>{{ $student->sex }}</td>
-                                            <td>{{ $student->session->name }}</td>
-                                            <td>{{ $student->reg_no }}</td>
-                                            <td>
-                                                @if($student->hall_id == null)
-                                                    <p class="badge badge-warning">Hall not allocated yet</p>
-                                                @else
-                                                    {{ $student->hall->name }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($student->room_no == null)
-                                                    <p class="badge badge-warning">Room not allocated yet</p>
-                                                @else
-                                                    {{ $student->room_no }}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($student->status == true)
-                                                    <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
-                                                @else
-                                                <p class="badge badge-warning"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" name="ids" class="checkBoxClass" value="{{$student->id}}">
-                                            </td>
+                                            <td>{{ $transaction->name }}</td>
+                                            <td >{{ $transaction->type }}</td>
+                                            @if ($transaction->type === 'Credit')
+                                                <td class="my-2 badge badge-success">+ {{ $transaction->amount }}</td>
+                                            @else
+                                                <td class="my-2 badge badge-danger">- {{ $transaction->amount }}</td>
+                                            @endif
+
+                                            <td>{{ $transaction->created_at->isoFormat('MMMM Do YYYY, h:mm:ss a') }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
-
                                 </table>
                             </div>
                                 <!-- /.card-body -->
@@ -137,34 +101,35 @@
 
 
 @push('js')
-  <!-- DataTables -->
-  <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
-  <script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
-  <!-- SlimScroll -->
-  <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-  <!-- FastClick -->
-  <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
-  <!-- Sweet Alert Js -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+    <!-- DataTables -->
+    <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+    <!-- SlimScroll -->
+    <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
-
-  {{-- <script>
-      $(function () {
-          $("#example1").DataTable();
-          $('#example2').DataTable({
-              "paging": true,
-              "lengthChange": false,
-              "searching": false,
-              "ordering": true,
-              "info": true,
-              "autoWidth": false
-          });
-      });
-  </script> --}}
+    <!-- Sweet Alert Js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
 
 
-  <script type="text/javascript">
+    <script>
+        $(function () {
+            $("#example1").DataTable();
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+    </script>
+
+
+  {{-- <script type="text/javascript">
       function deleteItem(id) {
           const swalWithBootstrapButtons = swal.mixin({
               confirmButtonClass: 'btn btn-success',
@@ -229,6 +194,6 @@
 
 
       });
-  </script>
+  </script> --}}
 
 @endpush
