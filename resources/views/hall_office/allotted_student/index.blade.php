@@ -50,6 +50,9 @@
                                         <th>Dept Name</th>
                                         <th>Room No</th>
                                         <th>Room Allocation</th>
+                                        <th>Balance</th>
+                                        <th>Add Money</th>
+                                        <th>Details</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -61,6 +64,9 @@
                                         <th>Dept Name</th>
                                         <th>Room No</th>
                                         <th>Room Allocation</th>
+                                        <th>Balance</th>
+                                        <th>Add Money</th>
+                                        <th>Details</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
@@ -125,6 +131,9 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     @endforeach
                                     </tbody>
