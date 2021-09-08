@@ -65,7 +65,7 @@
                                     </tfoot>
                                     <tbody>
                                     @foreach($students as $key => $student)
-                                        <tr>
+                                        <tr id="{{ $student->id }}">
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
                                             <td>{{ $student->session->name }}</td>
@@ -81,17 +81,15 @@
                                             <td>
                                                 @if($student->room_no == null)
                                                     <!-- Button trigger modal -->
-                                                    <a class="btn btn-info" data-toggle="modal" data-target="#exampleModalCenter">
+                                                    <a class="btn btn-info" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
                                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 @else
                                                     <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
                                                 @endif
 
-
-
                                                 <!-- Modal -->
-                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal fade" id="showData-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-top" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -106,8 +104,8 @@
                                                             <div class="modal-body">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            <label for="exampleFormControlSelect1">Select Room</label>
+                                                                        <div class="form-group" id="user-data">
+                                                                            <label for="exampleFormControlSelect1">Select Room for {{ $student->name }}</label>
                                                                             <select class="form-control" name="room_no" id="room_no">
                                                                               <option value="" selected disabled>Select One</option>
                                                                               @foreach ($available_hall_rooms as $available_hall_room)
@@ -212,7 +210,5 @@
             })
         }
     </script>
-
-
 
 @endpush

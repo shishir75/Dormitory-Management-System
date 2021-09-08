@@ -73,7 +73,7 @@ class AllottedStudentsController extends Controller
      */
     public function edit( $id )
     {
-        //
+        return Student::findOrFail( $id );
     }
 
     /**
