@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateBalancesTable extends Migration
 {
@@ -13,10 +13,13 @@ class CreateBalancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('balances', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create( 'balances', function ( Blueprint $table ) {
+            $table->bigIncrements( 'id' );
+            $table->unsignedBigInteger( 'student_id' );
+            $table->unsignedBigInteger( "hall_id" );
+            $table->float( "amount" );
             $table->timestamps();
-        });
+        } );
     }
 
     /**
@@ -26,6 +29,6 @@ class CreateBalancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('balances');
+        Schema::dropIfExists( 'balances' );
     }
 }

@@ -57,7 +57,7 @@ class AllottedStudentsController extends Controller
     {
         $session = Session::where( 'name', $session_name )->first();
         $hall = Hall::where( 'name', Auth::user()->name )->first();
-        $students = Student::where( "session_id", $session->id )->where( "hall_id", $hall->id )->get();
+        $students = Student::with( 'balance' )->where( "session_id", $session->id )->where( "hall_id", $hall->id )->get();
 
         $available_hall_rooms = HallRoom::where( 'hall_id', $hall->id )->where( 'available_seat', '>', 0 )->get();
 

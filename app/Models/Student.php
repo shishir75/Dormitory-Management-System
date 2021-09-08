@@ -21,4 +21,14 @@ class Student extends Model
         return $this->belongsTo( Hall::class );
     }
 
+    public function balance()
+    {
+        return $this->belongsTo( Balance::class );
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany( Transaction::class );
+    }
+
 }

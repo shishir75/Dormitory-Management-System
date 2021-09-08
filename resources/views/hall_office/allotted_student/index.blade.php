@@ -131,7 +131,14 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <th></th>
+                                            <th>
+                                                @if ($student->balance == null)
+                                                    0 BDT
+                                                @else
+                                                    {{ $student->balance->amount}} BDT
+                                                @endif
+
+                                            </th>
                                             <th></th>
                                             <th></th>
                                         </tr>

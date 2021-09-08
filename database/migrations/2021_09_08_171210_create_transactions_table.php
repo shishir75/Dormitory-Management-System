@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTransactionsTable extends Migration
 {
@@ -13,10 +13,14 @@ class CreateTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create( 'transactions', function ( Blueprint $table ) {
+            $table->bigIncrements( 'id' );
+            $table->unsignedBigInteger( "student_id" );
+            $table->string( "name" );
+            $table->string( 'type' )->default( "debit" );
+            $table->float( "amount" );
             $table->timestamps();
-        });
+        } );
     }
 
     /**
@@ -26,6 +30,6 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists( 'transactions' );
     }
 }
