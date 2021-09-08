@@ -272,6 +272,15 @@
                     </a>
                 </li>
 
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('dining.coupon.index') }}" class="nav-link {{ Request::is('dining/coupon*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Food Coupons
+                        </p>
+                    </a>
+                </li>
+
 			@endif
 
 				<li class="nav-header">MENU</li>

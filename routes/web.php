@@ -181,5 +181,6 @@ Route::group( ['as' => 'student.', 'prefix' => 'student', 'namespace' => 'Studen
 Route::group( ['as' => 'dining.', 'prefix' => 'dining', 'namespace' => 'Dining', 'middleware' => ['auth', 'dining']], function () {
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
+    Route::resource( 'coupon', 'CouponController' );
 
 } );
