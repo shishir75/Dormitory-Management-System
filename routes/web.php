@@ -44,7 +44,7 @@ Route::group( ['as' => 'register.', 'prefix' => 'register', 'namespace' => 'Regi
 
 } );
 
-// Exam Controller Route Group
+// Exam Controller Route Group // No Need
 Route::group( ['as' => 'exam_controller.', 'prefix' => 'exam-controller', 'namespace' => 'Exam_Controller', 'middleware' => ['auth', 'examController']], function () {
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
@@ -81,7 +81,7 @@ Route::group( ['as' => 'hall_office.', 'prefix' => 'hall-office', 'namespace' =>
     Route::resource( 'rooms', 'RoomsController' );
     Route::resource( 'allotted-students', 'AllottedStudentsController' );
     Route::put( 'add-money/{student_id}', 'AllottedStudentsController@addMoney' )->name( 'allotted-students.add-money' );
-    Route::get( 'details/{student_id}', 'AllottedStudentsController@details' )->name( 'allotted-students.details' );
+    Route::get( 'allotted-students/details/{student_id}', 'AllottedStudentsController@details' )->name( 'allotted-students.details' );
 
 } );
 
