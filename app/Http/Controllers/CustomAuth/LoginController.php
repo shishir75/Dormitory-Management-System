@@ -41,8 +41,11 @@ class LoginController extends Controller
             } elseif ( Auth::check() && Auth::user()->role->id == 4 ) {
                 return redirect()->route( 'hall_office.dashboard' );
 
-            } else {
+            } elseif ( Auth::check() && Auth::user()->role->id == 5 ) {
                 return redirect()->route( 'student.dashboard' );
+
+            } else {
+                return redirect()->route( 'dining.dashboard' );
 
             }
 

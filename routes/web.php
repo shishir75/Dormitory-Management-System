@@ -44,7 +44,7 @@ Route::group( ['as' => 'register.', 'prefix' => 'register', 'namespace' => 'Regi
 
 } );
 
-// Exam Controller Route Group // No Need
+// Exam Controller Route Group -- No Need
 Route::group( ['as' => 'exam_controller.', 'prefix' => 'exam-controller', 'namespace' => 'Exam_Controller', 'middleware' => ['auth', 'examController']], function () {
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
@@ -85,7 +85,7 @@ Route::group( ['as' => 'hall_office.', 'prefix' => 'hall-office', 'namespace' =>
 
 } );
 
-// Teacher Route Group
+// Teacher Route Group -- No Need
 Route::group( ['as' => 'teacher.', 'prefix' => 'teacher', 'namespace' => 'Teacher', 'middleware' => ['auth', 'teacher']], function () {
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
@@ -174,5 +174,12 @@ Route::group( ['as' => 'student.', 'prefix' => 'student', 'namespace' => 'Studen
     //Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get( 'course/dashboard', 'CourseController@index' )->name( 'dashboard' );
     Route::get( 'course/{course_id}', 'CourseController@show' )->name( 'course.show' );
+
+} );
+
+// Hall Dining Route Group
+Route::group( ['as' => 'dining.', 'prefix' => 'dining', 'namespace' => 'Dining', 'middleware' => ['auth', 'dining']], function () {
+
+    Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
 
 } );

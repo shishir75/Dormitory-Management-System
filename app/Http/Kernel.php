@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\DeptOfficeMiddleware;
+use App\Http\Middleware\DiningMiddleware;
 use App\Http\Middleware\ExamControllerMiddleware;
 use App\Http\Middleware\HallOfficeMiddleware;
 use App\Http\Middleware\RegisterMiddleware;
@@ -70,6 +71,7 @@ class Kernel extends HttpKernel
         'deptOffice'     => DeptOfficeMiddleware::class,
         'hallOffice'     => HallOfficeMiddleware::class,
         'student'        => StudentMiddleware::class,
+        'dining'         => DiningMiddleware::class,
     ];
 
     /**

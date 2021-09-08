@@ -24,6 +24,8 @@
                         @endphp
                         {{ $hall->short_name }} Office
 
+                    @elseif(Auth::user()->role->id == 6)
+                        {{ Auth::user()->username }}
 					@else
 						{{ Auth::user()->name }}
 					@endif
@@ -252,13 +254,24 @@
 
 			@elseif(Request::is('student*')))
 				<li class="nav-item has-treeview">
-					<a href="{{ route('student.dashboard') }}" class="nav-link {{ Request::is('student/course*') ? 'active' : '' }}">
+					<a href="{{ route('student.dashboard') }}" class="nav-link {{ Request::is('student/dashboard') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-dashboard"></i>
 						<p>
-							Courses
+							Dashboard
 						</p>
 					</a>
 				</li>
+
+            @elseif(Request::is('dining*')))
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('dining.dashboard') }}" class="nav-link {{ Request::is('dining/dashboard') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+
 			@endif
 
 				<li class="nav-header">MENU</li>

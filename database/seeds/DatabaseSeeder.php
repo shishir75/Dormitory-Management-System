@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call( DeptsTableSeeder::class );
         $this->call( HallTableSeeder::class );
         $this->call( StudentsTableSeeder::class );
+        $this->call( DiningSeeder::class );
     }
 }

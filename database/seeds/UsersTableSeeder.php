@@ -52,5 +52,13 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt( 12345678 ),
         ] );
 
+        DB::table( 'users' )->insert( [
+            'role_id'  => 6,
+            'name'     => 'Rabindranath Tagore Hall Dining',
+            'username' => 'RTH_DINING',
+            'email'    => 'rth_dining@gmail.com',
+            'password' => bcrypt( 12345678 ),
+        ] );
+
     }
 }
