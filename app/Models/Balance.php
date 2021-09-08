@@ -8,6 +8,6 @@ class Balance extends Model
 {
     public function Student()
     {
-        return $this->belongsTo( Student::class );
+        return $this->hasOne( Student::class, 'student_id' );
     }
 }

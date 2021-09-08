@@ -79,7 +79,7 @@
                                             <td>{{ $student->dept->short_name }}</td>
                                             <td>
                                                 @if($student->room_no == null)
-                                                    <p class="badge badge-warning">Room not allocated yet</p>
+                                                    <p class="badge badge-warning">Not Allocated</p>
                                                 @else
                                                     {{ $student->room_no }}
                                                 @endif
@@ -87,14 +87,14 @@
                                             <td>
                                                 @if($student->room_no == null)
                                                     <!-- Button trigger modal -->
-                                                    <a class="btn btn-info" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
-                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    <a class="btn btn-sm btn-warning" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
+                                                        <i class="fa fa-user-plus"></i>
                                                     </a>
                                                 @else
                                                     <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
                                                 @endif
 
-                                                <!-- Modal -->
+                                                <!-- Allocation Modal -->
                                                 <div class="modal fade" id="showData-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-top" role="document">
                                                     <div class="modal-content">
@@ -133,13 +133,58 @@
                                             </td>
                                             <th>
                                                 @if ($student->balance == null)
-                                                    0 BDT
+                                                    <p class="badge badge-danger">0 BDT</p>
+                                                @elseif ($student->balance->amount > 0)
+                                                    <p class="badge badge-success">
+                                                        {{ $student->balance->amount }} BDT
+                                                    </p>
                                                 @else
-                                                    {{ $student->balance->amount}} BDT
+                                                    <p class="badge badge-danger">
+                                                        {{ $student->balance->amount }} BDT
+                                                    </p>
                                                 @endif
+                                            </th>
+                                            <th>
+                                                <a class="btn btn-sm btn-success" data-toggle="modal" data-id="{{ $student->id }}" data-target="#addBalance-{{ $student->id}}">
+                                                    <i class="fa fa-plus-square"></i>
+                                                </a>
+
+                                                 <!-- Add Balance Modal -->
+                                                 <div class="modal fade" id="addBalance-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="addBalance" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-top" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Add Money</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <form role="form" action="{{ route('hall_office.allotted-students.add-money', $student->id) }}" method="POST" id="updateForm">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <label for="exampleFormControlSelect2">Add Money for {{ $student->name }}</label>
+                                                                        <div class="form-group row">
+                                                                            <label for="inputPassword" class="col-sm-6 col-form-label">Add Money</label>
+                                                                            <div class="col-sm-6">
+                                                                              <input type="number" class="form-control" name="amount" placeholder="Enter Amount in BDT">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Add Balance</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    </div>
+                                                </div>
 
                                             </th>
-                                            <th></th>
                                             <th></th>
                                         </tr>
                                     @endforeach

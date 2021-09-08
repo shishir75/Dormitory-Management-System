@@ -23,7 +23,7 @@ class Student extends Model
 
     public function balance()
     {
-        return $this->belongsTo( Balance::class );
+        return $this->belongsTo( Balance::class, 'id', 'student_id' );
     }
 
     public function transactions()

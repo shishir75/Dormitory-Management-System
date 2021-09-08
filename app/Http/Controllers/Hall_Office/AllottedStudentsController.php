@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Hall_Office;
 
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
 use App\Models\Hall;
 use App\Models\HallRoom;
 use App\Models\Session;
 use App\Models\Student;
+use App\Models\Transaction;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AllottedStudentsController extends Controller
 {
@@ -111,5 +114,46 @@ class AllottedStudentsController extends Controller
     public function destroy( $id )
     {
         //
+    }
+
+    public function addMoney( Request $request, $student_id )
+    {
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+        $balance = Balance::where( "hall_id", $hall->id )->where( 'student_id', $student_id )->first();
+
+        $inputs = $request->except( '_token' );
+        $rules = [
+            'amount' => 'required',
+        ];
+
+        $validator = Validator::make( $inputs, $rules );
+
+        if ( $validator->fails() ) {
+            return redirect()->back()->withErrors( $validator )->withInput();
+        }
+
+        if ( $balance == null ) {
+
+            $balance = new Balance();
+            $balance->student_id = $student_id;
+            $balance->hall_id = $hall->id;
+            $balance->amount = $request->input( 'amount' );
+            $balance->save();
+
+        } else {
+            $balance->amount += $request->input( 'amount' );
+            $balance->save();
+        }
+
+        $transaction = new Transaction();
+        $transaction->student_id = $student_id;
+        $transaction->name = "Add Money";
+        $transaction->type = "Credit";
+        $transaction->amount = $request->input( 'amount' );
+        $transaction->save();
+
+        Toastr::success( 'Money added Successfully', 'Success!!!' );
+
+        return redirect()->back();
     }
 }

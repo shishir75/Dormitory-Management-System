@@ -80,6 +80,7 @@ Route::group( ['as' => 'hall_office.', 'prefix' => 'hall-office', 'namespace' =>
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
     Route::resource( 'rooms', 'RoomsController' );
     Route::resource( 'allotted-students', 'AllottedStudentsController' );
+    Route::put( 'add-money/{student_id}', 'AllottedStudentsController@addMoney' )->name( 'allotted-students.add-money' );
 
 } );
 
