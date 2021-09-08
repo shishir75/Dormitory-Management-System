@@ -156,4 +156,9 @@ class AllottedStudentsController extends Controller
 
         return redirect()->back();
     }
+
+    public function details( $student_id )
+    {
+
+    }
 }

@@ -88,10 +88,10 @@
                                                 @if($student->room_no == null)
                                                     <!-- Button trigger modal -->
                                                     <a class="btn btn-sm btn-warning" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
-                                                        <i class="fa fa-user-plus"></i>
+                                                        <i class="fa fa-user-plus fa-lg"></i>
                                                     </a>
                                                 @else
-                                                    <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
+                                                    <p class="badge badge-success"><i class="fa fa-check-circle fa-lg"></i></p>
                                                 @endif
 
                                                 <!-- Allocation Modal -->
@@ -146,7 +146,7 @@
                                             </th>
                                             <th>
                                                 <a class="btn btn-sm btn-success" data-toggle="modal" data-id="{{ $student->id }}" data-target="#addBalance-{{ $student->id}}">
-                                                    <i class="fa fa-plus-square"></i>
+                                                    <i class="fa fa-plus-square fa-lg"></i>
                                                 </a>
 
                                                  <!-- Add Balance Modal -->
@@ -185,7 +185,11 @@
                                                 </div>
 
                                             </th>
-                                            <th></th>
+                                            <th>
+                                                <a href="{{ route('hall_office.allotted-students.details', $student->id) }}" class="btn btn-sm btn-info">
+                                                    <i class="fa fa-question-circle fa-lg"></i>
+                                                </a>
+                                            </th>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -220,7 +224,7 @@
     <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
     <!-- Sweet Alert Js -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script> --}}
 
 
     <script>
@@ -238,7 +242,7 @@
     </script>
 
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         function deleteItem(id) {
             const swalWithBootstrapButtons = swal.mixin({
                 confirmButtonClass: 'btn btn-success',
@@ -270,6 +274,6 @@
                 }
             })
         }
-    </script>
+    </script> --}}
 
 @endpush
