@@ -3,7 +3,8 @@
 @section('title', 'Show Students Trasction Details')
 
 @push('css')
-
+<!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.css') }}">
 @endpush
 
 @section('content')
