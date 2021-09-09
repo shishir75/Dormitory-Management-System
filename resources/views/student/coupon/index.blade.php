@@ -61,24 +61,24 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 </div>
-                                <div class="modal-body">
-                                    <form>
+                                <form action="{{ route('student.coupon.store') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="exampleFormControlSelect1">Example select</label>
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                              <option>1</option>
-                                              <option>2</option>
-                                              <option>3</option>
-                                              <option>4</option>
-                                              <option>5</option>
+                                            <label for="coupon_date">Purchase a Coupon (Date - Unit Price - Available Unit)</label>
+                                            <select class="form-control" name="coupon_id" id="coupon_date">
+                                                <option value="" selected disabled>Select a Coupon</option>
+                                                @foreach ($coupons as $coupon )
+                                                    <option value="{{ $coupon->id }}">Date : {{ $coupon->coupon_date }} - BDT {{ $coupon->unit_price }} - {{ $coupon->max_count }} Unit</option>
+                                                @endforeach
                                             </select>
-                                          </div>
-                                      </form>
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Purchase</button>
+                                    </div>
+                                </form>
                             </div>
                             </div>
                         </div>
@@ -110,15 +110,14 @@
                                     @foreach($coupon_details as $key => $coupon_detail)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $coupon_detail->name }}</td>
-                                            <td >{{ $coupon_detail->type }}</td>
+                                            <td>{{ $coupon_detail->coupon_no }}</td>
+                                            <td >{{ $coupon_detail->coupon->coupon_date }}</td>
+                                            <td>{{ $coupon_detail->coupon->unit_price }} BDT</td>
                                             @if ($coupon_detail->is_valid === 'valid')
-                                                <td class="my-2 badge badge-success">+ {{ $coupon_detail->is_valid }}</td>
+                                                <td class="my-2 badge badge-success">{{ $coupon_detail->is_valid }}</td>
                                             @else
-                                                <td class="my-2 badge badge-danger">- {{ $coupon_detail->is_valid }}</td>
+                                                <td class="my-2 badge badge-danger"></td>{{ $coupon_detail->is_valid }}</td>
                                             @endif
-
-                                            <td>{{ $coupon_detail->created_at->isoFormat('MMMM Do YYYY, h:mm:ss a') }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
