@@ -74,15 +74,15 @@ class CouponController extends Controller
         $student = Student::where( 'name', Auth::user()->name )->first();
         $tomorrow = Carbon::tomorrow()->format( "Ymd" );
 
-        $coupon_no = $tomorrow . "-" . $student->id . "-" . $coupon_id;
+        $coupon_no_new = $tomorrow . "-" . $student->id . "-" . $coupon_id;
 
-        $check = CouponDetail::where( "coupon_no", $coupon_detail->coupon_no )->count();
+        $check = CouponDetail::where( "coupon_no", $coupon_detail->coupon_no )->get();
 
-        if ( $check === 0 ) {
+        if ( $check->count() < 1 ) {
             $coupon_detail = new CouponDetail();
             $coupon_detail->coupon_id = $coupon_id;
             $coupon_detail->student_id = $student->id;
-            $coupon_detail->coupon_no = $coupon_no;
+            $coupon_detail->coupon_no = $coupon_no_new;
             $coupon_detail->is_valid = "unused";
             $coupon_detail->save();
 
@@ -94,7 +94,7 @@ class CouponController extends Controller
             $balance->amount -= $coupon->unit_price;
             $balance->save();
 
-            $transaction = Transaction::where( "student_id", $student->id )->first();
+            $transaction = new Transaction();
             $transaction->student_id = $student->id;
             $transaction->name = "Food Coupon";
             $transaction->type = "Debit";
@@ -144,7 +144,31 @@ class CouponController extends Controller
      */
     public function update( Request $request, $id )
     {
-        //
+        $coupon_detail = CouponDetail::findOrFail( $id );
+
+        $current_date = Carbon::now()->format( "Y-m-d" );
+
+        $coupon = Coupon::findOrFail( $coupon_detail->coupon->id );
+        $coupon->max_count += 1;
+        $coupon->save();
+
+        $balance = Balance::where( "student_id", $coupon_detail->student_id )->first();
+        $balance->amount += $coupon->unit_price;
+        $balance->save();
+
+        $transaction = new Transaction();
+        $transaction->student_id = $coupon_detail->student_id;
+        $transaction->name = "Food Coupon Reversal";
+        $transaction->type = "Credit";
+        $transaction->amount = $coupon->unit_price;
+        $transaction->save();
+
+        $coupon_detail->delete();
+
+        Toastr::success( 'Coupon Canceled successfully', 'Success!' );
+
+        return redirect()->back();
+
     }
 
     /**

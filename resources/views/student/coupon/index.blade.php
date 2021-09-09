@@ -3,7 +3,8 @@
 @section('title', 'Show Student Coupon Details')
 
 @push('css')
-
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.css') }}">
 @endpush
 
 @section('content')
@@ -103,6 +104,7 @@
                                         <th>Date</th>
                                         <th>Amount</th>
                                         <th>Status</th>
+                                        <th>Cancel</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -114,9 +116,26 @@
                                             <td>{{ $coupon_detail->coupon->unit_price }} BDT</td>
                                             @if ($coupon_detail->is_valid === 'unused')
                                                 <td class="my-2 badge badge-success">Unused</td>
-                                            @else
+                                            @elseif ($coupon_detail->is_valid === 'used')
                                                 <td class="my-2 badge badge-danger"></td>Used</td>
                                             @endif
+                                            <td>
+                                                @if ($coupon_detail->is_valid == 'unused')
+                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $coupon_detail->id }})">
+                                                        <i class="fa fa-trash" aria-hidden="true"> Cancel</i>
+                                                    </button>
+                                                    <form id="delete-form-{{ $coupon_detail->id }}" action="{{ route('student.coupon.update', $coupon_detail->id) }}" method="post"
+                                                        style="display:none;">
+                                                        @csrf
+                                                        @method('PUT')
+                                                    </form>
+                                                @else
+                                                    <td class="my-2 badge badge-info"></td>Unable to Cancel</td>
+                                                @endif
+
+
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -141,16 +160,16 @@
 
 @push('js')
 
-    <!-- DataTables -->
-    <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
-    <!-- SlimScroll -->
-    <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-    <!-- FastClick -->
-    <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
+   <!-- DataTables -->
+   <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
+   <script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+   <!-- SlimScroll -->
+   <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+   <!-- FastClick -->
+   <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
-    {{-- <!-- Sweet Alert Js -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script> --}}
+   <!-- Sweet Alert Js -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
 
 
     <script>
@@ -166,6 +185,40 @@
             });
         });
     </script>
+
+<script type="text/javascript">
+    function deleteItem(id) {
+        const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                event.preventDefault();
+                document.getElementById('delete-form-'+id).submit();
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                    'Cancelled',
+                    'Your data is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
 
 
 
