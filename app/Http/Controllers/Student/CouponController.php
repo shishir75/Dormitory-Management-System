@@ -69,12 +69,14 @@ class CouponController extends Controller
         }
 
         $coupon_id = $request->input( 'coupon_id' );
+        $coupon_detail = CouponDetail::where( 'coupon_id', $coupon_id )->first();
+
         $student = Student::where( 'name', Auth::user()->name )->first();
         $tomorrow = Carbon::tomorrow()->format( "Ymd" );
 
         $coupon_no = $tomorrow . "-" . $student->id . "-" . $coupon_id;
 
-        $check = CouponDetail::where( "coupon_no", $coupon_no )->count();
+        $check = CouponDetail::where( "coupon_no", $coupon_detail->coupon_no )->count();
 
         if ( $check === 0 ) {
             $coupon_detail = new CouponDetail();

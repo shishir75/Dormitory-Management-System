@@ -113,9 +113,9 @@
                                             <td >{{ $coupon_detail->coupon->coupon_date }}</td>
                                             <td>{{ $coupon_detail->coupon->unit_price }} BDT</td>
                                             @if ($coupon_detail->is_valid === 'unused')
-                                                <td class="my-2 badge badge-success">Valid</td>
+                                                <td class="my-2 badge badge-success">Unused</td>
                                             @else
-                                                <td class="my-2 badge badge-danger"></td>Invalid</td>
+                                                <td class="my-2 badge badge-danger"></td>Used</td>
                                             @endif
                                         </tr>
                                     @endforeach

@@ -7,6 +7,7 @@ use App\Models\Coupon;
 use App\Models\CouponDetail;
 use App\Models\Dining;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -134,7 +135,30 @@ class CouponController extends Controller
      */
     public function update( Request $request, $id )
     {
-        //
+        $coupon_detail = CouponDetail::with( 'coupon' )->findOrFail( $id );
+
+        $current_date = Carbon::now()->format( "Y-m-d" );
+
+        if ( $current_date === $coupon_detail->coupon->coupon_date ) {
+            if ( $coupon_detail->is_valid === 'unused' ) {
+                $coupon_detail->is_valid = 'used';
+            } else {
+                $coupon_detail->is_valid = 'unused';
+            }
+
+            $coupon_detail->save();
+
+            Toastr::success( 'Coupon Status Updated Successfully', 'Success!!!' );
+
+            return redirect()->back();
+
+        } else {
+
+            Toastr::error( "You can't change status due to time issue!!!", 'Error!!!' );
+
+            return redirect()->back();
+        }
+
     }
 
     /**

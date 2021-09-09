@@ -35,7 +35,9 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ strtoupper('Open Dates list of '.$dining->username ) }}</h3>
+                                <h3 class="card-title">Students list of <span class="badge badge-success">{{ $coupon_details[0]->coupon->coupon_date  }}</span>
+                                    <span class="badge badge-info float-right">{{ $dining->name }}</span>
+                                </h3>
                             </div>
 
                             <!-- /.card-header -->
@@ -45,6 +47,7 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Student Name</th>
+                                        <th>Session</th>
                                         <th>Coupon ID</th>
                                         <th>Validity</th>
                                         <th>Change Validity</th>
@@ -54,6 +57,7 @@
                                         <tr>
                                             <th>Serial</th>
                                             <th>Student Name</th>
+                                            <th>Session</th>
                                             <th>Coupon ID</th>
                                             <th>Validity</th>
                                             <th>Change Validity</th>
@@ -64,12 +68,22 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $coupon_detail->student->name }}</td>
-                                            <td>{{ $coupon_detail->coupon_no }} BDT</td>
-                                            <td>{{ $coupon_detail->is_valid }}</td>
+                                            <td>{{ $coupon_detail->student->session->name }}</td>
+                                            <td>{{ $coupon_detail->coupon_no }}</td>
+                                            @if ($coupon_detail->is_valid === 'unused')
+                                                <td class="my-2 badge badge-success">Unused</td>
+                                            @else
+                                                <td class="my-2 badge badge-danger">Used</td>
+                                            @endif
                                             <td>
-                                                <a href="" class="btn btn-danger">
-                                                    Change
-                                                </a>
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $coupon_detail->id }})">
+                                                    <i class="fa fa-trash" aria-hidden="true"> Change</i>
+                                                </button>
+                                                <form id="delete-form-{{ $coupon_detail->id }}" action="{{ route('dining.coupon.update', $coupon_detail->id) }}" method="post"
+                                                      style="display:none;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -105,7 +119,7 @@
    <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
    <!-- Sweet Alert Js -->
-   {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script> --}}
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
 
 
    <script>
@@ -121,5 +135,39 @@
            });
        });
    </script>
+
+<script type="text/javascript">
+    function deleteItem(id) {
+        const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                event.preventDefault();
+                document.getElementById('delete-form-'+id).submit();
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                    'Cancelled',
+                    'Your data is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
 
 @endpush
