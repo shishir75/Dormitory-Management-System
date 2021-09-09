@@ -29,8 +29,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <p class="h4">Student Name : <span class="text-bold">{{ $student->name }}</span></p>
-                        <p class="h4">Department Name : <span class="text-bold">{{ $student->dept->name }}</span></p>
-                        <p class="h4">Dining Name : <span class="text-bold">{{ $dining->username }}</span></p>
+                        <p class="h4">Dept. Name : <span class="text-bold">{{ $student->dept->name }}</span></p>
                         <p class="h4">Available Balance :
                             @if ($balance == null)
                                 <span class="text-bold my-2 badge badge-danger">0 BDT</span>
@@ -90,7 +89,7 @@
                         <!-- general form elements -->
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Food Coupon Details <span class="float-right badge badge-success py3">Session {{ $student->session->name }}</span></h3>
+                                <h3 class="card-title">Food Coupon Details <span class="float-right badge badge-success py3">{{ $dining->name }}</span></h3>
                             </div>
                             <!-- /.card-header -->
 
@@ -113,10 +112,10 @@
                                             <td>{{ $coupon_detail->coupon_no }}</td>
                                             <td >{{ $coupon_detail->coupon->coupon_date }}</td>
                                             <td>{{ $coupon_detail->coupon->unit_price }} BDT</td>
-                                            @if ($coupon_detail->is_valid === 'valid')
-                                                <td class="my-2 badge badge-success">{{ $coupon_detail->is_valid }}</td>
+                                            @if ($coupon_detail->is_valid === 'unused')
+                                                <td class="my-2 badge badge-success">Valid</td>
                                             @else
-                                                <td class="my-2 badge badge-danger"></td>{{ $coupon_detail->is_valid }}</td>
+                                                <td class="my-2 badge badge-danger"></td>Invalid</td>
                                             @endif
                                         </tr>
                                     @endforeach

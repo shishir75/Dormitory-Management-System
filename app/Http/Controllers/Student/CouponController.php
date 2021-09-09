@@ -81,7 +81,7 @@ class CouponController extends Controller
             $coupon_detail->coupon_id = $coupon_id;
             $coupon_detail->student_id = $student->id;
             $coupon_detail->coupon_no = $coupon_no;
-            $coupon_detail->is_valid = "valid";
+            $coupon_detail->is_valid = "unused";
             $coupon_detail->save();
 
             $coupon = Coupon::findOrFail( $coupon_id );

@@ -18,7 +18,7 @@ class CreateCouponDetailsTable extends Migration
             $table->unsignedBigInteger( 'coupon_id' );
             $table->unsignedBigInteger( 'student_id' );
             $table->string( 'coupon_no' )->unique();
-            $table->string( 'is_valid' )->default( 'valid' );
+            $table->string( 'is_valid' )->default( 'unused' );
             $table->timestamps();
         } );
     }
