@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dining;
 
 use App\Http\Controllers\Controller;
 use App\Models\Coupon;
+use App\Models\CouponDetail;
 use App\Models\Dining;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -93,9 +94,24 @@ class CouponController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( $id )
+    public function show( $coupon_date )
     {
-        //
+        $dining = Dining::where( "username", Auth::user()->username )->first();
+
+        $coupon = Coupon::where( 'coupon_date', $coupon_date )->where( 'dining_id', $dining->id )->first();
+
+        if ( $dining->id === $coupon->dining_id ) {
+
+            $coupon_details = CouponDetail::with( 'coupon' )->with( 'student' )->where( 'coupon_id', $coupon->id )->get();
+
+            return view( 'dining.coupon.show', compact( 'coupon_details', 'dining' ) );
+
+        } else {
+            Toastr::error( 'Anauthorized Access Denied', 'Error!!!' );
+
+            return redirect()->back();
+        }
+
     }
 
     /**

@@ -31,4 +31,9 @@ class Student extends Model
         return $this->hasMany( Transaction::class );
     }
 
+    public function coupon_details()
+    {
+        return $this->hasMany( CouponDetail::class );
+    }
+
 }

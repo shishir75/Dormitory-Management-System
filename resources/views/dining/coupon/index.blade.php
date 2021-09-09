@@ -112,7 +112,7 @@
                                             <td>{{ $coupon->unit_price }} BDT</td>
                                             <td>{{ $coupon->max_count }}</td>
                                             <td>
-                                                <a href="{{ route('dining.coupon.show', $coupon->id) }}" class="btn btn-info">
+                                                <a href="{{ route('dining.coupon.show', $coupon->coupon_date) }}" class="btn btn-info">
                                                     View Details
                                                 </a>
                                             </td>
