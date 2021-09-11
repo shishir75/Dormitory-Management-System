@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CouponController extends Controller
 {
@@ -150,28 +151,37 @@ class CouponController extends Controller
     {
         $coupon_detail = CouponDetail::findOrFail( $id );
 
-        $current_date = Carbon::now()->format( "Y-m-d" );
+        $current_date = (int) Carbon::now()->format( "Ymd" );
 
-        $coupon = Coupon::findOrFail( $coupon_detail->coupon->id );
-        $coupon->max_count += 1;
-        $coupon->save();
+        $coupon_date_from_coupon_no = (int) Str::substr( $coupon_detail->coupon_no, 0, 8 );
 
-        $balance = Balance::where( "student_id", $coupon_detail->student_id )->first();
-        $balance->amount += $coupon->unit_price;
-        $balance->save();
+        if ( $current_date < $coupon_date_from_coupon_no ) {
+            $coupon = Coupon::findOrFail( $coupon_detail->coupon->id );
+            $coupon->max_count += 1;
+            $coupon->save();
 
-        $transaction = new Transaction();
-        $transaction->student_id = $coupon_detail->student_id;
-        $transaction->name = "Food Coupon Reversal";
-        $transaction->type = "Credit";
-        $transaction->amount = $coupon->unit_price;
-        $transaction->save();
+            $balance = Balance::where( "student_id", $coupon_detail->student_id )->first();
+            $balance->amount += $coupon->unit_price;
+            $balance->save();
 
-        $coupon_detail->delete();
+            $transaction = new Transaction();
+            $transaction->student_id = $coupon_detail->student_id;
+            $transaction->name = "Food Coupon Reversal";
+            $transaction->type = "Credit";
+            $transaction->amount = $coupon->unit_price;
+            $transaction->save();
 
-        Toastr::success( 'Coupon Canceled successfully', 'Success!' );
+            $coupon_detail->delete();
 
-        return redirect()->back();
+            Toastr::success( 'Coupon Canceled successfully', 'Success!' );
+
+            return redirect()->back();
+
+        } else {
+            Toastr::error( "You can't cancel this coupon!!!", 'Error!' );
+
+            return redirect()->back();
+        }
 
     }
 

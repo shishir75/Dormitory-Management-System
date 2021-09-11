@@ -114,10 +114,10 @@
                                             <td>{{ $coupon_detail->coupon_no }}</td>
                                             <td >{{ $coupon_detail->coupon->coupon_date }}</td>
                                             <td>{{ $coupon_detail->coupon->unit_price }} BDT</td>
-                                            @if ($coupon_detail->is_valid === 'unused')
+                                            @if ($coupon_detail->is_valid == 'unused')
                                                 <td class="my-2 badge badge-success">Unused</td>
-                                            @elseif ($coupon_detail->is_valid === 'used')
-                                                <td class="my-2 badge badge-danger"></td>Used</td>
+                                            @elseif ($coupon_detail->is_valid == 'used')
+                                                <td class="my-2 badge badge-danger">Used</td>
                                             @endif
                                             <td>
                                                 @if ($coupon_detail->is_valid == 'unused')
@@ -130,10 +130,8 @@
                                                         @method('PUT')
                                                     </form>
                                                 @else
-                                                    <td class="my-2 badge badge-info"></td>Unable to Cancel</td>
+                                                    <span class="my-2 p-2 badge badge-warning h6">Unable to Cancel</span>
                                                 @endif
-
-
 
                                             </td>
                                         </tr>
