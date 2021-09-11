@@ -35,7 +35,16 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">{{ strtoupper('Transaction list of '. Auth::user()->name ) }}
-                                    <span class="float-right">Available Balance : <span class="badge badge-success">{{ $balance->amount }} BDT</span></span>
+                                    <span class="float-right">
+                                        @if ($balance !== null)
+                                            {{ $balance->amount > 0 ? 'Available Balance : ' : 'Owing Balance : ' }}
+                                            <span class="badge badge-{{ $balance->amount > 0 ? 'success' : 'danger' }}">
+                                                {{ $balance->amount }} BDT
+                                            </span>
+                                        @else
+                                           Available Balance 0 BDT
+                                        @endif
+                                    </span>
                                 </h3>
                             </div>
                             <!-- /.card-header -->
@@ -111,9 +120,9 @@
     <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
     <!-- FastClick -->
     <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
-
+{{--
     <!-- Sweet Alert Js -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script> --}}
 
 
     <script>
@@ -131,7 +140,7 @@
     </script>
 
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         function deleteItem(id) {
             const swalWithBootstrapButtons = swal.mixin({
                 confirmButtonClass: 'btn btn-success',
@@ -163,7 +172,7 @@
                 }
             })
         }
-    </script>
+    </script> --}}
 
 
 

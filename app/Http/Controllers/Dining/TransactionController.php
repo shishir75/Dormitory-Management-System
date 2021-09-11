@@ -17,10 +17,12 @@ class TransactionController extends Controller
 
         $balance = Balance::where( 'user_id', Auth::user()->id )->where( 'hall_id', $dining->hall->id )->first();
 
+        //dd( $balance->amount );
+
         $transactions = Transaction::with( 'user' )->where( 'user_id', Auth::user()->id )->latest()->get();
 
         if ( $transactions->count() > 0 ) {
-            return view( 'student.transaction', compact( 'transactions', 'balance' ) );
+            return view( 'dining.transaction', compact( 'transactions', 'balance' ) );
 
         } else {
 

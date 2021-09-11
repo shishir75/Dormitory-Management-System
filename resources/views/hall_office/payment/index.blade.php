@@ -29,13 +29,60 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
+
+                    <div class="col-md-12">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary float-right mb-3" data-toggle="modal" data-target="#makePayment">
+                            Add Balance for Dining
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="makePayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Balance for {{ $dining->name }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{ route('hall_office.payment.store') }}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="form-group row">
+                                                <label for="inputPassword" class="col-sm-4 col-form-label">Pay Amount </label>
+                                                <div class="col-sm-8">
+                                                  <input type="number" name="amount" class="form-control" id="inputPassword" placeholder="Enter Pay Amount">
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Add Balance</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <!-- left column -->
                     <div class="col-md-12">
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ strtoupper('Make Payment for '. Auth::user()->name ) }}
-                                    <span class="float-right">Available Balance : <span class="badge badge-success"> BDT</span></span>
+                                <h3 class="card-title">{{ strtoupper('Trasactions History of '. $dining->name ) }}
+                                    <span class="float-right">
+                                        @if ($balance !== null)
+                                            {{ $balance->amount > 0 ? 'Available Balance : ' : 'Owing Balance : ' }}
+                                            <span class="badge badge-{{ $balance->amount > 0 ? 'success' : 'danger' }}">
+                                                {{ $balance->amount }} BDT
+                                            </span>
+                                        @else
+                                           Available Balance 0 BDT
+                                        @endif
+                                    </span>
                                 </h3>
                             </div>
                             <!-- /.card-header -->
@@ -112,8 +159,8 @@
     <!-- FastClick -->
     <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
-    <!-- Sweet Alert Js -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+    {{-- <!-- Sweet Alert Js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script> --}}
 
 
     <script>
@@ -131,7 +178,7 @@
     </script>
 
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         function deleteItem(id) {
             const swalWithBootstrapButtons = swal.mixin({
                 confirmButtonClass: 'btn btn-success',
@@ -163,7 +210,7 @@
                 }
             })
         }
-    </script>
+    </script> --}}
 
 
 
