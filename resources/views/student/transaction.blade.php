@@ -34,7 +34,7 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ strtoupper('Transaction list of '. $transactions[0]->student->name ) }}
+                                <h3 class="card-title">{{ strtoupper('Transaction list of '. Auth::user()->name ) }}
                                     <span class="float-right">Available Balance : <span class="badge badge-success">{{ $balance->amount }} BDT</span></span>
                                 </h3>
                             </div>

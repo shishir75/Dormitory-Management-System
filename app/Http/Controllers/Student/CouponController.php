@@ -9,6 +9,7 @@ use App\Models\CouponDetail;
 use App\Models\Dining;
 use App\Models\Student;
 use App\Models\Transaction;
+use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,7 +28,9 @@ class CouponController extends Controller
     {
         $student = Student::where( 'name', Auth::user()->name )->first();
 
-        $balance = Balance::where( 'student_id', $student->id )->where( 'hall_id', $student->hall->id )->first();
+        $user = User::where( "name", $student->name )->first();
+
+        $balance = Balance::where( 'user_id', $user->id )->where( 'hall_id', $student->hall->id )->first();
 
         $dining = Dining::with( 'hall' )->where( 'hall_id', $student->hall->id )->first();
 
@@ -95,7 +98,7 @@ class CouponController extends Controller
             $coupon->max_count -= 1;
             $coupon->save();
 
-            $balance = Balance::where( "student_id", $student->id )->first();
+            $balance = Balance::where( "user_id", Auth::user()->id )->first();
             $balance->amount -= $coupon->unit_price;
             $balance->save();
 
@@ -160,7 +163,7 @@ class CouponController extends Controller
             $coupon->max_count += 1;
             $coupon->save();
 
-            $balance = Balance::where( "student_id", $coupon_detail->student_id )->first();
+            $balance = Balance::where( "user_id", Auth::user()->id )->first();
             $balance->amount += $coupon->unit_price;
             $balance->save();
 

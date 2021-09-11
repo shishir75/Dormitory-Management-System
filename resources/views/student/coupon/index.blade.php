@@ -192,16 +192,15 @@
         const swalWithBootstrapButtons = swal.mixin({
             confirmButtonClass: 'btn btn-success',
             cancelButtonClass: 'btn btn-danger',
-            buttonsStyling: false,
+            buttonsStyling: true,
         })
 
         swalWithBootstrapButtons({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No!',
             reverseButtons: true
         }).then((result) => {
             if (result.value) {

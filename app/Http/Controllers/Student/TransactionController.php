@@ -14,7 +14,7 @@ class TransactionController extends Controller
     {
         $student = Student::where( 'name', Auth::user()->name )->first();
 
-        $balance = Balance::where( 'student_id', $student->id )->where( 'hall_id', $student->hall->id )->first();
+        $balance = Balance::where( 'user_id', Auth::user()->id )->where( 'hall_id', $student->hall->id )->first();
 
         $transactions = Transaction::with( 'user' )->where( 'user_id', Auth::user()->id )->latest()->get();
 
