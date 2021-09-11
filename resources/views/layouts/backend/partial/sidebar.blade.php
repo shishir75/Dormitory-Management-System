@@ -270,6 +270,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('student.transaction') }}" class="nav-link {{ Request::is('student/transaction') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Transactions
+                        </p>
+                    </a>
+                </li>
 
             @elseif(Request::is('dining*')))
                 <li class="nav-item has-treeview">

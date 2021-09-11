@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title', 'Courses')
+@section('title', 'Transactions')
 
 @push('css')
     <!-- DataTables -->
@@ -18,7 +18,7 @@
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Courses</li>
+                            <li class="breadcrumb-item active">Transactions</li>
                         </ol>
                     </div>
                 </div>
@@ -34,7 +34,9 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ strtoupper('Course list of '.Auth::user()->name ) }}</h3>
+                                <h3 class="card-title">{{ strtoupper('Transaction list of '. $transactions[0]->student->name ) }}
+                                    <span class="float-right">Available Balance : <span class="badge badge-success">{{ $balance->amount }} BDT</span></span>
+                                </h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -42,34 +44,41 @@
                                     <thead>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Course Code</th>
-                                        <th>Course Title</th>
-                                        <th>Credit Hour</th>
-                                        <th>Course Teacher</th>
-                                        <th>Actions</th>
+                                        <th>Transaction Name</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
                                     <tr>
                                         <th>Serial</th>
-                                        <th>Course Code</th>
-                                        <th>Course Title</th>
-                                        <th>Credit Hour</th>
-                                        <th>Course Teacher</th>
-                                        <th>Actions</th>
+                                        <th>Transaction Name</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>Date</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    @foreach($courses as $key => $course)
+                                    @foreach($transactions as $key => $transaction)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $course->course->course_code }}</td>
-                                            <td>{{ $course->course->course_title }}</td>
-                                            <td>{{ number_format($course->course->credit_hour, 1) }}</td>
-                                            <td>{{ $course->teacher->name }}</td>
+                                            <td>{{ $transaction->name }}</td>
                                             <td>
-                                                <a href="{{ route('student.course.show', $course->course->id) }}" class="btn btn-info">Details</a>
+                                                @if ($transaction->type == "Credit")
+                                                    <span class="badge badge-sm badge-success">{{ $transaction->type }}</span>
+                                                @else
+                                                    <span class="badge badge-sm badge-danger">{{ $transaction->type }}</span>
+                                                @endif
                                             </td>
+                                            <td>
+                                                @if ($transaction->type == "Credit")
+                                                    <span class="badge badge-sm badge-success">+{{ number_format($transaction->amount, 2) }} BDT</span>
+                                                @else
+                                                    <span class="badge badge-sm badge-danger">-{{ number_format($transaction->amount, 2) }} BDT</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $transaction->created_at->isoFormat('MMM Do YYYY, h:mm:ss A') }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

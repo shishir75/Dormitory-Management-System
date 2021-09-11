@@ -114,11 +114,14 @@
                                             <td>{{ $coupon_detail->coupon_no }}</td>
                                             <td >{{ $coupon_detail->coupon->coupon_date }}</td>
                                             <td>{{ $coupon_detail->coupon->unit_price }} BDT</td>
-                                            @if ($coupon_detail->is_valid == 'unused')
-                                                <td class="my-2 badge badge-success">Unused</td>
-                                            @elseif ($coupon_detail->is_valid == 'used')
-                                                <td class="my-2 badge badge-danger">Used</td>
-                                            @endif
+                                            <td>
+                                                @if ($coupon_detail->is_valid == 'unused')
+                                                    <span class="my-2 p-2 badge badge-success">Unused</span>
+                                                @elseif ($coupon_detail->is_valid == 'used')
+                                                    <span class="my-2 p-2 badge badge-danger">Used</span>
+                                                @endif
+                                            </td>
+
                                             <td>
                                                 @if ($coupon_detail->is_valid == 'unused')
                                                     <button class="btn btn-danger" type="button" onclick="deleteItem({{ $coupon_detail->id }})">

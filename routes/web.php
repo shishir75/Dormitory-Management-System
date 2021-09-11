@@ -173,6 +173,7 @@ Route::group( ['as' => 'student.', 'prefix' => 'student', 'namespace' => 'Studen
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
     Route::resource( 'coupon', 'CouponController' );
+    Route::get( 'transaction', 'TransactionController@index' )->name( 'transaction' );
 
 } );
 
