@@ -9,6 +9,7 @@ use App\Models\HallRoom;
 use App\Models\Session;
 use App\Models\Student;
 use App\Models\Transaction;
+use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,7 @@ class AllottedStudentsController extends Controller
     {
         $session = Session::where( 'name', $session_name )->first();
         $hall = Hall::where( 'name', Auth::user()->name )->first();
-        $students = Student::with( 'balance' )->where( "session_id", $session->id )->where( "hall_id", $hall->id )->get();
+        $students = Student::where( "session_id", $session->id )->where( "hall_id", $hall->id )->get();
 
         $available_hall_rooms = HallRoom::where( 'hall_id', $hall->id )->where( 'available_seat', '>', 0 )->get();
 
@@ -119,7 +120,11 @@ class AllottedStudentsController extends Controller
     public function addMoney( Request $request, $student_id )
     {
         $hall = Hall::where( 'name', Auth::user()->name )->first();
-        $balance = Balance::where( "hall_id", $hall->id )->where( 'student_id', $student_id )->first();
+
+        $student = Student::findOrFail( $student_id );
+        $user = User::where( "name", $student->name )->first();
+
+        $balance = Balance::where( "hall_id", $hall->id )->where( 'user_id', $user->id )->first();
 
         $inputs = $request->except( '_token' );
         $rules = [
@@ -135,7 +140,7 @@ class AllottedStudentsController extends Controller
         if ( $balance == null ) {
 
             $balance = new Balance();
-            $balance->student_id = $student_id;
+            $balance->user_id = $user->id;
             $balance->hall_id = $hall->id;
             $balance->amount = $request->input( 'amount' );
             $balance->save();
@@ -146,7 +151,7 @@ class AllottedStudentsController extends Controller
         }
 
         $transaction = new Transaction();
-        $transaction->student_id = $student_id;
+        $transaction->user_id = $user->id;
         $transaction->name = "Add Money";
         $transaction->type = "Credit";
         $transaction->amount = $request->input( 'amount' );
@@ -161,19 +166,35 @@ class AllottedStudentsController extends Controller
     {
         $hall = Hall::where( 'name', Auth::user()->name )->first();
         $student = Student::findOrFail( $student_id );
+        $user = User::where( "name", $student->name )->first();
 
-        if ( $student->hall_id === $hall->id ) {
+        if ( $user != null ) {
+            if ( $student->hall_id === $hall->id ) {
 
-            $transactions = Transaction::where( 'student_id', $student->id )->orderBy( 'id', 'desc' )->get();
-            $balance = Balance::where( "hall_id", $hall->id )->where( 'student_id', $student_id )->first();
+                $transactions = Transaction::where( 'user_id', $user->id )->orderBy( 'id', 'desc' )->get();
+                $balance = Balance::where( "hall_id", $hall->id )->where( 'user_id', $user->id )->first();
 
-            return view( 'hall_office.allotted_student.show', compact( 'transactions', 'student', 'balance' ) );
+                //dd( $balance->amount );
 
+                if ( $transactions->count() > 0 ) {
+                    return view( 'hall_office.allotted_student.show', compact( 'transactions', 'student', 'balance' ) );
+                } else {
+                    Toastr::info( 'No Transactions yet', 'Info!!!' );
+
+                    return redirect()->back();
+                }
+
+            } else {
+
+                Toastr::error( 'Unauthorized Access Denied', 'Error!!!' );
+
+                return redirect()->back();
+            }
         } else {
-
-            Toastr::error( 'Unauthorized Access Denied', 'Error!!!' );
+            Toastr::error( 'Student did not create his/her profile yet!!!', 'Error!!!' );
 
             return redirect()->back();
         }
+
     }
 }

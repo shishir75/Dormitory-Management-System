@@ -100,7 +100,7 @@ class CouponController extends Controller
             $balance->save();
 
             $transaction = new Transaction();
-            $transaction->student_id = $student->id;
+            $transaction->user_id = Auth::user()->id;
             $transaction->name = "Food Coupon";
             $transaction->type = "Debit";
             $transaction->amount = $coupon->unit_price;
@@ -165,7 +165,7 @@ class CouponController extends Controller
             $balance->save();
 
             $transaction = new Transaction();
-            $transaction->student_id = $coupon_detail->student_id;
+            $transaction->user_id = Auth::user()->id;
             $transaction->name = "Food Coupon Reversal";
             $transaction->type = "Credit";
             $transaction->amount = $coupon->unit_price;

@@ -132,15 +132,25 @@
                                                 </div>
                                             </td>
                                             <th>
-                                                @if ($student->balance == null)
+
+                                                @php
+                                                    $user = app\Models\User::where('name', $student->name)->first();
+                                                    if ($user !== null) {
+                                                        $balance =  App\Models\Balance::where('user_id', $user->id)->first();
+                                                    } else {
+                                                        $balance = null;
+                                                    }
+                                                @endphp
+
+                                                @if ($balance == null)
                                                     <p class="badge badge-danger">0 BDT</p>
-                                                @elseif ($student->balance->amount > 0)
+                                                @elseif ($balance->amount > 0)
                                                     <p class="badge badge-success">
-                                                        {{ $student->balance->amount }} BDT
+                                                        {{ $balance->amount }} BDT
                                                     </p>
                                                 @else
                                                     <p class="badge badge-danger">
-                                                        {{ $student->balance->amount }} BDT
+                                                        {{ $balance->amount }} BDT
                                                     </p>
                                                 @endif
                                             </th>

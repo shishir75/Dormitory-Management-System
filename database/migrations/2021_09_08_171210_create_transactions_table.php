@@ -15,7 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create( 'transactions', function ( Blueprint $table ) {
             $table->bigIncrements( 'id' );
-            $table->unsignedBigInteger( "student_id" );
+            $table->unsignedBigInteger( "user_id" );
             $table->string( "name" );
             $table->string( 'type' )->default( "debit" );
             $table->float( "amount" );
