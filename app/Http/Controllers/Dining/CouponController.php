@@ -105,7 +105,13 @@ class CouponController extends Controller
 
             $coupon_details = CouponDetail::with( 'coupon' )->with( 'student' )->where( 'coupon_id', $coupon->id )->get();
 
-            return view( 'dining.coupon.show', compact( 'coupon_details', 'dining' ) );
+            if ( $coupon_details->count() > 0 ) {
+                return view( 'dining.coupon.show', compact( 'coupon_details', 'dining' ) );
+            } else {
+                Toastr::info( 'No Coupon sold yet', 'info!!!' );
+
+                return redirect()->back();
+            }
 
         } else {
             Toastr::error( 'Anauthorized Access Denied', 'Error!!!' );
