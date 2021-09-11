@@ -81,42 +81,52 @@ class CouponController extends Controller
             $check = CouponDetail::where( "coupon_no", $coupon_detail_old->coupon_no )->count();
         }
 
-        $student = Student::where( 'name', Auth::user()->name )->first();
+        $student = Student::where( 'email', Auth::user()->email )->first();
         $tomorrow = Carbon::tomorrow()->format( "Ymd" );
 
         $coupon_no_new = $tomorrow . "-" . $student->id . "-" . $coupon_id;
 
-        if ( $check < 1 ) {
-            $coupon_detail = new CouponDetail();
-            $coupon_detail->coupon_id = $coupon_id;
-            $coupon_detail->student_id = $student->id;
-            $coupon_detail->coupon_no = $coupon_no_new;
-            $coupon_detail->is_valid = "unused";
-            $coupon_detail->save();
+        $balance = Balance::where( "user_id", Auth::user()->id )->first();
+        $coupon = Coupon::findOrFail( $coupon_id );
 
-            $coupon = Coupon::findOrFail( $coupon_id );
-            $coupon->max_count -= 1;
-            $coupon->save();
+        if ( $balance === null || $balance->amount < $coupon->unit_price ) {
 
-            $balance = Balance::where( "user_id", Auth::user()->id )->first();
-            $balance->amount -= $coupon->unit_price;
-            $balance->save();
-
-            $transaction = new Transaction();
-            $transaction->user_id = Auth::user()->id;
-            $transaction->name = "Food Coupon";
-            $transaction->type = "Debit";
-            $transaction->amount = $coupon->unit_price;
-            $transaction->save();
-
-            Toastr::success( 'Coupon Purchaged Successfully', 'Success!!!' );
+            Toastr::error( 'You have insufficient balance to buy a food coupon. Plz Add Money from Hall Office!!!', 'Error!!!' );
 
             return redirect()->back();
 
         } else {
-            Toastr::error( 'You already Purchaged Coupon for this Day', 'Error!!!' );
 
-            return redirect()->back();
+            if ( $check < 1 ) {
+                $coupon_detail = new CouponDetail();
+                $coupon_detail->coupon_id = $coupon_id;
+                $coupon_detail->student_id = $student->id;
+                $coupon_detail->coupon_no = $coupon_no_new;
+                $coupon_detail->is_valid = "unused";
+                $coupon_detail->save();
+
+                $coupon->max_count -= 1;
+                $coupon->save();
+
+                $balance->amount -= $coupon->unit_price;
+                $balance->save();
+
+                $transaction = new Transaction();
+                $transaction->user_id = Auth::user()->id;
+                $transaction->name = "Food Coupon";
+                $transaction->type = "Debit";
+                $transaction->amount = $coupon->unit_price;
+                $transaction->save();
+
+                Toastr::success( 'Coupon Purchaged Successfully', 'Success!!!' );
+
+                return redirect()->back();
+
+            } else {
+                Toastr::error( 'You already Purchaged Coupon for this Day', 'Error!!!' );
+
+                return redirect()->back();
+            }
         }
 
     }
