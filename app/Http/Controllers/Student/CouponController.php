@@ -82,7 +82,6 @@ class CouponController extends Controller
         }
 
         $student = Student::where( 'email', Auth::user()->email )->first();
-
         $dining = Dining::where( 'hall_id', $student->hall_id )->first();
         $dining_user = User::where( 'email', $dining->email )->first();
         $dining_user_balance = Balance::where( 'user_id', $dining_user->id )->where( 'hall_id', $student->hall_id )->first();
@@ -193,6 +192,11 @@ class CouponController extends Controller
 
         $coupon_date_from_coupon_no = (int) Str::substr( $coupon_detail->coupon_no, 0, 8 );
 
+        $student = Student::where( 'email', Auth::user()->email )->first();
+        $dining = Dining::where( 'hall_id', $student->hall_id )->first();
+        $dining_user = User::where( 'email', $dining->email )->first();
+        $dining_user_balance = Balance::where( 'user_id', $dining_user->id )->where( 'hall_id', $student->hall_id )->first();
+
         if ( $current_date < $coupon_date_from_coupon_no ) {
             $coupon = Coupon::findOrFail( $coupon_detail->coupon->id );
             $coupon->max_count += 1;
@@ -208,6 +212,16 @@ class CouponController extends Controller
             $transaction->type = "Credit";
             $transaction->amount = $coupon->unit_price;
             $transaction->save();
+
+            $dining_transaction = new Transaction();
+            $dining_transaction->user_id = $dining_user->id;
+            $dining_transaction->name = "Sold Food Coupon Reversal";
+            $dining_transaction->type = "Credit";
+            $dining_transaction->amount = $coupon->unit_price;
+            $dining_transaction->save();
+
+            $dining_user_balance->amount += $coupon->unit_price;
+            $dining_user_balance->save();
 
             $coupon_detail->delete();
 
