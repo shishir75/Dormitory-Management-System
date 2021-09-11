@@ -17,7 +17,7 @@ class CreateDiningsTable extends Migration
             $table->bigIncrements( 'id' );
             $table->unsignedBigInteger( "hall_id" );
             $table->string( "name" );
-            $table->string( 'username' )->unique();
+            $table->string( 'email' )->unique();
             $table->timestamps();
         } );
     }

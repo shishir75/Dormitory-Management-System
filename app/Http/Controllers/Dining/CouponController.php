@@ -21,7 +21,7 @@ class CouponController extends Controller
      */
     public function index()
     {
-        $dining = Dining::where( "username", Auth::user()->username )->first();
+        $dining = Dining::where( "email", Auth::user()->email )->first();
 
         $coupon_dates = Coupon::where( "dining_id", $dining->id )->orderBy( 'id', 'desc' )->get();
 
@@ -35,7 +35,7 @@ class CouponController extends Controller
      */
     public function create()
     {
-        $dining = Dining::where( "username", Auth::user()->username )->first();
+        $dining = Dining::where( "email", Auth::user()->email )->first();
 
         return view( "dining.coupon.create", compact( 'dining' ) );
     }
@@ -63,7 +63,7 @@ class CouponController extends Controller
 
         $date = $request->input( 'coupon_date' );
 
-        $dining = Dining::where( "username", Auth::user()->username )->first();
+        $dining = Dining::where( "email", Auth::user()->email )->first();
 
         $check = Coupon::where( 'dining_id', $dining->id )->where( 'coupon_date', $date )->count();
 
@@ -97,7 +97,7 @@ class CouponController extends Controller
      */
     public function show( $coupon_date )
     {
-        $dining = Dining::where( "username", Auth::user()->username )->first();
+        $dining = Dining::where( "email", Auth::user()->email )->first();
 
         $coupon = Coupon::where( 'coupon_date', $coupon_date )->where( 'dining_id', $dining->id )->first();
 

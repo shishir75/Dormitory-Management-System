@@ -86,6 +86,7 @@ class StudentController extends Controller
                                 $student->name = $value[1];
                                 $student->reg_no = $value[2];
                                 $student->sex = $value[3];
+                                $student->email = $value[5];
                                 $student->dept_id = $dept->id;
                                 $student->session_id = $session_id;
 

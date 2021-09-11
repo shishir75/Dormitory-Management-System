@@ -21,9 +21,16 @@ class DeptsTableSeeder extends Seeder
             'is_semester' => true,
         ] );
 
+        DB::table( 'depts' )->insert( [
+            'name'        => 'Department of Mathamatics',
+            'slug'        => 'Department-of-Mathamatics',
+            'short_name'  => "MATH",
+            'is_semester' => false,
+        ] );
+
         $faker = Faker\Factory::create();
 
-        for ( $i = 0; $i < 4; $i++ ) {
+        for ( $i = 0; $i < 3; $i++ ) {
             DB::table( 'depts' )->insert( [
                 'name'        => $name = $faker->unique()->firstNameMale,
                 'slug'        => Str::slug( $name ),

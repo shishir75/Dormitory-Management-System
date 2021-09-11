@@ -17,6 +17,7 @@ class StudentsTableSeeder extends Seeder
         for ( $i = 0; $i < 350; $i++ ) {
             DB::table( 'students' )->insert( [
                 'name'       => $faker->name,
+                'email'      => $faker->unique()->safeEmail,
                 'session_id' => rand( 1, 7 ),
                 'dept_id'    => rand( 1, 5 ),
                 'reg_no'     => rand( 40000, 50000 ),
