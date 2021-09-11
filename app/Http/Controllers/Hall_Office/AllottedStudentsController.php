@@ -119,13 +119,6 @@ class AllottedStudentsController extends Controller
 
     public function addMoney( Request $request, $student_id )
     {
-        $hall = Hall::where( 'name', Auth::user()->name )->first();
-
-        $student = Student::findOrFail( $student_id );
-        $user = User::where( "name", $student->name )->first();
-
-        $balance = Balance::where( "hall_id", $hall->id )->where( 'user_id', $user->id )->first();
-
         $inputs = $request->except( '_token' );
         $rules = [
             'amount' => 'required',
@@ -137,29 +130,43 @@ class AllottedStudentsController extends Controller
             return redirect()->back()->withErrors( $validator )->withInput();
         }
 
-        if ( $balance == null ) {
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
 
-            $balance = new Balance();
-            $balance->user_id = $user->id;
-            $balance->hall_id = $hall->id;
-            $balance->amount = $request->input( 'amount' );
-            $balance->save();
+        $student = Student::findOrFail( $student_id );
+        $user = User::where( "name", $student->name )->first();
 
+        if ( $user !== null ) {
+            $balance = Balance::where( "hall_id", $hall->id )->where( 'user_id', $user->id )->first();
+
+            if ( $balance == null ) {
+
+                $balance = new Balance();
+                $balance->user_id = $user->id;
+                $balance->hall_id = $hall->id;
+                $balance->amount = $request->input( 'amount' );
+                $balance->save();
+
+            } else {
+                $balance->amount += $request->input( 'amount' );
+                $balance->save();
+            }
+
+            $transaction = new Transaction();
+            $transaction->user_id = $user->id;
+            $transaction->name = "Add Money";
+            $transaction->type = "Credit";
+            $transaction->amount = $request->input( 'amount' );
+            $transaction->save();
+
+            Toastr::success( 'Money added Successfully', 'Success!!!' );
+
+            return redirect()->back();
         } else {
-            $balance->amount += $request->input( 'amount' );
-            $balance->save();
+            Toastr::error( 'User profile is not created yet', 'Error!!!' );
+
+            return redirect()->back();
         }
 
-        $transaction = new Transaction();
-        $transaction->user_id = $user->id;
-        $transaction->name = "Add Money";
-        $transaction->type = "Credit";
-        $transaction->amount = $request->input( 'amount' );
-        $transaction->save();
-
-        Toastr::success( 'Money added Successfully', 'Success!!!' );
-
-        return redirect()->back();
     }
 
     public function details( $student_id )
