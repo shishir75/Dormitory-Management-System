@@ -73,9 +73,9 @@
                                             <td>{{ $transaction->name }}</td>
                                             <td >{{ $transaction->type }}</td>
                                             @if ($transaction->type === 'Credit')
-                                                <td class="my-2 badge badge-success">+ {{ $transaction->amount }}</td>
+                                                <td class="my-2 badge badge-success">+ {{ $transaction->amount }} BDT</td>
                                             @else
-                                                <td class="my-2 badge badge-danger">- {{ $transaction->amount }}</td>
+                                                <td class="my-2 badge badge-danger">- {{ $transaction->amount }} BDT</td>
                                             @endif
 
                                             <td>{{ $transaction->created_at->isoFormat('MMMM Do YYYY, h:mm:ss a') }}</td>
