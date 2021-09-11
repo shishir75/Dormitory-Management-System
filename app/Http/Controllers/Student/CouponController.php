@@ -82,6 +82,11 @@ class CouponController extends Controller
         }
 
         $student = Student::where( 'email', Auth::user()->email )->first();
+
+        $dining = Dining::where( 'hall_id', $student->hall_id )->first();
+        $dining_user = User::where( 'email', $dining->email )->first();
+        $dining_user_balance = Balance::where( 'user_id', $dining_user->id )->where( 'hall_id', $student->hall_id )->first();
+
         $tomorrow = Carbon::tomorrow()->format( "Ymd" );
 
         $coupon_no_new = $tomorrow . "-" . $student->id . "-" . $coupon_id;
@@ -117,6 +122,26 @@ class CouponController extends Controller
                 $transaction->type = "Debit";
                 $transaction->amount = $coupon->unit_price;
                 $transaction->save();
+
+                $dining_transaction = new Transaction();
+                $dining_transaction->user_id = $dining_user->id;
+                $dining_transaction->name = "Sold Food Coupon";
+                $dining_transaction->type = "Debit";
+                $dining_transaction->amount = $coupon->unit_price;
+                $dining_transaction->save();
+
+                if ( $dining_user_balance === null ) {
+
+                    $dining_user_balance = new Balance();
+                    $dining_user_balance->user_id = $dining_user->id;
+                    $dining_user_balance->hall_id = $student->hall_id;
+                    $dining_user_balance->amount = $coupon->unit_price;
+                    $dining_user_balance->save();
+
+                } else {
+                    $dining_user_balance->amount -= $coupon->unit_price;
+                    $dining_user_balance->save();
+                }
 
                 Toastr::success( 'Coupon Purchaged Successfully', 'Success!!!' );
 
