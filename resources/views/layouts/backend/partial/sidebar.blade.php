@@ -248,6 +248,15 @@
 					</ul>
 				</li>
 
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('hall_office.payment.index') }}" class="nav-link {{ Request::is('hall-office/payment*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Make Payment
+                        </p>
+                    </a>
+                </li>
+
 
 			@elseif(Request::is('student*')))
 				<li class="nav-item has-treeview">

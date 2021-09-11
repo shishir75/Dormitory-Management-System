@@ -82,6 +82,7 @@ Route::group( ['as' => 'hall_office.', 'prefix' => 'hall-office', 'namespace' =>
     Route::resource( 'allotted-students', 'AllottedStudentsController' );
     Route::put( 'add-money/{student_id}', 'AllottedStudentsController@addMoney' )->name( 'allotted-students.add-money' );
     Route::get( 'allotted-students/details/{student_id}', 'AllottedStudentsController@details' )->name( 'allotted-students.details' );
+    Route::resource( 'payment', 'PaymentController' );
 
 } );
 
