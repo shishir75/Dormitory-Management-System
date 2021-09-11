@@ -23,9 +23,6 @@
                             $hall = App\Models\Hall::where('name', Auth::user()->name)->first();
                         @endphp
                         {{ $hall->short_name }} Office
-
-                    @elseif(Auth::user()->role->id == 6)
-                        {{ Auth::user()->username }}
 					@else
 						{{ Auth::user()->name }}
 					@endif
@@ -294,6 +291,15 @@
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             Food Coupons
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('dining.transaction') }}" class="nav-link {{ Request::is('dining/transaction') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Transactions
                         </p>
                     </a>
                 </li>
