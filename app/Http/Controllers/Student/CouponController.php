@@ -86,12 +86,17 @@ class CouponController extends Controller
         $dining_user = User::where( 'email', $dining->email )->first();
         $dining_user_balance = Balance::where( 'user_id', $dining_user->id )->where( 'hall_id', $student->hall_id )->first();
 
-        $tomorrow = Carbon::tomorrow()->format( "Ymd" );
+        $coupon = Coupon::findOrFail( $coupon_id );
 
-        $coupon_no_new = $tomorrow . "-" . $student->id . "-" . $coupon_id;
+        //$tomorrow = Carbon::tomorrow()->format( "Ymd" );
+
+        $coupon_date = date( 'Ymd', strtotime( $coupon->coupon_date ) );
+
+        //dd( $coupon_date );
+
+        $coupon_no_new = $coupon_date . "-" . $student->id . "-" . $coupon_id;
 
         $balance = Balance::where( "user_id", Auth::user()->id )->first();
-        $coupon = Coupon::findOrFail( $coupon_id );
 
         if ( $balance === null || $balance->amount < $coupon->unit_price ) {
 
