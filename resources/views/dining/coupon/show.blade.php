@@ -77,7 +77,7 @@
                                             @endif
                                             <td>
                                                 <button class="btn btn-danger" type="button" onclick="deleteItem({{ $coupon_detail->id }})">
-                                                    <i class="fa fa-trash" aria-hidden="true"> Change</i>
+                                                     Change
                                                 </button>
                                                 <form id="delete-form-{{ $coupon_detail->id }}" action="{{ route('dining.coupon.update', $coupon_detail->id) }}" method="post"
                                                       style="display:none;">
@@ -141,7 +141,7 @@
         const swalWithBootstrapButtons = swal.mixin({
             confirmButtonClass: 'btn btn-success',
             cancelButtonClass: 'btn btn-danger',
-            buttonsStyling: false,
+            buttonsStyling: true,
         })
 
         swalWithBootstrapButtons({
@@ -149,8 +149,8 @@
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No!',
             reverseButtons: true
         }).then((result) => {
             if (result.value) {
