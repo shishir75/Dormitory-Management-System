@@ -3,7 +3,14 @@
 namespace App\Http\Controllers\Hall_Office;
 
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
+use App\Models\Dining;
+use App\Models\Hall;
+use App\Models\Transaction;
+use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
@@ -14,14 +21,22 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $student = Student::where( 'email', Auth::user()->email )->first();
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
 
-        $balance = Balance::where( 'user_id', Auth::user()->id )->where( 'hall_id', $student->hall->id )->first();
+        $dining = Dining::where( 'hall_id', $hall->id )->first();
 
-        $transactions = Transaction::with( 'user' )->where( 'user_id', Auth::user()->id )->latest()->get();
+        $user = User::where( "email", $dining->email )->first();
+
+        $balance = Balance::where( 'user_id', $dining->id )->where( 'hall_id', $hall->id )->first();
+
+        // if ( $balance == null ) {
+        //     $balance->amount = 0;
+        // }
+
+        $transactions = Transaction::with( 'user' )->where( 'user_id', $user->id )->latest()->get();
 
         if ( $transactions->count() > 0 ) {
-            return view( 'student.transaction', compact( 'transactions', 'balance' ) );
+            return view( 'hall_office.payment.index', compact( 'transactions', 'balance' ) );
 
         } else {
 

@@ -17,7 +17,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6 offset-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('hall_office.dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Make Payment</li>
                         </ol>
                     </div>
@@ -35,7 +35,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">{{ strtoupper('Make Payment for '. Auth::user()->name ) }}
-                                    <span class="float-right">Available Balance : <span class="badge badge-success">{{ $balance->amount }} BDT</span></span>
+                                    <span class="float-right">Available Balance : <span class="badge badge-success"> BDT</span></span>
                                 </h3>
                             </div>
                             <!-- /.card-header -->
@@ -66,9 +66,9 @@
                                             <td>{{ $transaction->name }}</td>
                                             <td>
                                                 @if ($transaction->type == "Credit")
-                                                    <span class="badge badge-sm badge-success">{{ $transaction->type }}</span>
+                                                    <span class="badge badge-sm badge-success">Credit</span>
                                                 @else
-                                                    <span class="badge badge-sm badge-danger">{{ $transaction->type }}</span>
+                                                    <span class="badge badge-sm badge-danger">Debit</span>
                                                 @endif
                                             </td>
                                             <td>
