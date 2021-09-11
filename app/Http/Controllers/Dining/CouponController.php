@@ -67,18 +67,29 @@ class CouponController extends Controller
 
         $check = Coupon::where( 'dining_id', $dining->id )->where( 'coupon_date', $date )->count();
 
+        $tomorrow = Carbon::tomorrow();
+
         if ( $check === 0 ) {
 
-            $coupon = new Coupon();
-            $coupon->dining_id = $dining->id;
-            $coupon->coupon_date = $date;
-            $coupon->unit_price = $request->input( 'unit_price' );
-            $coupon->max_count = $request->input( 'max_count' );
-            $coupon->save();
+            if ( $date >= $tomorrow ) {
 
-            Toastr::success( 'Date for Coupon Added Successfully', 'Success!!!' );
+                $coupon = new Coupon();
+                $coupon->dining_id = $dining->id;
+                $coupon->coupon_date = $date;
+                $coupon->unit_price = $request->input( 'unit_price' );
+                $coupon->max_count = $request->input( 'max_count' );
+                $coupon->save();
 
-            return redirect()->back();
+                Toastr::success( 'Date for Coupon Added Successfully', 'Success!!!' );
+
+                return redirect()->back();
+
+            } else {
+
+                Toastr::error( "You can't assign previous days coupon!!!", 'Error!!!' );
+
+                return redirect()->back();
+            }
 
         } else {
 
