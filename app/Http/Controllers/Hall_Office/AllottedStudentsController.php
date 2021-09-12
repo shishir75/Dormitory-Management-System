@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Hall_Office;
 use App\Http\Controllers\Controller;
 use App\Models\Balance;
 use App\Models\Hall;
+use App\Models\HallBill;
 use App\Models\HallRoom;
 use App\Models\Session;
 use App\Models\Student;
@@ -12,6 +13,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -207,6 +209,77 @@ class AllottedStudentsController extends Controller
 
     public function pay_hall_bill( Request $request, $student_id )
     {
-        return $request;
+        $inputs = $request->except( '_token' );
+        $rules = [
+            'end_month' => 'required',
+        ];
+
+        $validator = Validator::make( $inputs, $rules );
+
+        if ( $validator->fails() ) {
+            return redirect()->back()->withErrors( $validator )->withInput();
+        }
+
+        $end_month = $request->input( 'end_month' ) . "-01 12:00:00";
+
+        $student = Student::findOrFail( $student_id );
+        $student_user_id = User::where( 'email', $student->email )->first();
+
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+
+        if ( $student->hall_id === $hall->id ) {
+
+            $balance = Balance::where( "hall_id", $student->hall_id )->where( 'user_id', $student_user_id->id )->first();
+
+            $hall_bill_old = HallBill::where( 'student_id', $student->id )->latest()->first();
+
+            $hall_bill = new HallBill();
+            $hall_bill->student_id = $student->id;
+
+            if ( $hall_bill_old !== null ) {
+                $hall_bill->start_month = $hall_bill_old->end_month;
+            } else {
+                $hall_bill->start_month = $student->created_at;
+            }
+
+            $hall_bill->end_month = $end_month;
+
+            $from = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill->start_month );
+            $to = Carbon::createFromFormat( 'Y-m-d H:s:i', date( $end_month ) );
+            $diff_in_months = $from->diffInMonths( $to );
+
+            $pay_amount = (int) $diff_in_months * 20;
+
+            //dd( $pay_amount );
+
+            if ( $balance->amount >= $pay_amount ) {
+
+                $hall_bill->save();
+
+                $balance->amount -= $pay_amount;
+                $balance->save();
+
+                $transaction = new Transaction();
+                $transaction->user_id = $student_user_id->id;
+                $transaction->name = "Pay Hall Bill";
+                $transaction->type = "Debit";
+                $transaction->amount = $pay_amount;
+                $transaction->save();
+
+                Toastr::success( 'Bill Payment Successful', 'Success!!!' );
+
+                return redirect()->back();
+
+            } else {
+                Toastr::error( 'Insufficient Balance.Plz Add Money First!!!', 'Error!!!' );
+
+                return redirect()->back();
+            }
+
+        } else {
+            Toastr::error( 'Unauthorized Access Denied!!!', 'Error!!!' );
+
+            return redirect()->back();
+        }
     }
 }
