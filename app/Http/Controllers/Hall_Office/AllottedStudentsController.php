@@ -225,6 +225,13 @@ class AllottedStudentsController extends Controller
         $student = Student::findOrFail( $student_id );
         $student_user_id = User::where( 'email', $student->email )->first();
 
+        if ( $student_user_id === null ) {
+
+            Toastr::error( 'Student has not created his/her profile yet. Create profile first to transaction!!!', 'Error!!!' );
+
+            return redirect()->back();
+        }
+
         $hall = Hall::where( 'name', Auth::user()->name )->first();
 
         if ( $student->hall_id === $hall->id ) {
@@ -248,7 +255,7 @@ class AllottedStudentsController extends Controller
             $to = Carbon::createFromFormat( 'Y-m-d H:s:i', date( $end_month ) );
             $diff_in_months = $from->diffInMonths( $to );
 
-            $pay_amount = (int) $diff_in_months * 20;
+            $pay_amount = (int) (  ( $diff_in_months - 1 ) * 20 );
 
             //dd( $pay_amount );
 
