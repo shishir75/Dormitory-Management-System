@@ -35,8 +35,6 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-
-
                         @else
                             <div class="alert alert-danger text-center"  role="alert">
                                 Your Student Validty is Expired! Plz Pay All Dues & Leave Seat. Thanks!!
@@ -48,7 +46,7 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info"><i class="fa fa-book"></i></span>
+                            <span class="info-box-icon bg-info"><i class="fa fa-home"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Hall Name</span>
@@ -74,11 +72,18 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-warning"><i class="fa fa-user"></i></span>
+                            <span class="info-box-icon bg-warning"><i class="fa fa-odnoklassniki"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Allotted Room No</span>
-                                <span class="info-box-number">{{ $student->room_no }}</span>
+                                <span class="info-box-number">
+                                    @if ($student->room_no === null)
+                                        {{ $student->room_no }}
+                                    @else
+                                        <span class="text-danger">Room Not Allotted</span>
+                                    @endif
+
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -87,7 +92,7 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-gray"><i class="fa fa-user-plus"></i></span>
+                            <span class="info-box-icon bg-success"><i class="fa fa-bitcoin"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Available Balance</span>
@@ -101,7 +106,7 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info"><i class="fa fa-users"></i></span>
+                            <span class="info-box-icon bg-info"><i class="fa fa-coffee"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Food Taken</span>
@@ -115,7 +120,7 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
+                            <span class="info-box-icon bg-gray"><i class="fa fa-btc"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">{{ $due_bill >= 0 ? "Holding Hall Bill" : "Due Hall Bill" }}</span>
