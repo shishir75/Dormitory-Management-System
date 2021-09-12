@@ -77,7 +77,7 @@
                             <div class="info-box-content">
                                 <span class="info-box-text">Allotted Room No</span>
                                 <span class="info-box-number">
-                                    @if ($student->room_no === null)
+                                    @if ($student->room_no !== null)
                                         {{ $student->room_no }}
                                     @else
                                         <span class="text-danger">Room Not Allotted</span>
