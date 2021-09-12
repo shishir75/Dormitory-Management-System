@@ -206,9 +206,11 @@
 
                                                     if ($hall_bill != null) {
                                                         $student_start_date = $hall_bill->end_month;
+                                                        $student_start_date_for_frontend = date('F-Y',strtotime('+1 month', strtotime($student_start_date)) );
+                                                    } else {
+                                                        $student_start_date_for_frontend = date('F-Y', strtotime( $student_start_date ) );
                                                     }
 
-                                                    $student_start_date_for_frontend = date('F-Y', strtotime($student_start_date));
                                                     $current_month = date('F-Y');
 
                                                     $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $student_start_date);

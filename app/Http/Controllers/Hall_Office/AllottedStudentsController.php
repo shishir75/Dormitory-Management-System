@@ -220,7 +220,7 @@ class AllottedStudentsController extends Controller
             return redirect()->back()->withErrors( $validator )->withInput();
         }
 
-        $end_month = $request->input( 'end_month' ) . "-01 12:00:00";
+        $end_month = $request->input( 'end_month' ) . "-28 12:00:00";
 
         $student = Student::findOrFail( $student_id );
         $student_user_id = User::where( 'email', $student->email )->first();
@@ -244,7 +244,7 @@ class AllottedStudentsController extends Controller
             $hall_bill->student_id = $student->id;
 
             if ( $hall_bill_old !== null ) {
-                $hall_bill->start_month = $hall_bill_old->end_month;
+                $hall_bill->start_month = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill_old->end_month )->addMonth();
             } else {
                 $hall_bill->start_month = $student->created_at;
             }
@@ -255,9 +255,7 @@ class AllottedStudentsController extends Controller
             $to = Carbon::createFromFormat( 'Y-m-d H:s:i', date( $end_month ) );
             $diff_in_months = $from->diffInMonths( $to );
 
-            $pay_amount = (int) (  ( $diff_in_months - 1 ) * 20 );
-
-            //dd( $pay_amount );
+            $pay_amount = (int) (  ( $diff_in_months + 1 ) * 20 );
 
             if ( $balance->amount >= $pay_amount ) {
 
