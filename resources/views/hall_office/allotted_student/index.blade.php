@@ -45,13 +45,14 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
-                                        <th>Session</th>
                                         <th>Reg No</th>
                                         <th>Dept Name</th>
                                         <th>Room No</th>
                                         <th>Room Allocation</th>
                                         <th>Balance</th>
                                         <th>Add Money</th>
+                                        <th>Due Bill</th>
+                                        <th>Pay Bill</th>
                                         <th>Details</th>
                                     </tr>
                                     </thead>
@@ -59,13 +60,14 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Name</th>
-                                        <th>Session</th>
                                         <th>Reg No</th>
                                         <th>Dept Name</th>
                                         <th>Room No</th>
                                         <th>Room Allocation</th>
                                         <th>Balance</th>
                                         <th>Add Money</th>
+                                        <th>Due Bill</th>
+                                        <th>Pay Bill</th>
                                         <th>Details</th>
                                     </tr>
                                     </tfoot>
@@ -74,7 +76,6 @@
                                         <tr id="{{ $student->id }}">
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
-                                            <td>{{ $student->session->name }}</td>
                                             <td>{{ $student->reg_no }}</td>
                                             <td>{{ $student->dept->short_name }}</td>
                                             <td>
@@ -194,6 +195,48 @@
                                                     </div>
                                                 </div>
 
+                                            </th>
+                                            <th>Due Bill</th>
+                                            <th>
+                                                <!-- Button trigger modal -->
+                                                <a class="btn btn-sm btn-success" data-toggle="modal" data-id="{{ $student->id }}" data-target="#payBill-{{ $student->id}}">
+                                                    <i class="fa fa-dollar fa-lg"></i>
+                                                </a>
+
+                                                <!-- Add Balance Modal -->
+                                                <div class="modal fade" id="payBill-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="addBalance" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-top" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Pay Hall Bill</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <form role="form" action="{{ route('hall_office.allotted-students.add-money', $student->id) }}" method="POST" id="updateForm">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <label for="exampleFormControlSelect2">Add Money for {{ $student->name }}</label>
+                                                                        <div class="form-group row">
+                                                                            <label for="inputPassword" class="col-sm-6 col-form-label">Add Money</label>
+                                                                            <div class="col-sm-6">
+                                                                              <input type="number" class="form-control" name="amount" placeholder="Enter Amount in BDT">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Add Balance</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    </div>
+                                                </div>
                                             </th>
                                             <th>
                                                 <a href="{{ route('hall_office.allotted-students.details', $student->id) }}" class="btn btn-sm btn-info">
