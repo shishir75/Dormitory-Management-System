@@ -215,16 +215,16 @@ class StudentController extends Controller
 
         $check = Student::where( "dept_id", $dept->id )->where( "session_id", $session->id )->first();
 
-        if ( $check->status == true ) {
+        if ( $check->status == 1 ) {
             DB::table( 'students' )
                 ->where( "dept_id", $dept->id )
                 ->where( "session_id", $session->id )
-                ->update( ['room_no' => false, 'status' => false] );
+                ->update( ['room_no' => false, 'status' => 2] );
         } else {
             DB::table( 'students' )
                 ->where( "dept_id", $dept->id )
                 ->where( "session_id", $session->id )
-                ->update( ['room_no' => false, 'status' => true] );
+                ->update( ['room_no' => false, 'status' => 1] );
         }
 
         Toastr::success( 'Status updated successfully', 'Success' );
@@ -241,16 +241,16 @@ class StudentController extends Controller
         foreach ( $ids as $student_id ) {
             $check = Student::find( $student_id );
 
-            if ( $check->status == true ) {
+            if ( $check->status == 1 ) {
                 DB::table( 'students' )
                     ->where( "dept_id", $dept->id )
                     ->where( "id", $student_id )
-                    ->update( ['room_no' => false, 'status' => false] );
+                    ->update( ['room_no' => false, 'status' => 2] );
             } else {
                 DB::table( 'students' )
                     ->where( "dept_id", $dept->id )
                     ->where( "id", $student_id )
-                    ->update( ['room_no' => false, 'status' => true] );
+                    ->update( ['room_no' => false, 'status' => 1] );
             }
         }
         Toastr::success( 'Status updated successfully', 'Success' );

@@ -63,7 +63,9 @@
                                         <th>Student Status</th>
                                         <th>
                                             <input type="checkbox" id="checkAll"  class="mr-3" >
-                                            Select All
+                                            <label class="form-check-label" for="checkAll">
+                                                Select All
+                                            </label>
                                         </th>
                                     </tr>
                                     </thead>
@@ -104,10 +106,10 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if($student->status == true)
+                                                @if($student->status == 1)
                                                     <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
                                                 @else
-                                                <p class="badge badge-warning"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
+                                                    <p class="badge badge-warning"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
                                                 @endif
                                             </td>
                                             <td>
