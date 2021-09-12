@@ -42,7 +42,7 @@
                                                 {{ $balance->amount }} BDT
                                             </span>
                                         @else
-                                           Available Balance 0 BDT
+                                           Available Balance : <span class="badge badge-danger">0 BDT</span>
                                         @endif
                                     </span>
                                 </h3>

@@ -139,7 +139,7 @@ class CouponController extends Controller
                     $dining_user_balance = new Balance();
                     $dining_user_balance->user_id = $dining_user->id;
                     $dining_user_balance->hall_id = $student->hall_id;
-                    $dining_user_balance->amount = $coupon->unit_price;
+                    $dining_user_balance->amount = "-" . $coupon->unit_price;
                     $dining_user_balance->save();
 
                 } else {
