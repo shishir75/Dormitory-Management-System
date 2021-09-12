@@ -240,6 +240,22 @@ class AllottedStudentsController extends Controller
 
             $hall_bill_old = HallBill::where( 'student_id', $student->id )->latest()->first();
 
+            if ( $hall_bill_old == null ) {
+                $old_end_month = $student->created_at;
+            } else {
+                $old_end_month = $hall_bill_old->end_month;
+            }
+
+            $input_month_as_integer = (int) date( 'Ym', strtotime( $end_month ) );
+            $last_paid_month_as_integer = (int) date( 'Ym', strtotime( $old_end_month ) );
+
+            if ( $last_paid_month_as_integer >= $input_month_as_integer ) {
+
+                Toastr::info( "You have already paid these months bill!", 'Info!!!' );
+
+                return redirect()->back();
+            }
+
             $hall_bill = new HallBill();
             $hall_bill->student_id = $student->id;
 
