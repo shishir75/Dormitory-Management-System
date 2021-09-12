@@ -94,7 +94,7 @@ class PaymentController extends Controller
 
         $transaction = new Transaction();
         $transaction->user_id = $user->id;
-        $transaction->name = "Add Balance";
+        $transaction->name = "Make Payment";
         $transaction->type = "Credit";
         $transaction->amount = $request->input( 'amount' );
         $transaction->save();

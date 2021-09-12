@@ -33,7 +33,7 @@
                     <div class="col-md-12">
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary float-right mb-3" data-toggle="modal" data-target="#makePayment">
-                            Add Balance for Dining
+                            Make Dining Payment
                         </button>
 
                         <!-- Modal -->
@@ -41,7 +41,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add Balance for {{ $dining->name }}</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Make Payment for {{ $dining->name }}</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -58,7 +58,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Add Balance</button>
+                                            <button type="submit" class="btn btn-primary">Pay Bill</button>
                                         </div>
                                     </form>
                                 </div>
@@ -75,7 +75,7 @@
                                 <h3 class="card-title">{{ strtoupper('Trasactions History of '. $dining->name ) }}
                                     <span class="float-right">
                                         @if ($balance !== null)
-                                            {{ $balance->amount > 0 ? 'Available Balance : ' : 'Owing Balance : ' }}
+                                            {{ $balance->amount > 0 ? 'Advanced Balance : ' : 'Payable Balance : ' }}
                                             <span class="badge badge-{{ $balance->amount > 0 ? 'success' : 'danger' }}">
                                                 {{ $balance->amount }} BDT
                                             </span>
