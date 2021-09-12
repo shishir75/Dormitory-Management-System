@@ -47,6 +47,7 @@
                                         <th>Name</th>
                                         <th>Reg No</th>
                                         <th>Dept Name</th>
+                                        <th>Status</th>
                                         <th>Room No</th>
                                         <th>Room Allocation</th>
                                         <th>Balance</th>
@@ -62,6 +63,7 @@
                                         <th>Name</th>
                                         <th>Reg No</th>
                                         <th>Dept Name</th>
+                                        <th>Status</th>
                                         <th>Room No</th>
                                         <th>Room Allocation</th>
                                         <th>Balance</th>
@@ -79,6 +81,17 @@
                                             <td>{{ $student->reg_no }}</td>
                                             <td>{{ $student->dept->short_name }}</td>
                                             <td>
+                                                @if ($student->status == 1)
+                                                    <i class="fa fa-check-circle fa-lg text-success"></i>
+                                                @elseif ($student->status == 2)
+                                                    <i class="fa fa-exclamation-circle fa-lg text-warning"></i>
+                                                @elseif ($student->status == 3)
+                                                    <i class="fa fa-times-circle fa-lg text-danger"></i>
+                                                @else
+                                                    <i class="fa fa-expeditedssl fa-2x text-danger"></i>
+                                                @endif
+                                            </td>
+                                            <td>
                                                 @if($student->room_no == null)
                                                     <p class="badge badge-warning">Not Allocated</p>
                                                 @else
@@ -86,7 +99,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a class="btn btn-sm btn-warning" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
+                                                <a class="btn btn-sm btn-info" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
                                                     <i class="fa fa-user-plus fa-lg"></i>
                                                 </a>
                                                 {{-- @if($student->room_no == null)
