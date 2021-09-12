@@ -23,6 +23,8 @@ class StudentsTableSeeder extends Seeder
                 'reg_no'     => rand( 40000, 50000 ),
                 'sex'        => $faker->randomElement( ['M', 'F'] ),
                 'hall_id'    => rand( 1, 22 ),
+                'created_at' => now(),
+                'updated_at' => now(),
             ] );
         };
 
