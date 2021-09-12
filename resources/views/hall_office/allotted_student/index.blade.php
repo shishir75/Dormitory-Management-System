@@ -219,9 +219,18 @@
 
                                                     $due_bill = number_format($diff_in_months * 20, 2);
 
+                                                    $end_date_as_integer = (int) date( 'Ym', strtotime( $student_start_date_for_frontend ) );
+                                                    $current_date_as_integer = (int) date( 'Ym', strtotime( $current_month ) );
+
+                                                    if ($end_date_as_integer >= $current_date_as_integer) {
+                                                        $due_bill_sign = false;
+                                                    } else {
+                                                        $due_bill_sign = true;
+                                                    }
+
                                                 @endphp
 
-                                                @if ($due_bill > 0)
+                                                @if ($due_bill_sign === true)
                                                     <span class="badge badge-danger">{{ $due_bill }} BDT</span>
                                                 @else
                                                     <span class="badge badge-success">{{ $due_bill }} BDT</span>
