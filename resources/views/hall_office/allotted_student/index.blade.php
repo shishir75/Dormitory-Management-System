@@ -196,7 +196,40 @@
                                                 </div>
 
                                             </th>
-                                            <th>Due Bill</th>
+                                            <th>
+                                                @php
+                                                    $student = App\Models\Student::findOrFail($student->id);
+
+                                                    $hall_bill = App\Models\HallBill::where('student_id', $student->id)->latest()->first();
+
+                                                    $student_start_date = $student->created_at;
+
+                                                    if ($hall_bill != null) {
+                                                        $student_start_date = $hall_bill->end_month;
+                                                    }
+
+                                                    $student_start_date_for_frontend = date('M-Y', strtotime($student_start_date));
+                                                    $current_month = date('M-Y');
+
+                                                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $student_start_date);
+                                                    $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', date('Y-m-d H:s:i'));
+                                                    $diff_in_months = $to->diffInMonths($from);
+
+                                                    $due_bill = number_format($diff_in_months * 20, 2);
+
+                                                @endphp
+
+                                                @if ($due_bill > 0)
+                                                    <span class="badge badge-danger">{{ $due_bill }}</span>
+                                                @else
+                                                    <span class="badge badge-success">{{ $due_bill }}</span>
+                                                @endif
+
+
+
+
+
+                                            </th>
                                             <th>
                                                 <!-- Button trigger modal -->
                                                 <a class="btn btn-sm btn-success" data-toggle="modal" data-id="{{ $student->id }}" data-target="#payBill-{{ $student->id}}">
