@@ -91,17 +91,27 @@ class AllottedStudentsController extends Controller
      */
     public function update( Request $request, $id )
     {
-        $student = Student::findOrFail( $id );
-        $hall = Hall::where( 'name', Auth::user()->name )->first();
-
         $room_no = $request->input( 'room_no' );
-        $student->room_no = $room_no;
-        $student->save();
 
-        $hall_room = HallRoom::where( "hall_id", $hall->id )->where( "room_no", $room_no )->first();
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+        $student = Student::findOrFail( $id );
 
-        $hall_room->available_seat = $hall_room->available_seat - 1;
-        $hall_room->save();
+        if ( $student->room_no === null ) {
+            $student->room_no = $room_no;
+            $student->save();
+
+            $hall_room = HallRoom::where( "hall_id", $hall->id )->where( "room_no", $room_no )->first();
+            $hall_room->available_seat -= 1;
+            $hall_room->save();
+
+        } else {
+            $old_hall_room = HallRoom::where( "hall_id", $hall->id )->where( "room_no", $student->room_no )->first();
+            $old_hall_room->available_seat += 1;
+            $old_hall_room->save();
+
+            $student->room_no = $room_no;
+            $student->save();
+        }
 
         Toastr::success( 'Student Allocation successful', 'Success' );
 

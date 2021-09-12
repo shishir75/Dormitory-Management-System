@@ -86,14 +86,17 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if($student->room_no == null)
+                                                <a class="btn btn-sm btn-warning" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
+                                                    <i class="fa fa-user-plus fa-lg"></i>
+                                                </a>
+                                                {{-- @if($student->room_no == null)
                                                     <!-- Button trigger modal -->
                                                     <a class="btn btn-sm btn-warning" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
                                                         <i class="fa fa-user-plus fa-lg"></i>
                                                     </a>
                                                 @else
                                                     <p class="badge badge-success"><i class="fa fa-check-circle fa-lg"></i></p>
-                                                @endif
+                                                @endif --}}
 
                                                 <!-- Allocation Modal -->
                                                 <div class="modal fade" id="showData-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
