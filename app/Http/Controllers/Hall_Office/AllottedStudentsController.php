@@ -267,7 +267,7 @@ class AllottedStudentsController extends Controller
 
                 $transaction = new Transaction();
                 $transaction->user_id = $student_user_id->id;
-                $transaction->name = "Pay Hall Bill";
+                $transaction->name = "Pay Hall Bill ( " . date( 'F-Y', strtotime( $hall_bill->start_month ) ) . " to " . date( 'F-Y', strtotime( $end_month ) ) . " )";
                 $transaction->type = "Debit";
                 $transaction->amount = $pay_amount;
                 $transaction->save();
