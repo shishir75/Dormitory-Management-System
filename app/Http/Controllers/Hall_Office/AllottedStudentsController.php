@@ -254,6 +254,7 @@ class AllottedStudentsController extends Controller
 
             if ( $balance->amount >= $pay_amount ) {
 
+                $hall_bill->amount = $pay_amount;
                 $hall_bill->save();
 
                 $balance->amount -= $pay_amount;
