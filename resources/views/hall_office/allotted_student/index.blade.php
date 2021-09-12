@@ -144,14 +144,14 @@
                                                 @endphp
 
                                                 @if ($balance == null)
-                                                    <p class="badge badge-danger">0 BDT</p>
+                                                    <p class="badge badge-danger">0.00 BDT</p>
                                                 @elseif ($balance->amount > 0)
                                                     <p class="badge badge-success">
-                                                        {{ $balance->amount }} BDT
+                                                        {{ number_format($balance->amount, 2) }} BDT
                                                     </p>
                                                 @else
                                                     <p class="badge badge-danger">
-                                                        {{ $balance->amount }} BDT
+                                                        {{ number_format($balance->amount, 2) }} BDT
                                                     </p>
                                                 @endif
                                             </th>
@@ -208,26 +208,22 @@
                                                         $student_start_date = $hall_bill->end_month;
                                                     }
 
-                                                    $student_start_date_for_frontend = date('M-Y', strtotime($student_start_date));
-                                                    $current_month = date('M-Y');
+                                                    $student_start_date_for_frontend = date('F-Y', strtotime($student_start_date));
+                                                    $current_month = date('F-Y');
 
-                                                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $student_start_date);
-                                                    $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', date('Y-m-d H:s:i'));
-                                                    $diff_in_months = $to->diffInMonths($from);
+                                                    $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', $student_start_date);
+                                                    $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i', date('Y-m-d H:s:i'));
+                                                    $diff_in_months = $from->diffInMonths($to);
 
                                                     $due_bill = number_format($diff_in_months * 20, 2);
 
                                                 @endphp
 
                                                 @if ($due_bill > 0)
-                                                    <span class="badge badge-danger">{{ $due_bill }}</span>
+                                                    <span class="badge badge-danger">{{ $due_bill }} BDT</span>
                                                 @else
-                                                    <span class="badge badge-success">{{ $due_bill }}</span>
+                                                    <span class="badge badge-success">{{ $due_bill }} BDT</span>
                                                 @endif
-
-
-
-
 
                                             </th>
                                             <th>
@@ -237,7 +233,7 @@
                                                 </a>
 
                                                 <!-- Add Balance Modal -->
-                                                <div class="modal fade" id="payBill-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="addBalance" aria-hidden="true">
+                                                <div class="modal fade" id="payBill-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="payBill" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-top" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -246,17 +242,20 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                         </div>
-                                                        <form role="form" action="{{ route('hall_office.allotted-students.add-money', $student->id) }}" method="POST" id="updateForm">
+                                                        <form role="form" action="{{ route('hall_office.allotted-students.pay-hall-bill', $student->id) }}" method="POST" id="updateForm">
                                                             @csrf
-                                                            @method('PUT')
+                                                            @method('POST')
                                                             <div class="modal-body">
                                                                 <div class="row">
                                                                     <div class="col-md-12">
-                                                                        <label for="exampleFormControlSelect2">Add Money for {{ $student->name }}</label>
+                                                                        <label for="exampleFormControlSelect2">Pay Hall Bill For
+                                                                            <p>{{ $student->name }} from {{ $student_start_date_for_frontend }}</p>
+                                                                            <p>Every Month 20 BDT </p>
+                                                                        </label>
                                                                         <div class="form-group row">
-                                                                            <label for="inputPassword" class="col-sm-6 col-form-label">Add Money</label>
+                                                                            <label for="inputPassword" class="col-sm-6 col-form-label">Pay To Month </label>
                                                                             <div class="col-sm-6">
-                                                                              <input type="number" class="form-control" name="amount" placeholder="Enter Amount in BDT">
+                                                                                <input type="month" name="end_month" class="form-control" id="start" name="start" min="03-2018" value="{{ $current_month }}">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -264,7 +263,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Add Balance</button>
+                                                                <button type="submit" class="btn btn-primary">Pay Bill</button>
                                                             </div>
                                                         </form>
                                                     </div>

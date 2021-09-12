@@ -207,6 +207,6 @@ class AllottedStudentsController extends Controller
 
     public function pay_hall_bill( Request $request, $student_id )
     {
-
+        return $request;
     }
 }
