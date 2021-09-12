@@ -220,7 +220,7 @@ class AllottedStudentsController extends Controller
             return redirect()->back()->withErrors( $validator )->withInput();
         }
 
-        $end_month = $request->input( 'end_month' ) . "-28 12:00:00";
+        $end_month = $request->input( 'end_month' ) . "-01 12:00:00";
 
         $student = Student::findOrFail( $student_id );
         $student_user_id = User::where( 'email', $student->email )->first();
