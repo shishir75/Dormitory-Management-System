@@ -19,7 +19,8 @@ class DashboardController extends Controller
 
         $balance = Balance::where( 'hall_id', $student->hall_id )->where( 'user_id', Auth::user()->id )->first();
 
-        $coupons = CouponDetail::where( 'student_id', $student->id )->latest()->get();
+        $coupons = CouponDetail::where( 'student_id', $student->id )->latest()->take( 10 )->get();
+        $coupon_count = CouponDetail::where( 'student_id', $student->id )->count();
 
         //dd( $coupons );
 
@@ -39,10 +40,10 @@ class DashboardController extends Controller
             $due_bill = "-" . $due_bill;
         }
 
-        $latest_transactions = Transaction::where( 'user_id', Auth::user()->id )->latest()->get();
+        $latest_transactions = Transaction::where( 'user_id', Auth::user()->id )->latest()->take( 10 )->get();
 
         //dd( $latest_transactions->count() );
 
-        return view( 'student.dashboard', compact( 'student', 'balance', 'coupons', 'due_bill', 'latest_transactions' ) );
+        return view( 'student.dashboard', compact( 'student', 'balance', 'coupons', 'due_bill', 'latest_transactions', 'coupon_count' ) );
     }
 }

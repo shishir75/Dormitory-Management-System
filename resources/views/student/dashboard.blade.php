@@ -110,7 +110,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Food Taken</span>
-                                <span class="info-box-number">{{ $coupons->count() }} UNITS</span>
+                                <span class="info-box-number">{{ $coupon_count }} UNITS</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -166,10 +166,6 @@
 												<td>{{ number_format($latest_transaction->amount, 2) }} BDT</td>
 												<td>{{ $latest_transaction->created_at->diffInMinutes() <= 1440 ?  $latest_transaction->created_at->diffForHumans() : $latest_transaction->created_at->format('jS F Y') }}</td>
 											</tr>
-
-											@if($key > 8)
-												@break;
-											@endif
 										@endforeach
 									</tbody>
 								</table>
@@ -218,10 +214,6 @@
 												<td><span class="badge badge-{{ $coupon->is_valid == 'unused' ? 'success' : 'danger' }}">{{ ucwords($coupon->is_valid) }}</span></td>
 												<td>{{ $coupon->created_at->diffInMinutes() <= 1440 ?  $coupon->created_at->diffForHumans() : $coupon->created_at->format('jS F Y') }}</td>
 											</tr>
-
-											@if($key > 8)
-												@break;
-											@endif
 										@endforeach
                                     </tbody>
                                 </table>
