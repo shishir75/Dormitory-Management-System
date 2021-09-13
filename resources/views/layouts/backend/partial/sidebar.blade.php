@@ -207,6 +207,15 @@
 
                     <li class="nav-header">MENU</li>
 
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('dept_office.change-password.index') }}" class="nav-link {{ Request::is('dept-office/change-password*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-dashboard"></i>
+                            <p>
+                                Change Password
+                            </p>
+                        </a>
+                    </li>
+
 
 			@elseif(Request::is('hall-office*')))
 
