@@ -4,9 +4,10 @@ namespace App\Http\Controllers\CustomAuth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Dept;
+use App\Models\Dining;
+use App\Models\Hall;
 use App\Models\Role;
 use App\Models\Student;
-use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,16 +24,16 @@ class RegisterController extends Controller
             $this->redirectTo = route( 'register.dashboard' );
 
         } elseif ( Auth::check() && Auth::user()->role->id == 2 ) {
-            $this->redirectTo = route( 'exam_controller.dashboard' );
-
-        } elseif ( Auth::check() && Auth::user()->role->id == 3 ) {
             $this->redirectTo = route( 'dept_office.dashboard' );
 
+        } elseif ( Auth::check() && Auth::user()->role->id == 3 ) {
+            $this->redirectTo = route( 'hall_office.dashboard' );
+
         } elseif ( Auth::check() && Auth::user()->role->id == 4 ) {
-            $this->redirectTo = route( 'teacher.dashboard' );
+            $this->redirectTo = route( 'student.dashboard' );
 
         } else {
-            $this->redirectTo = route( 'student.dashboard' );
+            $this->redirectTo = route( 'dining.dashboard' );
 
         }
 
@@ -65,7 +66,7 @@ class RegisterController extends Controller
         $name = $request->input( 'name' );
         $email = $request->input( 'email' );
 
-        if ( $role_id == 3 ) {
+        if ( $role_id == 2 ) {
             $check_dept = Dept::where( 'name', $name )->count();
             $duplicate_check = User::where( 'name', $name )->count();
 
@@ -94,21 +95,21 @@ class RegisterController extends Controller
                 }
 
             } else {
-                session()->flash( 'error', 'Department Registration Error!!' );
+                session()->flash( 'error', 'Department Office Registration Error!!' );
 
                 return redirect()->back();
             }
 
-        } elseif ( $role_id == 4 ) {
-            $check_teacher = Teacher::where( 'name', $name )->count();
+        } elseif ( $role_id == 3 ) {
+            $check_hall = Hall::where( 'name', $name )->count();
             $duplicate_check = User::where( 'name', $name )->count();
 
-            if ( $check_teacher == 0 ) {
-                session()->flash( 'error', 'You are not authorised to register! Please contact Dept Office.' );
+            if ( $check_hall == 0 ) {
+                session()->flash( 'error', 'You are not authorised to register! Please contact Register Office.' );
 
                 return redirect()->back();
 
-            } elseif ( $check_teacher == 1 ) {
+            } elseif ( $check_hall == 1 ) {
                 if ( $duplicate_check == 0 ) {
                     $user = new User();
                     $user->role_id = $role_id;
@@ -128,12 +129,12 @@ class RegisterController extends Controller
                 }
 
             } else {
-                session()->flash( 'error', 'Teacher Registration Error!!' );
+                session()->flash( 'error', 'Hall Office Registration Error!!' );
 
                 return redirect()->back();
             }
 
-        } elseif ( $role_id == 5 ) {
+        } elseif ( $role_id == 4 ) {
             $check_student = Student::where( 'email', $email )->count();
             $duplicate_check = User::where( 'email', $email )->count();
 
@@ -163,6 +164,39 @@ class RegisterController extends Controller
 
             } else {
                 session()->flash( 'error', 'Student Registration Error!!' );
+
+                return redirect()->back();
+            }
+        } elseif ( $role_id == 5 ) {
+            $check_dining = Dining::where( 'email', $email )->count();
+            $duplicate_check = User::where( 'email', $email )->count();
+
+            if ( $check_dining == 0 ) {
+                session()->flash( 'error', 'You are not authorised to register! Please contact Hall Office.' );
+
+                return redirect()->back();
+
+            } elseif ( $check_dining == 1 ) {
+                if ( $duplicate_check == 0 ) {
+                    $user = new User();
+                    $user->role_id = $role_id;
+                    $user->name = $name;
+                    $user->email = $request->input( 'email' );
+                    $user->password = Hash::make( $request->input( 'password' ) );
+                    $user->save();
+
+                    session()->flash( 'success', 'You have successfully registered! Please Login!!' );
+
+                    return redirect()->route( 'login' );
+
+                } else {
+                    session()->flash( 'error', 'You are already registered! Please try to login!!' );
+
+                    return redirect()->back();
+                }
+
+            } else {
+                session()->flash( 'error', 'Hall Dining Registration Error!!' );
 
                 return redirect()->back();
             }

@@ -24,7 +24,7 @@
                                 <select id="role_id" type="text" class="form-control @error('role_id') is-invalid @enderror" name="role_id" required autocomplete="name" autofocus>
                                     <option value="" selected disabled>Select Role</option>
                                     @foreach($roles as $key => $role)
-                                        @if($key > 1)
+                                        @if($key > 0)
                                             <option value="{{ $role->id }}">{{ $role->name }}</option>
                                         @endif
                                     @endforeach
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name / Title') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
