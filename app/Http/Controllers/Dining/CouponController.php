@@ -111,11 +111,11 @@ class CouponController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( $coupon_date )
+    public function show( $id )
     {
         $dining = Dining::where( "email", Auth::user()->email )->first();
 
-        $coupon = Coupon::where( 'coupon_date', $coupon_date )->where( 'dining_id', $dining->id )->first();
+        $coupon = Coupon::where( 'id', $id )->where( 'dining_id', $dining->id )->first();
 
         if ( $dining->id === $coupon->dining_id ) {
 
