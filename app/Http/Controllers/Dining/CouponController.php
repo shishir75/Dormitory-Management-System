@@ -212,22 +212,18 @@ class CouponController extends Controller
 
                 if ( $coupon_details->count() > 0 ) {
 
+                    $count = 0;
+
                     foreach ( $coupon_details as $coupon_detail ) {
 
                         $coupon = Coupon::findOrFail( $coupon_detail->coupon_id );
                         $student = Student::findOrFail( $coupon_detail->student_id );
 
                         $student_user = User::where( 'email', $student->email )->first();
-                        $dining_user = User::where( 'email', $dining->email )->first();
-
                         $student_balance = Balance::where( 'user_id', $student_user->id )->first();
-                        $dining_balance = Balance::where( "user_id", $dining_user->id )->first();
 
                         $student_balance->amount += $coupon->unit_price;
                         $student_balance->save();
-
-                        $dining_balance->amount += $coupon->unit_price;
-                        $dining_balance->save();
 
                         $student_transaction = new Transaction();
                         $student_transaction->user_id = $student_user->id;
@@ -236,15 +232,23 @@ class CouponController extends Controller
                         $student_transaction->amount = $coupon->unit_price;
                         $student_transaction->save();
 
-                        $dining_transaction = new Transaction();
-                        $dining_transaction->user_id = $dining_user->id;
-                        $dining_transaction->name = "Coupon Reversal by Own (" . $coupon->coupon_date . " - " . $coupon->type . ")";
-                        $dining_transaction->type = "Credit";
-                        $dining_transaction->amount = $coupon->unit_price;
-                        $dining_transaction->save();
+                        $count += 1;
 
                         $coupon_detail->delete();
                     }
+
+                    $dining_user = User::where( 'email', $dining->email )->first();
+                    $dining_balance = Balance::where( "user_id", $dining_user->id )->first();
+
+                    $dining_balance->amount += ( $coupon->unit_price * $count );
+                    $dining_balance->save();
+
+                    $dining_transaction = new Transaction();
+                    $dining_transaction->user_id = $dining_user->id;
+                    $dining_transaction->name = "Coupon Reversal by Own (" . $coupon->coupon_date . " - " . $coupon->type . " - " . $count . " Units )";
+                    $dining_transaction->type = "Credit";
+                    $dining_transaction->amount = ( $coupon->unit_price * $count );
+                    $dining_transaction->save();
 
                     $coupon->delete();
 
