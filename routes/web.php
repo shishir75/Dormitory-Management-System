@@ -176,6 +176,8 @@ Route::group( ['as' => 'student.', 'prefix' => 'student', 'namespace' => 'Studen
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
     Route::resource( 'coupon', 'CouponController' );
     Route::get( 'transaction', 'TransactionController@index' )->name( 'transaction' );
+    Route::get( 'change-password', 'PasswordController@index' )->name( 'change-password.index' );
+    Route::put( 'change-password', 'PasswordController@update' )->name( 'change-password.update' );
 
 } );
 

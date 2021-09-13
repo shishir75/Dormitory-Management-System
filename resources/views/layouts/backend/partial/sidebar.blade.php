@@ -160,6 +160,8 @@
                         </a>
                     </li>
 
+                    <li class="nav-header">MENU</li>
+
 				@elseif(Request::is('dept-office*')))
 
                     <li class="nav-item has-treeview">
@@ -202,6 +204,8 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="nav-header">MENU</li>
 
 
 			@elseif(Request::is('hall-office*')))
@@ -257,6 +261,8 @@
                     </a>
                 </li>
 
+                <li class="nav-header">MENU</li>
+
 
 			@elseif(Request::is('student*')))
 				<li class="nav-item has-treeview">
@@ -281,6 +287,17 @@
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
                             Transactions
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-header">MENU</li>
+
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('student.change-password.index') }}" class="nav-link {{ Request::is('student/change-password*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Change Password
                         </p>
                     </a>
                 </li>
@@ -313,9 +330,11 @@
                     </a>
                 </li>
 
+                <li class="nav-header">MENU</li>
+
 			@endif
 
-				<li class="nav-header">MENU</li>
+
 
 				<li class="nav-item">
 					<a class="nav-link" href="{{ route('logout') }}"
