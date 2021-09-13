@@ -96,7 +96,14 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Available Balance</span>
-                                <span class="info-box-number">{{ number_format($balance->amount, 2) }} BDT</span>
+                                <span class="info-box-number">
+                                    @if ($balance === null)
+                                        0.00 BDT
+                                    @else
+                                        {{ number_format($balance->amount, 2) }} BDT
+                                    @endif
+
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -123,7 +130,7 @@
                             <span class="info-box-icon bg-gray"><i class="fa fa-btc"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">{{ $due_bill >= 0 ? "Holding Hall Bill" : "Due Hall Bill" }}</span>
+                                <span class="info-box-text">{{ $due_bill_sign === false ? "Holding Hall Bill" : "Due Hall Bill" }}</span>
                                 <span class="info-box-number">{{ number_format($due_bill, 2)}} BDT</span>
                             </div>
                             <!-- /.info-box-content -->
