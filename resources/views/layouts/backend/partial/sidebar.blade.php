@@ -263,6 +263,15 @@
 
                 <li class="nav-header">MENU</li>
 
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('hall_office.change-password.index') }}" class="nav-link {{ Request::is('hall-office/change-password*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Change Password
+                        </p>
+                    </a>
+                </li>
+
 
 			@elseif(Request::is('student*')))
 				<li class="nav-item has-treeview">
@@ -342,9 +351,6 @@
                 </li>
 
 			@endif
-
-
-
 				<li class="nav-item">
 					<a class="nav-link" href="{{ route('logout') }}"
 					   onclick="event.preventDefault();
@@ -354,8 +360,6 @@
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 						@csrf
 					</form>
-
-
 				</li>
 
 			</ul>
