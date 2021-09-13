@@ -18,11 +18,6 @@ class RolesTableSeeder extends Seeder
         ] );
 
         DB::table( 'roles' )->insert( [
-            'name' => 'Exam Controller',
-            'slug' => 'exam-controller',
-        ] );
-
-        DB::table( 'roles' )->insert( [
             'name' => 'Dept Office',
             'slug' => 'dept-office',
         ] );

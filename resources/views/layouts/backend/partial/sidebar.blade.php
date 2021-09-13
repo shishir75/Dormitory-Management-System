@@ -12,17 +12,22 @@
 		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 			<div class="info">
 				<a href="#" class="d-block">
-					@if(Auth::user()->role->id == 3)
+					@if(Auth::user()->role->id == 2)
 						@php
                             $dept = App\Models\Dept::where('name', Auth::user()->name)->first();
 						@endphp
 						{{ $dept->short_name }} Office
 
-                    @elseif(Auth::user()->role->id == 4)
+                    @elseif(Auth::user()->role->id == 3)
                         @php
                             $hall = App\Models\Hall::where('name', Auth::user()->name)->first();
                         @endphp
                         {{ $hall->short_name }} Office
+                    @elseif(Auth::user()->role->id == 5)
+                        @php
+                            $dining = App\Models\Dining::where('name', Auth::user()->name)->first();
+                        @endphp
+                        {{ $dining->short_name }}
 					@else
 						{{ Auth::user()->name }}
 					@endif
@@ -127,27 +132,6 @@
                             </p>
                         </a>
                     </li>
-
-				@elseif(Request::is('exam-controller*')))
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route('exam_controller.dashboard') }}" class="nav-link {{ Request::is('exam-controller/dashboard') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-dashboard"></i>
-                            <p>
-                                Dashboard
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route('exam_controller.dept.index') }}" class="nav-link {{ Request::is('exam-controller/dept*') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-sliders"></i>
-                            <p>
-                                Departments
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-header">MENU</li>
 
 				@elseif(Request::is('dept-office*')))
 

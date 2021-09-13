@@ -17,7 +17,7 @@ class VerificationController extends Controller
     | user that recently registered with the application. Emails may also
     | be re-sent if the user didn't receive the original email message.
     |
-    */
+     */
 
     use VerifiesEmails;
 
@@ -35,31 +35,25 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        if (Auth::check() && Auth::user()->role->id == 1)
-        {
-            $this->redirectTo = route('register.dashboard');
+        if ( Auth::check() && Auth::user()->role->id == 1 ) {
+            $this->redirectTo = route( 'register.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 2)
-        {
-            $this->redirectTo = route('exam_controller.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 2 ) {
+            $this->redirectTo = route( 'dept_office.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 3)
-        {
-            $this->redirectTo = route('dept_office.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 3 ) {
+            $this->redirectTo = route( 'hall_office.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 4)
-        {
-            $this->redirectTo = route('teacher.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 4 ) {
+            $this->redirectTo = route( 'student.dashboard' );
 
-        } else
-        {
-            $this->redirectTo = route('student.dashboard');
+        } else {
+            $this->redirectTo = route( 'dining.dashboard' );
 
         }
 
-
-        $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+        $this->middleware( 'auth' );
+        $this->middleware( 'signed' )->only( 'verify' );
+        $this->middleware( 'throttle:6,1' )->only( 'verify', 'resend' );
     }
 }

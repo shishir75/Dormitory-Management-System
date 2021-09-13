@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -20,7 +20,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
 
@@ -38,29 +38,24 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        if (Auth::check() && Auth::user()->role->id == 1)
-        {
-            $this->redirectTo = route('register.dashboard');
+        if ( Auth::check() && Auth::user()->role->id == 1 ) {
+            $this->redirectTo = route( 'register.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 2)
-        {
-            $this->redirectTo = route('exam_controller.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 2 ) {
+            $this->redirectTo = route( 'dept_office.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 3)
-        {
-            $this->redirectTo = route('dept_office.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 3 ) {
+            $this->redirectTo = route( 'hall_office.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 4)
-        {
-            $this->redirectTo = route('teacher.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 4 ) {
+            $this->redirectTo = route( 'student.dashboard' );
 
-        } else
-        {
-            $this->redirectTo = route('student.dashboard');
+        } else {
+            $this->redirectTo = route( 'dining.dashboard' );
 
         }
 
-        $this->middleware('guest');
+        $this->middleware( 'guest' );
     }
 
     /**
@@ -69,13 +64,13 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator( array $data )
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        return Validator::make( $data, [
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ] );
     }
 
     /**
@@ -84,12 +79,12 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create( array $data )
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        return User::create( [
+            'name'     => $data['name'],
+            'email'    => $data['email'],
+            'password' => Hash::make( $data['password'] ),
+        ] );
     }
 }

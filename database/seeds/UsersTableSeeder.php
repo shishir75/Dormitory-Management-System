@@ -21,20 +21,13 @@ class UsersTableSeeder extends Seeder
 
         DB::table( 'users' )->insert( [
             'role_id'  => 2,
-            'name'     => 'Md. Exam Controller',
-            'email'    => 'exam-controller@gmail.com',
-            'password' => bcrypt( 12345678 ),
-        ] );
-
-        DB::table( 'users' )->insert( [
-            'role_id'  => 3,
             'name'     => 'Institute of Information Technology',
             'email'    => 'iit-office@gmail.com',
             'password' => bcrypt( 12345678 ),
         ] );
 
         DB::table( 'users' )->insert( [
-            'role_id'  => 4,
+            'role_id'  => 3,
             'name'     => 'Rabindranath Tagore Hall',
             'email'    => 'rth_office@gmail.com',
             'password' => bcrypt( 12345678 ),
@@ -42,13 +35,6 @@ class UsersTableSeeder extends Seeder
 
         DB::table( 'users' )->insert( [
             'role_id'  => 5,
-            'name'     => 'Md. Student',
-            'email'    => 'student@gmail.com',
-            'password' => bcrypt( 12345678 ),
-        ] );
-
-        DB::table( 'users' )->insert( [
-            'role_id'  => 6,
             'name'     => 'Rabindranath Tagore Hall Dining',
             'email'    => 'rth_dining@gmail.com',
             'password' => bcrypt( 12345678 ),

@@ -14,14 +14,13 @@ class DeptOfficeMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle( $request, Closure $next )
     {
-        if (Auth::check() && Auth::user()->role->id == 3)
-        {
-            return $next($request);
+        if ( Auth::check() && Auth::user()->role->id == 2 ) {
+            return $next( $request );
 
         } else {
-            return redirect()->route('login');
+            return redirect()->route( 'login' );
         }
     }
 }

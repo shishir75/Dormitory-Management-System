@@ -13,15 +13,17 @@ class DiningSeeder extends Seeder
     public function run()
     {
         DB::table( 'dinings' )->insert( [
-            'name'    => 'Rabindranath Tagore Hall Dining',
-            'email'   => 'rth_dining@gmail.com',
-            'hall_id' => 1,
+            'name'       => 'Rabindranath Tagore Hall Dining',
+            'email'      => 'rth_dining@gmail.com',
+            'short_name' => 'RTH Dining',
+            'hall_id'    => 1,
         ] );
 
         DB::table( 'dinings' )->insert( [
-            'name'    => 'Sheikh Hasina Hall Dining',
-            'email'   => 'shh_dining@gmail.com',
-            'hall_id' => 2,
+            'name'       => 'Sheikh Hasina Hall Dining',
+            'email'      => 'shh_dining@gmail.com',
+            'short_name' => 'SHH Dining',
+            'hall_id'    => 2,
         ] );
     }
 }

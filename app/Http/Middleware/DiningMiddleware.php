@@ -16,7 +16,7 @@ class DiningMiddleware
      */
     public function handle( $request, Closure $next )
     {
-        if ( Auth::check() && Auth::user()->role->id == 6 ) {
+        if ( Auth::check() && Auth::user()->role->id == 5 ) {
             return $next( $request );
 
         } else {

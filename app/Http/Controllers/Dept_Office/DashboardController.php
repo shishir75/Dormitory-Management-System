@@ -3,16 +3,13 @@
 namespace App\Http\Controllers\Dept_Office;
 
 use App\Http\Controllers\Controller;
-use App\Models\Dept;
-use App\Models\Session;
-use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $dept = Dept::where( 'name', Auth::user()->name )->first();
-        $sessions = Session::count();
+        // $dept = Dept::where( 'name', Auth::user()->name )->first();
+        // $sessions = Session::count();
         //$teachers = Teacher::where('dept_id', $dept->id)->count();
         //$students = Student::where('dept_id', $dept->id)->count();
         //$courses = Course::where('dept_id', $dept->id)->count();

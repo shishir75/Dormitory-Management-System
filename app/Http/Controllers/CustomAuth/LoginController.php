@@ -33,15 +33,12 @@ class LoginController extends Controller
                 return redirect()->route( 'register.dashboard' );
 
             } elseif ( Auth::check() && Auth::user()->role->id == 2 ) {
-                return redirect()->route( 'exam_controller.dashboard' );
-
-            } elseif ( Auth::check() && Auth::user()->role->id == 3 ) {
                 return redirect()->route( 'dept_office.dashboard' );
 
-            } elseif ( Auth::check() && Auth::user()->role->id == 4 ) {
+            } elseif ( Auth::check() && Auth::user()->role->id == 3 ) {
                 return redirect()->route( 'hall_office.dashboard' );
 
-            } elseif ( Auth::check() && Auth::user()->role->id == 5 ) {
+            } elseif ( Auth::check() && Auth::user()->role->id == 4 ) {
                 return redirect()->route( 'student.dashboard' );
 
             } else {

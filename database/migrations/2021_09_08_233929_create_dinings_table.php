@@ -18,6 +18,7 @@ class CreateDiningsTable extends Migration
             $table->unsignedBigInteger( "hall_id" );
             $table->string( "name" );
             $table->string( 'email' )->unique();
+            $table->string( 'short_name' );
             $table->timestamps();
         } );
     }

@@ -17,7 +17,7 @@ class ResetPasswordController extends Controller
     | and uses a simple trait to include this behavior. You're free to
     | explore this trait and override any methods you wish to tweak.
     |
-    */
+     */
 
     use ResetsPasswords;
 
@@ -35,28 +35,23 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
-        if (Auth::check() && Auth::user()->role->id == 1)
-        {
-            $this->redirectTo = route('register.dashboard');
+        if ( Auth::check() && Auth::user()->role->id == 1 ) {
+            $this->redirectTo = route( 'register.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 2)
-        {
-            $this->redirectTo = route('exam_controller.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 2 ) {
+            $this->redirectTo = route( 'dept_office.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 3)
-        {
-            $this->redirectTo = route('dept_office.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 3 ) {
+            $this->redirectTo = route( 'hall_office.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 4)
-        {
-            $this->redirectTo = route('teacher.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 4 ) {
+            $this->redirectTo = route( 'student.dashboard' );
 
-        } else
-        {
-            $this->redirectTo = route('student.dashboard');
+        } else {
+            $this->redirectTo = route( 'dining.dashboard' );
 
         }
 
-        $this->middleware('guest');
+        $this->middleware( 'guest' );
     }
 }

@@ -16,7 +16,7 @@ class HallOfficeMiddleware
      */
     public function handle( $request, Closure $next )
     {
-        if ( Auth::check() && Auth::user()->role->id == 4 ) {
+        if ( Auth::check() && Auth::user()->role->id == 3 ) {
             return $next( $request );
 
         } else {

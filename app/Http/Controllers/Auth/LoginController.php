@@ -17,7 +17,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -35,28 +35,22 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        if (Auth::check() && Auth::user()->role->id == 1)
-        {
-            $this->redirectTo = route('register.dashboard');
+        if ( Auth::check() && Auth::user()->role->id == 1 ) {
+            $this->redirectTo = route( 'register.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 2)
-        {
-            $this->redirectTo = route('exam_controller.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 2 ) {
+            $this->redirectTo = route( 'dept_office.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 3)
-        {
-            $this->redirectTo = route('dept_office.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 3 ) {
+            $this->redirectTo = route( 'hall_office.dashboard' );
 
-        } elseif (Auth::check() && Auth::user()->role->id == 4)
-        {
-            $this->redirectTo = route('teacher.dashboard');
+        } elseif ( Auth::check() && Auth::user()->role->id == 4 ) {
+            $this->redirectTo = route( 'student.dashboard' );
 
-        } else
-        {
-            $this->redirectTo = route('student.dashboard');
-
+        } else {
+            $this->redirectTo = route( 'dining.dashboard' );
         }
 
-        $this->middleware('guest')->except('logout');
+        $this->middleware( 'guest' )->except( 'logout' );
     }
 }
