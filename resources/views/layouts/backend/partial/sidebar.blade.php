@@ -332,6 +332,15 @@
 
                 <li class="nav-header">MENU</li>
 
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('dining.change-password.index') }}" class="nav-link {{ Request::is('dining/change-password*') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Change Password
+                        </p>
+                    </a>
+                </li>
+
 			@endif
 
 
