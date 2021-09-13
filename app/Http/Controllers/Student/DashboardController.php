@@ -43,7 +43,7 @@ class DashboardController extends Controller
         $end_date_as_integer = (int) date( 'Ym', strtotime( $from ) );
         $current_date_as_integer = (int) date( 'Ym', strtotime( $to ) );
 
-        if ( $end_date_as_integer < $current_date_as_integer ) {
+        if ( $end_date_as_integer > $current_date_as_integer ) {
             $due_bill_sign = false;
         } else {
             $due_bill_sign = true;
