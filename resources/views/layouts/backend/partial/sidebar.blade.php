@@ -117,29 +117,16 @@
                     </ul>
                 </li>
 
-				{{-- <li class="nav-item has-treeview {{ Request::is('register/designation*') ? 'menu-open' : '' }}">
-					<a href="#" class="nav-link {{ Request::is('register/designation*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-long-arrow-up"></i>
-						<p>
-							Designation
-							<i class="right fa fa-angle-left"></i>
-						</p>
-					</a>
-					<ul class="nav nav-treeview">
-						<li class="nav-item">
-							<a href="{{ route('register.designation.create') }}" class="nav-link {{ Request::is('register/designation/create') ? 'active' : '' }}">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>Add Designation</p>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="{{ route('register.designation.index') }}" class="nav-link {{ Request::is('register/designation') ? 'active' : '' }}">
-								<i class="fa fa-circle-o nav-icon"></i>
-								<p>All Designations</p>
-							</a>
-						</li>
-					</ul>
-				</li> --}}
+                <li class="nav-header">MENU</li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('register.change-password.index') }}" class="nav-link {{ Request::is('register/change-password*') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-dashboard"></i>
+                            <p>
+                                Change Password
+                            </p>
+                        </a>
+                    </li>
 
 				@elseif(Request::is('exam-controller*')))
                     <li class="nav-item has-treeview">

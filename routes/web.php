@@ -40,7 +40,9 @@ Route::group( ['as' => 'register.', 'prefix' => 'register', 'namespace' => 'Regi
     Route::resource( 'dept', 'DeptController' );
     Route::resource( 'hall', 'HallController' );
     Route::resource( 'session', 'SessionController' );
-    Route::resource( 'designation', 'DesignationController' );
+    //Route::resource( 'designation', 'DesignationController' );
+    Route::get( 'change-password', 'PasswordController@index' )->name( 'change-password.index' );
+    Route::put( 'change-password', 'PasswordController@update' )->name( 'change-password.update' );
 
 } );
 
