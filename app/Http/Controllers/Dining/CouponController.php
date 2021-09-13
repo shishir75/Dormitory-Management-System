@@ -71,7 +71,7 @@ class CouponController extends Controller
 
         $coupon_date_as_integer = (int) date( 'Ymd', strtotime( $date ) );
 
-        $yesterday_as_integer = (int) date( 'Ymd', strtotime( Carbon::yesterday() ) );
+        $tomorrow_as_integer = (int) date( 'Ymd', strtotime( Carbon::tomorrow() ) );
 
         $dining = Dining::where( "email", Auth::user()->email )->first();
 
@@ -79,7 +79,7 @@ class CouponController extends Controller
 
         if ( $check === 0 ) {
 
-            if ( $coupon_date_as_integer > $yesterday_as_integer ) {
+            if ( $coupon_date_as_integer >= $tomorrow_as_integer ) {
 
                 $coupon = new Coupon();
                 $coupon->dining_id = $dining->id;
