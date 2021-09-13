@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Dining;
 
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
 use App\Models\Coupon;
 use App\Models\CouponDetail;
 use App\Models\Dining;
+use App\Models\Student;
+use App\Models\Transaction;
+use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -191,6 +195,83 @@ class CouponController extends Controller
      */
     public function destroy( $id )
     {
-        //
+        $dining = Dining::where( "email", Auth::user()->email )->first();
+
+        $coupon = Coupon::where( 'id', $id )->where( 'dining_id', $dining->id )->first();
+
+        $coupon_date = (int) date( 'Ymd', strtotime( $coupon->coupon_date ) );
+        $current_date = (int) date( 'Ymd', strtotime( Carbon::now()->format( "Y-m-d" ) ) );
+
+        //dd( $coupon_date );
+
+        if ( $dining->id === $coupon->dining_id ) {
+
+            if ( $current_date < $coupon_date ) {
+
+                $coupon_details = CouponDetail::with( 'coupon' )->with( 'student' )->where( 'coupon_id', $coupon->id )->get();
+
+                if ( $coupon_details->count() > 0 ) {
+
+                    foreach ( $coupon_details as $coupon_detail ) {
+
+                        $coupon = Coupon::findOrFail( $coupon_detail->coupon_id );
+                        $student = Student::findOrFail( $coupon_detail->student_id );
+
+                        $student_user = User::where( 'email', $student->email )->first();
+                        $dining_user = User::where( 'email', $dining->email )->first();
+
+                        $student_balance = Balance::where( 'user_id', $student_user->id )->first();
+                        $dining_balance = Balance::where( "user_id", $dining_user->id )->first();
+
+                        $student_balance->amount += $coupon->unit_price;
+                        $student_balance->save();
+
+                        $dining_balance->amount += $coupon->unit_price;
+                        $dining_balance->save();
+
+                        $student_transaction = new Transaction();
+                        $student_transaction->user_id = $student_user->id;
+                        $student_transaction->name = "Coupon Reversal by Auth (" . $coupon->coupon_date . " - " . $coupon->type . ")";
+                        $student_transaction->type = "Credit";
+                        $student_transaction->amount = $coupon->unit_price;
+                        $student_transaction->save();
+
+                        $dining_transaction = new Transaction();
+                        $dining_transaction->user_id = $dining_user->id;
+                        $dining_transaction->name = "Coupon Reversal by Own (" . $coupon->coupon_date . " - " . $coupon->type . ")";
+                        $dining_transaction->type = "Credit";
+                        $dining_transaction->amount = $coupon->unit_price;
+                        $dining_transaction->save();
+
+                        $coupon_detail->delete();
+                    }
+
+                    $coupon->delete();
+
+                    Toastr::success( 'Coupon Deleted Successully', 'Success!!!' );
+
+                    return redirect()->back();
+
+                } else {
+
+                    $coupon->delete();
+
+                    Toastr::success( 'No Sold Coupon Deleted Successully', 'Success!!!' );
+
+                    return redirect()->back();
+                }
+
+            } else {
+
+                Toastr::info( 'You are too late to cancel this coupon!', 'Info!!!' );
+
+                return redirect()->back();
+            }
+
+        } else {
+            Toastr::error( 'Anauthorized Access Denied', 'Error!!!' );
+
+            return redirect()->back();
+        }
     }
 }

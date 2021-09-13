@@ -100,8 +100,9 @@
                                         <th>Date</th>
                                         <th>L / D</th>
                                         <th>Unit Price</th>
-                                        <th>Available Coupon</th>
+                                        <th>Available Coupons</th>
                                         <th>Details</th>
+                                        <th>Cancel</th>
                                     </tr>
                                     </thead>
                                     <tfoot>
@@ -110,8 +111,9 @@
                                             <th>Date</th>
                                             <th>L / D</th>
                                             <th>Unit Price</th>
-                                            <th>Available Coupon</th>
+                                            <th>Available Coupons</th>
                                             <th>Details</th>
+                                            <th>Cancel</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -132,6 +134,16 @@
                                                 <a href="{{ route('dining.coupon.show', $coupon->id) }}" class="btn btn-info">
                                                     View Details
                                                 </a>
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $coupon->id }})">
+                                                    Cancel
+                                               </button>
+                                               <form id="delete-form-{{ $coupon->id }}" action="{{ route('dining.coupon.destroy', $coupon->id) }}" method="post"
+                                                     style="display:none;">
+                                                   @csrf
+                                                   @method('DELETE')
+                                               </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -167,7 +179,7 @@
    <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
    <!-- Sweet Alert Js -->
-   {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script> --}}
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
 
 
    <script>
@@ -183,5 +195,38 @@
            });
        });
    </script>
+
+<script type="text/javascript">
+    function deleteItem(id) {
+        const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: true,
+        })
+
+        swalWithBootstrapButtons({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                event.preventDefault();
+                document.getElementById('delete-form-'+id).submit();
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                    'Cancelled',
+                    'Your data is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
 
 @endpush
