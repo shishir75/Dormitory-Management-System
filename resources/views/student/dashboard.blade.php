@@ -155,25 +155,32 @@
 							<!-- /.card-header -->
 							<div class="card-body p-0">
 								<table class="table table-striped table-bordered table-valign-middle text-center">
-									<thead>
-									<tr>
-										<th>S.N</th>
-										<th>Title</th>
-										<th>Type</th>
-										<th>Amount</th>
-										<th>Time</th>
-									</tr>
-									</thead>
+									@if ($latest_transactions->count() > 0)
+                                        <thead>
+                                            <tr>
+                                                <th>S.N</th>
+                                                <th>Title</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th>Time</th>
+                                            </tr>
+                                        </thead>
+                                    @endif
+
 									<tbody>
-                                        @foreach($latest_transactions as $key => $latest_transaction)
-											<tr>
-												<td>{{ $key + 1 }}</td>
-												<td>{{ $latest_transaction->name }}</td>
-												<td><span class="badge badge-{{ $latest_transaction->type == 'Credit' ? 'success' : 'danger' }}">{{ $latest_transaction->type }}</span></td>
-												<td>{{ number_format($latest_transaction->amount, 2) }} BDT</td>
-												<td>{{ $latest_transaction->created_at->diffInMinutes() <= 1440 ?  $latest_transaction->created_at->diffForHumans() : $latest_transaction->created_at->format('jS F Y') }}</td>
-											</tr>
-										@endforeach
+                                        @if ($latest_transactions->count() > 0)
+                                            @foreach($latest_transactions as $key => $latest_transaction)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $latest_transaction->name }}</td>
+                                                    <td><span class="badge badge-{{ $latest_transaction->type == 'Credit' ? 'success' : 'danger' }}">{{ $latest_transaction->type }}</span></td>
+                                                    <td>{{ number_format($latest_transaction->amount, 2) }} BDT</td>
+                                                    <td>{{ $latest_transaction->created_at->diffInMinutes() <= 1440 ?  $latest_transaction->created_at->diffForHumans() : $latest_transaction->created_at->format('jS F Y') }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <h5 class="text-danger text-center my-3">No Transaction Found</h5>
+                                        @endif
 									</tbody>
 								</table>
 							</div>
@@ -192,36 +199,44 @@
                             <!-- /.card-header -->
                             <div class="card-body p-0">
                                 <table class="table table-striped table-bordered table-valign-middle text-center">
-                                    <thead>
-                                    <tr>
-                                        <th>S.N</th>
-                                        <th>Coupon ID</th>
-                                        <th>Coupon Date</th>
-                                        <th>L/D</th>
-                                        <th>Unit Price</th>
-                                        <th>Status</th>
-                                        <th>Bought Time</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($coupons as $key => $coupon)
-											<tr>
-												<td>{{ $key + 1 }}</td>
-												<td>{{ $coupon->coupon_no }}</td>
-                                                <td>{{ $coupon->coupon->coupon_date }}</td>
-                                                <td>
-                                                    @if ($coupon->coupon->type === "L")
-                                                        <span class="badge badge-success">Lunch</span>
-                                                    @else
-                                                        <span class="badge badge-info">Dinner</span>
-                                                    @endif
+                                    @if ($coupon_count > 0)
+                                        <thead>
+                                            <tr>
+                                                <th>S.N</th>
+                                                <th>Coupon ID</th>
+                                                <th>Coupon Date</th>
+                                                <th>L/D</th>
+                                                <th>Unit Price</th>
+                                                <th>Status</th>
+                                                <th>Bought Time</th>
+                                            </tr>
+                                        </thead>
+                                    @endif
 
-                                                </td>
-                                                <td>{{ number_format($coupon->coupon->unit_price, 2) }} BDT</td>
-												<td><span class="badge badge-{{ $coupon->is_valid == 'unused' ? 'success' : 'danger' }}">{{ ucwords($coupon->is_valid) }}</span></td>
-												<td>{{ $coupon->created_at->diffInMinutes() <= 1440 ?  $coupon->created_at->diffForHumans() : $coupon->created_at->format('jS F Y') }}</td>
-											</tr>
-										@endforeach
+                                    <tbody>
+                                        @if ($coupon_count > 0)
+                                            @foreach($coupons as $key => $coupon)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $coupon->coupon_no }}</td>
+                                                    <td>{{ $coupon->coupon->coupon_date }}</td>
+                                                    <td>
+                                                        @if ($coupon->coupon->type === "L")
+                                                            <span class="badge badge-success">Lunch</span>
+                                                        @else
+                                                            <span class="badge badge-info">Dinner</span>
+                                                        @endif
+
+                                                    </td>
+                                                    <td>{{ number_format($coupon->coupon->unit_price, 2) }} BDT</td>
+                                                    <td><span class="badge badge-{{ $coupon->is_valid == 'unused' ? 'success' : 'danger' }}">{{ ucwords($coupon->is_valid) }}</span></td>
+                                                    <td>{{ $coupon->created_at->diffInMinutes() <= 1440 ?  $coupon->created_at->diffForHumans() : $coupon->created_at->format('jS F Y') }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <h5 class="text-danger text-center my-3">No Coupon Found</h5>
+                                        @endif
+
                                     </tbody>
                                 </table>
                             </div>
