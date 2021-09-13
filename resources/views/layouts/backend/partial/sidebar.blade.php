@@ -236,7 +236,7 @@
                     <a href="{{ route('hall_office.payment.index') }}" class="nav-link {{ Request::is('hall-office/payment*') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-dashboard"></i>
                         <p>
-                            Add Dining Balance
+                            Make Dining Payment
                         </p>
                     </a>
                 </li>

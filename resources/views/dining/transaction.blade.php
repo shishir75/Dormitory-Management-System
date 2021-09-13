@@ -37,12 +37,12 @@
                                 <h3 class="card-title">{{ strtoupper('Transaction list of '. Auth::user()->name ) }}
                                     <span class="float-right">
                                         @if ($balance !== null)
-                                            {{ $balance->amount > 0 ? 'Available Balance : ' : 'Owing Balance : ' }}
-                                            <span class="badge badge-{{ $balance->amount > 0 ? 'success' : 'danger' }}">
-                                                {{ $balance->amount }} BDT
+                                            {{ $balance->amount > 0 ? 'Advanced Balance : ' : 'Owing Balance : ' }}
+                                            <span class="badge badge-{{ $balance->amount > 0 ? 'danger' : 'success' }}">
+                                                {{ abs(number_format($balance->amount, 2)) }} BDT
                                             </span>
                                         @else
-                                           Available Balance : <span class="badge badge-danger">0 BDT</span>
+                                           Available Balance : <span class="badge badge-danger">0.00 BDT</span>
                                         @endif
                                     </span>
                                 </h3>

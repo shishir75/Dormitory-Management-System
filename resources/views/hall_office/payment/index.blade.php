@@ -76,8 +76,8 @@
                                     <span class="float-right">
                                         @if ($balance !== null)
                                             {{ $balance->amount > 0 ? 'Advanced Balance : ' : 'Payable Balance : ' }}
-                                            <span class="badge badge-{{ $balance->amount > 0 ? 'success' : 'danger' }}">
-                                                {{ $balance->amount }} BDT
+                                            <span class="badge badge-{{ $balance->amount > 0 ? 'danger' : 'success' }}">
+                                                {{ abs(number_format($balance->amount, 2)) }} BDT
                                             </span>
                                         @else
                                            Available Balance 0 BDT
