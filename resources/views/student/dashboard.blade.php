@@ -206,7 +206,14 @@
 												<td>{{ $key + 1 }}</td>
 												<td>{{ $coupon->coupon_no }}</td>
                                                 <td>{{ $coupon->coupon->coupon_date }}</td>
-                                                <td><span class="badge badge-success">Lunch</span></td>
+                                                <td>
+                                                    @if ($coupon->coupon->type === "L")
+                                                        <span class="badge badge-success">Lunch</span>
+                                                    @else
+                                                        <span class="badge badge-info">Dinner</span>
+                                                    @endif
+
+                                                </td>
                                                 <td>{{ number_format($coupon->coupon->unit_price, 2) }} BDT</td>
 												<td><span class="badge badge-{{ $coupon->is_valid == 'unused' ? 'success' : 'danger' }}">{{ ucwords($coupon->is_valid) }}</span></td>
 												<td>{{ $coupon->created_at->diffInMinutes() <= 1440 ?  $coupon->created_at->diffForHumans() : $coupon->created_at->format('jS F Y') }}</td>

@@ -65,11 +65,11 @@
                                     @csrf
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="coupon_date">Purchase a Coupon (Date - Unit Price - Available Unit)</label>
+                                            <label for="coupon_date">Buy a Coupon (Date - Lunch/Dinner - Unit Price - Available Units)</label>
                                             <select class="form-control" name="coupon_id" id="coupon_date">
                                                 <option value="" selected disabled>Select a Coupon</option>
                                                 @foreach ($coupons as $coupon )
-                                                    <option value="{{ $coupon->id }}">Date : {{ $coupon->coupon_date }} - BDT {{ $coupon->unit_price }} - {{ $coupon->max_count }} Unit</option>
+                                                    <option value="{{ $coupon->id }}">Date : {{ $coupon->coupon_date }} - {{ $coupon->type === "L" ? "Lunch" : "Dinner" }} - {{ $coupon->unit_price }} BDT - {{ $coupon->max_count }} Units</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -101,6 +101,7 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Coupon ID</th>
+                                        <th>L / D</th>
                                         <th>Date</th>
                                         <th>Amount</th>
                                         <th>Status</th>
@@ -112,6 +113,13 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $coupon_detail->coupon_no }}</td>
+                                            <td>
+                                                @if ($coupon_detail->coupon->type === "L")
+                                                    <span class="badge badge-success">Lunch</span>
+                                                @else
+                                                    <span class="badge badge-info">Dinner</span>
+                                                @endif
+                                            </td>
                                             <td >{{ $coupon_detail->coupon->coupon_date }}</td>
                                             <td>{{ $coupon_detail->coupon->unit_price }} BDT</td>
                                             <td>

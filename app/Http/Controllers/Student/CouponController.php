@@ -73,7 +73,8 @@ class CouponController extends Controller
         }
 
         $coupon_id = $request->input( 'coupon_id' );
-        $coupon_detail_old = CouponDetail::where( 'coupon_id', $coupon_id )->first();
+        $student = Student::where( 'email', Auth::user()->email )->first();
+        $coupon_detail_old = CouponDetail::where( 'coupon_id', $coupon_id )->where( 'student_id', $student->id )->first();
 
         if ( $coupon_detail_old == null ) {
             $check = 0;
@@ -81,7 +82,6 @@ class CouponController extends Controller
             $check = CouponDetail::where( "coupon_no", $coupon_detail_old->coupon_no )->count();
         }
 
-        $student = Student::where( 'email', Auth::user()->email )->first();
         $dining = Dining::where( 'hall_id', $student->hall_id )->first();
         $dining_user = User::where( 'email', $dining->email )->first();
         $dining_user_balance = Balance::where( 'user_id', $dining_user->id )->where( 'hall_id', $student->hall_id )->first();
@@ -94,7 +94,7 @@ class CouponController extends Controller
 
         //dd( $coupon_date );
 
-        $coupon_no_new = $coupon_date . "-" . $student->id . "-" . $coupon_id;
+        $coupon_no_new = $coupon_date . "-" . $student->id . "-" . $coupon->type;
 
         $balance = Balance::where( "user_id", Auth::user()->id )->first();
 
