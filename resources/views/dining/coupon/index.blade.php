@@ -53,15 +53,23 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <label for="coupon_date">Coupon Date</label>
-                                                    <input type="date" class="form-control" name="coupon_date">
+                                                    <input type="date" class="form-control" name="coupon_date" required>
+                                                </div>
+                                                <div class="col">
+                                                    <label for="coupon_date">For Lunch / Dinner</label>
+                                                    <select class="form-control" name="type" required aria-label="Default select example">
+                                                        <option value="" disabled selected>Select a Meal</option>
+                                                        <option value="L">Lunch</option>
+                                                        <option value="D">Dinner</option>
+                                                      </select>
                                                 </div>
                                                 <div class="col">
                                                     <label for="unit_price">Coupon Unit Price</label>
-                                                    <input type="number" class="form-control" name="unit_price" placeholder="Enter Unit Price">
+                                                    <input type="number" class="form-control" name="unit_price" required placeholder="Enter Unit Price">
                                                 </div>
                                                 <div class="col">
                                                     <label for="max_count">Coupon Max Quantity</label>
-                                                  <input type="number" name="max_count" class="form-control" placeholder="Enter Coupon Max Quantity">
+                                                  <input type="number" name="max_count" class="form-control" required placeholder="Max Quantity">
                                                 </div>
                                               </div>
 
@@ -90,8 +98,9 @@
                                     <tr>
                                         <th>Serial</th>
                                         <th>Date</th>
+                                        <th>L / D</th>
                                         <th>Unit Price</th>
-                                        <th>Max Coupon</th>
+                                        <th>Available Coupon</th>
                                         <th>Details</th>
                                     </tr>
                                     </thead>
@@ -99,8 +108,9 @@
                                         <tr>
                                             <th>Serial</th>
                                             <th>Date</th>
+                                            <th>L / D</th>
                                             <th>Unit Price</th>
-                                            <th>Max Coupon</th>
+                                            <th>Available Coupon</th>
                                             <th>Details</th>
                                         </tr>
                                     </tfoot>
@@ -109,8 +119,15 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $coupon->coupon_date }}</td>
+                                            <td>
+                                                @if ($coupon->type === 'L')
+                                                    <span class="badge badge-success">Lunch</span>
+                                                @else
+                                                    <span class="badge badge-info">Dinner</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $coupon->unit_price }} BDT</td>
-                                            <td>{{ $coupon->max_count }}</td>
+                                            <td>{{ $coupon->max_count }} UNITS</td>
                                             <td>
                                                 <a href="{{ route('dining.coupon.show', $coupon->coupon_date) }}" class="btn btn-info">
                                                     View Details

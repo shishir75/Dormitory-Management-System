@@ -51,6 +51,7 @@ class CouponController extends Controller
         $inputs = $request->except( '_token' );
         $rules = [
             'coupon_date' => 'required | date',
+            'type'        => 'required',
             'unit_price'  => 'required | integer',
             'max_count'   => 'required | integer',
         ];
@@ -62,6 +63,7 @@ class CouponController extends Controller
         }
 
         $date = $request->input( 'coupon_date' );
+        $type = $request->input( 'type' );
 
         $coupon_date_as_integer = (int) date( 'Ymd', strtotime( $date ) );
 
@@ -69,7 +71,7 @@ class CouponController extends Controller
 
         $dining = Dining::where( "email", Auth::user()->email )->first();
 
-        $check = Coupon::where( 'dining_id', $dining->id )->where( 'coupon_date', $date )->count();
+        $check = Coupon::where( 'dining_id', $dining->id )->where( 'coupon_date', $date )->where( 'type', $type )->count();
 
         if ( $check === 0 ) {
 
@@ -78,6 +80,7 @@ class CouponController extends Controller
                 $coupon = new Coupon();
                 $coupon->dining_id = $dining->id;
                 $coupon->coupon_date = $date;
+                $coupon->type = $type;
                 $coupon->unit_price = $request->input( 'unit_price' );
                 $coupon->max_count = $request->input( 'max_count' );
                 $coupon->save();

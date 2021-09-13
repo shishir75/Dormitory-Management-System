@@ -17,6 +17,7 @@ class CreateCouponsTable extends Migration
             $table->bigIncrements( 'id' );
             $table->unsignedBigInteger( "dining_id" );
             $table->date( "coupon_date" );
+            $table->string( 'type' );
             $table->integer( 'unit_price' )->default( 20 );
             $table->integer( "max_count" )->default( 1000 );
             $table->timestamps();
