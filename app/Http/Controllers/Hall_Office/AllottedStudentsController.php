@@ -145,15 +145,15 @@ class AllottedStudentsController extends Controller
         $hall = Hall::where( 'name', Auth::user()->name )->first();
 
         $student = Student::findOrFail( $student_id );
-        $user = User::where( "name", $student->name )->first();
+        $student_user = User::where( "name", $student->name )->first();
 
-        if ( $user !== null ) {
-            $balance = Balance::where( "hall_id", $hall->id )->where( 'user_id', $user->id )->first();
+        if ( $student_user !== null ) {
+            $balance = Balance::where( "hall_id", $hall->id )->where( 'user_id', $student_user->id )->first();
 
             if ( $balance == null ) {
 
                 $balance = new Balance();
-                $balance->user_id = $user->id;
+                $balance->user_id = $student_user->id;
                 $balance->hall_id = $hall->id;
                 $balance->amount = $request->input( 'amount' );
                 $balance->save();
@@ -163,12 +163,34 @@ class AllottedStudentsController extends Controller
                 $balance->save();
             }
 
+            $hall_office_balance = Balance::where( 'hall_id', $hall->id )->where( 'user_id', Auth::user()->id )->first();
+
+            if ( $hall_office_balance == null ) {
+
+                $hall_office_balance = new Balance();
+                $hall_office_balance->user_id = Auth::user()->id;
+                $hall_office_balance->hall_id = $hall->id;
+                $hall_office_balance->amount = $request->input( 'amount' );
+                $hall_office_balance->save();
+
+            } else {
+                $hall_office_balance->amount += $request->input( 'amount' );
+                $hall_office_balance->save();
+            }
+
             $transaction = new Transaction();
-            $transaction->user_id = $user->id;
+            $transaction->user_id = $student_user->id;
             $transaction->name = "Add Money";
             $transaction->type = "Credit";
             $transaction->amount = $request->input( 'amount' );
             $transaction->save();
+
+            $hall_office_transaction = new Transaction();
+            $hall_office_transaction->user_id = Auth::user()->id;
+            $hall_office_transaction->name = "TopUp Money for (" . $student_user->name . ")";
+            $hall_office_transaction->type = "Credit";
+            $hall_office_transaction->amount = $request->input( 'amount' );
+            $hall_office_transaction->save();
 
             Toastr::success( 'Money added Successfully', 'Success!!!' );
 
