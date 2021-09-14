@@ -7,7 +7,6 @@ use App\Models\Hall;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class HallController extends Controller
 {
@@ -55,7 +54,6 @@ class HallController extends Controller
 
         $hall = new Hall();
         $hall->name = $request->input( 'name' );
-        $hall->slug = Str::slug( $request->input( 'name' ) );
         $hall->short_name = $request->input( 'short_name' );
         $hall->for_male_female = $request->input( 'for_male_female' );
         $hall->total_seat = $request->input( 'total_seat' );
@@ -111,7 +109,6 @@ class HallController extends Controller
         }
 
         $hall->name = $request->input( 'name' );
-        $hall->slug = Str::slug( $request->input( 'name' ) );
         $hall->short_name = $request->input( 'short_name' );
         $hall->for_male_female = $request->input( 'for_male_female' );
         $hall->total_seat = $request->input( 'total_seat' );

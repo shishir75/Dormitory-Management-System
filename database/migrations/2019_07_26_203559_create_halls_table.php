@@ -16,7 +16,6 @@ class CreateHallsTable extends Migration
         Schema::create( 'halls', function ( Blueprint $table ) {
             $table->bigIncrements( 'id' );
             $table->string( 'name' )->unique();
-            $table->string( 'slug' )->unique();
             $table->string( "short_name" )->unique();
             $table->string( "for_male_female", 1 )->default( "M" );
             $table->integer( "total_seat" );

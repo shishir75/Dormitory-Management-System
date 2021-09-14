@@ -71,14 +71,14 @@
                                                 <a href="{{ route('register.hall.edit', $hall->id) }}" class="btn btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $hall->id }})">
+                                                {{-- <button class="btn btn-danger" type="button" onclick="deleteItem({{ $hall->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $hall->id }}" action="{{ route('register.hall.destroy', $hall->id) }}" method="post"
                                                       style="display:none;">
                                                     @csrf
                                                     @method('DELETE')
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -113,8 +113,8 @@
     <!-- FastClick -->
     <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
 
-    <!-- Sweet Alert Js -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+    {{-- <!-- Sweet Alert Js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script> --}}
 
 
     <script>
@@ -132,7 +132,7 @@
     </script>
 
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         function deleteItem(id) {
             const swalWithBootstrapButtons = swal.mixin({
                 confirmButtonClass: 'btn btn-success',
@@ -164,7 +164,7 @@
                 }
             })
         }
-    </script>
+    </script> --}}
 
 
 
