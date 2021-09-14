@@ -87,9 +87,10 @@ class CouponController extends Controller
                 $coupon->type = $type;
                 $coupon->unit_price = $request->input( 'unit_price' );
                 $coupon->max_count = $request->input( 'max_count' );
+                $coupon->sold_coupon = 0;
                 $coupon->save();
 
-                Toastr::success( 'Date for Coupon Added Successfully', 'Success!!!' );
+                Toastr::success( 'Coupon Added Successfully', 'Success!!!' );
 
                 return redirect()->back();
 
@@ -102,7 +103,7 @@ class CouponController extends Controller
 
         } else {
 
-            Toastr::error( 'Coupon for this date is already Asssigned', 'Error!!!' );
+            Toastr::error( 'Coupon for this event is already Asssigned', 'Error!!!' );
 
             return redirect()->back();
         }

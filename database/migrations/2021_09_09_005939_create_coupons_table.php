@@ -20,6 +20,7 @@ class CreateCouponsTable extends Migration
             $table->string( 'type' );
             $table->integer( 'unit_price' )->default( 20 );
             $table->integer( "max_count" )->default( 1000 );
+            $table->integer( 'sold_coupon' )->default( 0 );
             $table->timestamps();
         } );
     }

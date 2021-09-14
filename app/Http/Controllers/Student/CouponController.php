@@ -94,7 +94,7 @@ class CouponController extends Controller
 
         //dd( $coupon_date );
 
-        $coupon_no_new = $coupon_date . "-" . $student->id . "-" . $coupon->type;
+        $coupon_no_new = $coupon_date . "-" . $dining->id . "-" . $student->id . "-" . $coupon->type;
 
         $balance = Balance::where( "user_id", Auth::user()->id )->first();
 
@@ -114,7 +114,7 @@ class CouponController extends Controller
                 $coupon_detail->is_valid = "unused";
                 $coupon_detail->save();
 
-                $coupon->max_count -= 1;
+                $coupon->sold_coupon += 1;
                 $coupon->save();
 
                 $balance->amount -= $coupon->unit_price;
@@ -129,7 +129,7 @@ class CouponController extends Controller
 
                 $dining_transaction = new Transaction();
                 $dining_transaction->user_id = $dining_user->id;
-                $dining_transaction->name = "Sold Food Coupon (" . $coupon->coupon_date . " - " . $coupon->type . ")";
+                $dining_transaction->name = "Sold Food Coupon (" . $coupon->coupon_date . "-" . $student->id . " - " . $coupon->type . ")";
                 $dining_transaction->type = "Debit";
                 $dining_transaction->amount = $coupon->unit_price;
                 $dining_transaction->save();
@@ -204,7 +204,7 @@ class CouponController extends Controller
 
         if ( $current_date < $coupon_date_from_coupon_no ) {
             $coupon = Coupon::findOrFail( $coupon_detail->coupon->id );
-            $coupon->max_count += 1;
+            $coupon->sold_coupon -= 1;
             $coupon->save();
 
             $balance = Balance::where( "user_id", Auth::user()->id )->first();
@@ -220,7 +220,7 @@ class CouponController extends Controller
 
             $dining_transaction = new Transaction();
             $dining_transaction->user_id = $dining_user->id;
-            $dining_transaction->name = "Sold Food Coupon Reversal (" . $coupon->coupon_date . " - " . $coupon->type . ")";
+            $dining_transaction->name = "Sold Food Coupon Reversal (" . $coupon->coupon_date . "-" . $student->id . " - " . $coupon->type . ")";
             $dining_transaction->type = "Credit";
             $dining_transaction->amount = $coupon->unit_price;
             $dining_transaction->save();
@@ -230,12 +230,12 @@ class CouponController extends Controller
 
             $coupon_detail->delete();
 
-            Toastr::success( 'Coupon Canceled successfully', 'Success!' );
+            Toastr::success( 'Coupon Cancelled Successfully', 'Success!' );
 
             return redirect()->back();
 
         } else {
-            Toastr::error( "You can't cancel this coupon!!!", 'Error!' );
+            Toastr::error( "You can't Cancel this Coupon!!!", 'Error!' );
 
             return redirect()->back();
         }
