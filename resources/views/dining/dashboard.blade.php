@@ -129,7 +129,7 @@
                         <!-- DIRECT CHAT -->
                         <div class="card direct-chat direct-chat-warning">
                             <div class="card-header">
-                                <h3 class="card-title">Latest Sold Food Coupons</h3>
+                                <h3 class="card-title">Latest Food Coupons</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body p-0">
@@ -153,7 +153,7 @@
                                             @foreach($latest_coupons as $key => $coupon)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $coupon->coupon_date }}</td>
+                                                    <td>{{ $coupon->coupon_date->format('d-M-Y') }}</td>
                                                     <td>
                                                         @if ($coupon->type === "L")
                                                             <span class="badge badge-success">Lunch</span>
@@ -163,7 +163,7 @@
 
                                                     </td>
                                                     <td>{{ number_format($coupon->unit_price, 2) }} BDT</td>
-                                                    <td>{{ $coupon->max_count }}</td>
+                                                    <td><span class="badge badge-info">{{ $coupon->max_count }} UNITS</span></td>
                                                     <td><span class="badge badge-{{ $coupon->sold_coupon  < 20 ? 'warning' : 'success' }}">{{ $coupon->sold_coupon }} UNITS</span></td>
                                                     <td><span class="badge badge-{{ $coupon->max_count - $coupon->sold_coupon  < 20 ? 'warning' : 'success' }}">{{ $coupon->max_count - $coupon->sold_coupon }} UNITS</span></td>
                                                 </tr>
