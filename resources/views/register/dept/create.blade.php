@@ -55,13 +55,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-auto my-1">
-                                            <div class="custom-control custom-checkbox mr-sm-2">
-                                                <input type="checkbox" name="is_semester" class="custom-control-input" id="customControlAutosizing">
-                                                <label class="custom-control-label" for="customControlAutosizing">It's a Semester Based Dept</label>
-                                            </div>
-                                        </div>
-
                                     </div>
 
                                 </div>

@@ -44,7 +44,6 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Short Name</th>
-                                        <th>Is Semester Based</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
@@ -53,7 +52,6 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Short Name</th>
-                                        <th>Is Semester Based</th>
                                         <th>Actions</th>
                                     </tr>
                                     </tfoot>
@@ -64,24 +62,17 @@
                                             <td>{{ $dept->name }}</td>
                                             <td>{{ $dept->short_name }}</td>
                                             <td>
-                                                @if($dept->is_semester == true)
-                                                    <p class="btn btn-sm btn-success"><i class="fa fa-check" aria-hidden="true"></i></p>
-                                                @else
-                                                    <p class="btn btn-sm btn-warning"><i class="fa fa-times" aria-hidden="true"></i></p>
-                                                @endif
-                                            </td>
-                                            <td>
                                                 <a href="{{ route('register.dept.edit', $dept->id) }}" class="btn btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $dept->id }})">
+                                                {{-- <button class="btn btn-danger" type="button" onclick="deleteItem({{ $dept->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $dept->id }}" action="{{ route('register.dept.destroy', $dept->id) }}" method="post"
                                                       style="display:none;">
                                                     @csrf
                                                     @method('DELETE')
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

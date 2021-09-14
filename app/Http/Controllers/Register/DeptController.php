@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Register;
 
+use App\Http\Controllers\Controller;
 use App\Models\Dept;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class DeptController extends Controller
 {
@@ -19,7 +18,8 @@ class DeptController extends Controller
     public function index()
     {
         $depts = Dept::all();
-        return view('register.dept.index', compact('depts'));
+
+        return view( 'register.dept.index', compact( 'depts' ) );
     }
 
     /**
@@ -29,7 +29,7 @@ class DeptController extends Controller
      */
     public function create()
     {
-        return view('register.dept.create');
+        return view( 'register.dept.create' );
     }
 
     /**
@@ -38,33 +38,26 @@ class DeptController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store( Request $request )
     {
-        $inputs = $request->except('_token');
+        $inputs = $request->except( '_token' );
         $rules = [
-            'name' => 'required | unique:depts',
+            'name'       => 'required | unique:depts',
             'short_name' => 'required | unique:depts',
         ];
-        $validator = Validator::make($inputs, $rules);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
+        $validator = Validator::make( $inputs, $rules );
+        if ( $validator->fails() ) {
+            return redirect()->back()->withErrors( $validator )->withInput();
         }
 
         $dept = new Dept();
-        $dept->name = $request->input('name');
-        $dept->slug = Str::slug($request->input('name'));
-        $dept->short_name = $request->input('short_name');
-        if ($request->input('is_semester'))
-        {
-            $dept->is_semester = 1;
-        } else {
-            $dept->is_semester = 0;
-        }
+        $dept->name = $request->input( 'name' );
+        $dept->short_name = $request->input( 'short_name' );
         $dept->save();
 
-        Toastr::success('Department created successfully', 'Success!');
-        return redirect()->route('register.dept.index');
+        Toastr::success( 'Department created successfully', 'Success!' );
+
+        return redirect()->route( 'register.dept.index' );
     }
 
     /**
@@ -73,7 +66,7 @@ class DeptController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function show(Dept $dept)
+    public function show( Dept $dept )
     {
         //
     }
@@ -84,9 +77,9 @@ class DeptController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dept $dept)
+    public function edit( Dept $dept )
     {
-        return view('register.dept.edit', compact('dept'));
+        return view( 'register.dept.edit', compact( 'dept' ) );
     }
 
     /**
@@ -96,32 +89,25 @@ class DeptController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dept $dept)
+    public function update( Request $request, Dept $dept )
     {
-        $inputs = $request->except('_token');
+        $inputs = $request->except( '_token' );
         $rules = [
-            'name' => 'required',
+            'name'       => 'required',
             'short_name' => 'required',
         ];
-        $validator = Validator::make($inputs, $rules);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
+        $validator = Validator::make( $inputs, $rules );
+        if ( $validator->fails() ) {
+            return redirect()->back()->withErrors( $validator )->withInput();
         }
 
-        $dept->name = $request->input('name');
-        $dept->slug = Str::slug($request->input('name'));
-        $dept->short_name = $request->input('short_name');
-        if ($request->input('is_semester'))
-        {
-            $dept->is_semester = 1;
-        } else {
-            $dept->is_semester = 0;
-        }
+        $dept->name = $request->input( 'name' );
+        $dept->short_name = $request->input( 'short_name' );
         $dept->save();
 
-        Toastr::success('Department updated successfully', 'Success!');
-        return redirect()->route('register.dept.index');
+        Toastr::success( 'Department updated successfully', 'Success!' );
+
+        return redirect()->route( 'register.dept.index' );
     }
 
     /**
@@ -130,10 +116,11 @@ class DeptController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dept $dept)
+    public function destroy( Dept $dept )
     {
         $dept->delete();
-        Toastr::success('Department deleted successfully', 'Success!');
-        return redirect()->route('register.dept.index');
+        Toastr::success( 'Department deleted successfully', 'Success!' );
+
+        return redirect()->route( 'register.dept.index' );
     }
 }
