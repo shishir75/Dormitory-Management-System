@@ -20,6 +20,7 @@ class CreateHallsTable extends Migration
             $table->string( "for_male_female", 1 )->default( "M" );
             $table->integer( "total_seat" );
             $table->integer( "available_seat" )->nullable();
+            $table->integer( 'pending_bill' )->default( 0 );
             $table->timestamps();
         } );
     }

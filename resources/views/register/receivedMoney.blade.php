@@ -50,18 +50,19 @@
                                         @csrf
                                         <div class="modal-body">
                                             <div class="form-group">
-                                                <label for="inputPassword" class="col-form-label">Hall Name - Pending Balance</label>
-                                                <select class="custom-select">
+                                                <label for="hall_id" class="col-form-label">Hall Name - Pending Balance</label>
+                                                <select class="custom-select" name="hall_id" required>
                                                     <option value="" selected disabled>Select a Hall</option>
-                                                    @foreach ($halls as $hall)
-                                                        <option value="{{ $hall->id }}">{{ $hall->name }} - {{ $hall->pending_bill }}</option>
-                                                    @endforeach
-
+                                                        @foreach ($halls as $hall)
+                                                            <option class="text-{{ $hall->pending_bill <= 0 ? "success" : "danger" }}" value="{{ $hall->id }}">{{ $hall->name }} -
+                                                                ({{ number_format($hall->pending_bill, 2) }} BDT)
+                                                            </option>
+                                                        @endforeach
                                                   </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputPassword">Pay Amount</label>
-                                                <input type="number" name="amount" class="form-control" id="inputPassword" placeholder="Enter Pay Amount">
+                                                <label for="amount">Pay Amount</label>
+                                                <input type="number" name="amount" class="form-control" required id="amount" placeholder="Enter Pay Amount">
                                             </div>
                                         </div>
                                         <div class="modal-footer">

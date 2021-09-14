@@ -306,6 +306,9 @@ class AllottedStudentsController extends Controller
 
             $pay_amount = (int) (  ( $diff_in_months + 1 ) * 20 );
 
+            $hall->pending_bill += $pay_amount;
+            $hall->save();
+
             $student_balance = Balance::where( "hall_id", $student->hall_id )->where( 'user_id', $student_user->id )->first();
 
             if ( $student_balance->amount >= $pay_amount ) {
