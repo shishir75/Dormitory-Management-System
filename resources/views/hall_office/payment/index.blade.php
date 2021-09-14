@@ -49,6 +49,21 @@
                                     <form action="{{ route('hall_office.payment.store') }}" method="POST">
                                         @csrf
                                         <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-3"></div>
+                                                <div class="col-md-6">
+                                                    <p class="text-center mb-4">
+                                                        @if ($dining_balance !== null)
+                                                            {{ $dining_balance->amount > 0 ? 'Advanced Balance : ' : 'Payable Balance : ' }}
+                                                            <span class="badge badge-{{ $dining_balance->amount > 0 ? 'danger' : 'success' }}">
+                                                                {{ abs(number_format($dining_balance->amount, 2)) }} BDT
+                                                            </span>
+                                                        @else
+                                                           Available Balance 0 BDT
+                                                        @endif
+                                                    </p>
+                                                </div>
+                                            </div>
                                             <div class="form-group row">
                                                 <label for="inputPassword" class="col-sm-4 col-form-label">Pay Amount </label>
                                                 <div class="col-sm-8">
@@ -72,12 +87,12 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ strtoupper('Trasactions History of '. $dining->name ) }}
+                                <h3 class="card-title">{{ strtoupper('Transactions History of '. $hall->name ) }} OFFICE
                                     <span class="float-right">
-                                        @if ($balance !== null)
-                                            {{ $balance->amount > 0 ? 'Advanced Balance : ' : 'Payable Balance : ' }}
-                                            <span class="badge badge-{{ $balance->amount > 0 ? 'danger' : 'success' }}">
-                                                {{ abs(number_format($balance->amount, 2)) }} BDT
+                                        @if ($hall_office_balance !== null)
+                                            {{ $hall_office_balance->amount > 0 ? 'Available Balance : ' : 'Payable Balance : ' }}
+                                            <span class="badge badge-{{ $hall_office_balance->amount > 0 ? 'success' : 'danger' }}">
+                                                {{ abs(number_format($hall_office_balance->amount, 2)) }} BDT
                                             </span>
                                         @else
                                            Available Balance 0 BDT

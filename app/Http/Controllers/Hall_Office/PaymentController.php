@@ -28,12 +28,14 @@ class PaymentController extends Controller
 
         $user = User::where( "email", $dining->email )->first();
 
-        $balance = Balance::where( 'user_id', $user->id )->where( 'hall_id', $hall->id )->first();
+        $dining_balance = Balance::where( 'user_id', $user->id )->where( 'hall_id', $hall->id )->first();
 
-        $transactions = Transaction::with( 'user' )->where( 'user_id', $user->id )->latest()->get();
+        $hall_office_balance = Balance::where( 'user_id', Auth::user()->id )->where( 'hall_id', $hall->id )->first();
+
+        $transactions = Transaction::with( 'user' )->where( 'user_id', Auth::user()->id )->latest()->get();
 
         if ( $transactions->count() > 0 ) {
-            return view( 'hall_office.payment.index', compact( 'transactions', 'balance', 'dining' ) );
+            return view( 'hall_office.payment.index', compact( 'transactions', 'dining_balance', 'hall_office_balance', 'dining', 'hall' ) );
 
         } else {
 
@@ -76,28 +78,49 @@ class PaymentController extends Controller
 
         $dining = Dining::where( 'hall_id', $hall->id )->first();
 
-        $user = User::where( "email", $dining->email )->first();
+        $dining_user = User::where( "email", $dining->email )->first();
 
-        $balance = Balance::where( 'user_id', $user->id )->where( 'hall_id', $hall->id )->first();
+        $dining_balance = Balance::where( 'user_id', $dining_user->id )->where( 'hall_id', $hall->id )->first();
 
-        if ( $balance === null ) {
-            $balance = new Balance();
-            $balance->user_id = $user->id;
-            $balance->hall_id = $hall->id;
-            $balance->amount = $request->input( 'amount' );
-            $balance->save();
+        if ( $dining_balance === null ) {
+            $dining_balance = new Balance();
+            $dining_balance->user_id = $dining_user->id;
+            $dining_balance->hall_id = $hall->id;
+            $dining_balance->amount = $request->input( 'amount' );
+            $dining_balance->save();
 
         } else {
-            $balance->amount += $request->input( 'amount' );
-            $balance->save();
+            $dining_balance->amount += $request->input( 'amount' );
+            $dining_balance->save();
+        }
+
+        $hall_office_balance = Balance::where( 'user_id', Auth::user()->id )->where( 'hall_id', $hall->id )->first();
+
+        if ( $hall_office_balance === null ) {
+            $hall_office_balance = new Balance();
+            $hall_office_balance->user_id = Auth::user()->id;
+            $hall_office_balance->hall_id = $hall->id;
+            $hall_office_balance->amount = "-" . $request->input( 'amount' );
+            $hall_office_balance->save();
+
+        } else {
+            $hall_office_balance->amount -= $request->input( 'amount' );
+            $hall_office_balance->save();
         }
 
         $transaction = new Transaction();
-        $transaction->user_id = $user->id;
-        $transaction->name = "Take Payment";
+        $transaction->user_id = $dining_user->id;
+        $transaction->name = "Received Payment";
         $transaction->type = "Credit";
         $transaction->amount = $request->input( 'amount' );
         $transaction->save();
+
+        $hall_office_transaction = new Transaction();
+        $hall_office_transaction->user_id = Auth::user()->id;
+        $hall_office_transaction->name = "Make Payment (Dining)";
+        $hall_office_transaction->type = "Debit";
+        $hall_office_transaction->amount = $request->input( 'amount' );
+        $hall_office_transaction->save();
 
         Toastr::success( "Make Payment Successfull!!!", 'Success!' );
 
