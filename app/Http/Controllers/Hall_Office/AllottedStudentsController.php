@@ -255,9 +255,9 @@ class AllottedStudentsController extends Controller
         $end_month = $request->input( 'end_month' ) . "-01 12:00:00";
 
         $student = Student::findOrFail( $student_id );
-        $student_user_id = User::where( 'email', $student->email )->first();
+        $student_user = User::where( 'email', $student->email )->first();
 
-        if ( $student_user_id === null ) {
+        if ( $student_user === null ) {
 
             Toastr::error( 'Student has not created his/her profile yet. Create profile first to transaction!!!', 'Error!!!' );
 
@@ -267,8 +267,6 @@ class AllottedStudentsController extends Controller
         $hall = Hall::where( 'name', Auth::user()->name )->first();
 
         if ( $student->hall_id === $hall->id ) {
-
-            $balance = Balance::where( "hall_id", $student->hall_id )->where( 'user_id', $student_user_id->id )->first();
 
             $hall_bill_old = HallBill::where( 'student_id', $student->id )->latest()->first();
 
@@ -305,20 +303,43 @@ class AllottedStudentsController extends Controller
 
             $pay_amount = (int) (  ( $diff_in_months + 1 ) * 20 );
 
-            if ( $balance->amount >= $pay_amount ) {
+            $student_balance = Balance::where( "hall_id", $student->hall_id )->where( 'user_id', $student_user->id )->first();
+
+            if ( $student_balance->amount >= $pay_amount ) {
 
                 $hall_bill->amount = $pay_amount;
                 $hall_bill->save();
 
-                $balance->amount -= $pay_amount;
-                $balance->save();
+                $student_balance->amount -= $pay_amount;
+                $student_balance->save();
 
-                $transaction = new Transaction();
-                $transaction->user_id = $student_user_id->id;
-                $transaction->name = "Pay Hall Bill ( " . date( 'F-Y', strtotime( $hall_bill->start_month ) ) . " to " . date( 'F-Y', strtotime( $end_month ) ) . " )";
-                $transaction->type = "Debit";
-                $transaction->amount = $pay_amount;
-                $transaction->save();
+                $student_transaction = new Transaction();
+                $student_transaction->user_id = $student_user->id;
+                $student_transaction->name = "Pay Hall Bill ( " . date( 'F-Y', strtotime( $hall_bill->start_month ) ) . " to " . date( 'F-Y', strtotime( $end_month ) ) . " )";
+                $student_transaction->type = "Debit";
+                $student_transaction->amount = $pay_amount;
+                $student_transaction->save();
+
+                $register_balance = Balance::where( 'user_id', 1 )->first();
+
+                if ( $register_balance === null ) {
+                    $register_balance = new Balance();
+                    $register_balance->user_id = 1;
+                    $register_balance->hall_id = 0;
+                    $register_balance->amount = "-" . $pay_amount;
+                    $register_balance->save();
+
+                } else {
+                    $register_balance->amount -= $pay_amount;
+                    $register_balance->save();
+                }
+
+                $register_transaction = new Transaction();
+                $register_transaction->user_id = 1;
+                $register_transaction->name = "Hall Bill Pending (" . $hall->short_name . ")";
+                $register_transaction->type = "Debit";
+                $register_transaction->amount = $pay_amount;
+                $register_transaction->save();
 
                 Toastr::success( 'Bill Payment Successful', 'Success!!!' );
 
