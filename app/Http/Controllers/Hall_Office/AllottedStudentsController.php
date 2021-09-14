@@ -289,10 +289,13 @@ class AllottedStudentsController extends Controller
             $hall_bill = new HallBill();
             $hall_bill->student_id = $student->id;
 
+            $student_inital_created_month = date( 'Y-m', strtotime( $student->created_at ) );
+            $student_inital_created_at = $student_inital_created_month . "-01 12:00:00";
+
             if ( $hall_bill_old !== null ) {
                 $hall_bill->start_month = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill_old->end_month )->addMonth();
             } else {
-                $hall_bill->start_month = $student->created_at;
+                $hall_bill->start_month = $student_inital_created_at;
             }
 
             $hall_bill->end_month = $end_month;
