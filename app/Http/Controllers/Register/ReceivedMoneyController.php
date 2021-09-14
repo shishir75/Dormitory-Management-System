@@ -80,8 +80,8 @@ class ReceivedMoneyController extends Controller
         }
 
         $hall_office_transaction = new Transaction();
-        $hall_office_transaction->user_id = $hall->id;
-        $hall_office_transaction->name = "Paid Hall Bill (" . $hall->short_name . ")";
+        $hall_office_transaction->user_id = $hall_user->id;
+        $hall_office_transaction->name = "Paid Hall Bill To Register";
         $hall_office_transaction->type = "Debit";
         $hall_office_transaction->amount = $amount;
         $hall_office_transaction->save();
