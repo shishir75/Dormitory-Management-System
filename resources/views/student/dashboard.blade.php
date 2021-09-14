@@ -95,15 +95,17 @@
                             <span class="info-box-icon bg-success"><i class="fa fa-bitcoin"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Available Balance</span>
-                                <span class="info-box-number">
-                                    @if ($balance === null)
+                                @if ($balance !== null)
+                                    <span class="info-box-text">{{ $balance->amount > 0 ? 'Available Balance' : 'Owing Balance' }}</span>
+                                    <span class="info-box-number text-{{ $balance->amount > 0 ? 'success' : 'danger' }}">
+                                        {{ abs(number_format($balance->amount, 2)) }} BDT
+                                    </span>
+                                @else
+                                    <span class="info-box-text">Available Balance</span>
+                                    <span class="info-box-number text-danger">
                                         0.00 BDT
-                                    @else
-                                        {{ number_format($balance->amount, 2) }} BDT
-                                    @endif
-
-                                </span>
+                                    </span>
+                                @endif
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -219,7 +221,7 @@
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>{{ $coupon->coupon_no }}</td>
-                                                    <td>{{ $coupon->coupon->coupon_date }}</td>
+                                                    <td>{{ $coupon->coupon->coupon_date->format('d-M-Y') }}</td>
                                                     <td>
                                                         @if ($coupon->coupon->type === "L")
                                                             <span class="badge badge-success">Lunch</span>

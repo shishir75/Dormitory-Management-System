@@ -137,8 +137,8 @@
 
                             <div class="info-box-content">
                                 @if ($dining_balance !== null)
-                                    <span class="info-box-text">{{ $dining_balance->amount > 0 ? 'Dining Available Balance' : 'Dining Owing Balance' }}</span>
-                                    <span class="info-box-number text-{{ $dining_balance->amount > 0 ? 'success' : 'danger' }}">
+                                    <span class="info-box-text">{{ $dining_balance->amount <= 0 ? 'Dining Payable Balance' : 'Dining Owing Balance' }}</span>
+                                    <span class="info-box-number text-{{ $dining_balance->amount <= 0 ? 'success' : 'danger' }}">
                                         {{ abs(number_format($dining_balance->amount, 2)) }} BDT
                                     </span>
                                 @else
@@ -223,7 +223,7 @@
                         <!-- DIRECT CHAT -->
                         <div class="card direct-chat direct-chat-warning">
                             <div class="card-header">
-                                <h3 class="card-title">Latest Hall Bills by Students</h3>
+                                <h3 class="card-title">Latest Hall Bills By Students</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body p-0">
@@ -256,7 +256,7 @@
                                                 </tr>
                                             @endforeach
                                         @else
-                                            <h5 class="text-danger text-center my-3">No Coupon Found</h5>
+                                            <h5 class="text-danger text-center my-3">No Bill Found</h5>
                                         @endif
 
                                     </tbody>

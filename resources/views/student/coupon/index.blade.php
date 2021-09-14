@@ -69,7 +69,7 @@
                                             <select class="form-control" name="coupon_id" id="coupon_date">
                                                 <option value="" selected disabled>Select a Coupon</option>
                                                 @foreach ($coupons as $coupon )
-                                                    <option value="{{ $coupon->id }}">Date : {{ $coupon->coupon_date }} - {{ $coupon->type === "L" ? "Lunch" : "Dinner" }} - {{ $coupon->unit_price }} BDT - {{ $coupon->max_count }} Units</option>
+                                                    <option value="{{ $coupon->id }}">Date : {{ $coupon->coupon_date->format('d-M-Y') }} - {{ $coupon->type === "L" ? "Lunch" : "Dinner" }} - {{ $coupon->unit_price }} BDT - {{ $coupon->max_count }} Units</option>
                                                 @endforeach
                                             </select>
                                         </div>

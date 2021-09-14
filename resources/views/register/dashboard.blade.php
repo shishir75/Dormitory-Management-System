@@ -80,6 +80,22 @@
                                     @endif
 
                                 </span>
+
+                                @if ($reg_balance !== null)
+                                    <span class="info-box-text">{{ $reg_balance->amount >= 0 ? 'Hall Bill Advanced' : 'Hall Bill Owing' }}</span>
+                                    <span class="info-box-number text-{{ $reg_balance->amount >= 0 ? 'success' : 'danger' }}">
+                                        {{ abs(number_format($reg_balance->amount, 2)) }} BDT
+                                    </span>
+                                @else
+                                    <span class="info-box-text">Hall Bill Advanced</span>
+                                    <span class="info-box-number text-danger">
+                                        0.00 BDT
+                                    </span>
+                                @endif
+
+
+
+
                             </div>
                             <!-- /.info-box-content -->
                         </div>

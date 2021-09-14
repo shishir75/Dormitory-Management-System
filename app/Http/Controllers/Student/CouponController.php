@@ -122,14 +122,14 @@ class CouponController extends Controller
 
                 $transaction = new Transaction();
                 $transaction->user_id = Auth::user()->id;
-                $transaction->name = "Buy Food Coupon (" . $coupon->coupon_date . " - " . $coupon->type . ")";
+                $transaction->name = "Buy Food Coupon (" . $coupon->coupon_date->format( 'Y-m-d' ) . "-" . $coupon->type . ")";
                 $transaction->type = "Debit";
                 $transaction->amount = $coupon->unit_price;
                 $transaction->save();
 
                 $dining_transaction = new Transaction();
                 $dining_transaction->user_id = $dining_user->id;
-                $dining_transaction->name = "Sold Food Coupon (" . $coupon->coupon_date . "-" . $student->id . " - " . $coupon->type . ")";
+                $dining_transaction->name = "Sold Food Coupon (" . $coupon->coupon_date->format( 'Y-m-d' ) . "-" . $student->id . "-" . $coupon->type . ")";
                 $dining_transaction->type = "Debit";
                 $dining_transaction->amount = $coupon->unit_price;
                 $dining_transaction->save();
