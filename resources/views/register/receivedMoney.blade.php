@@ -84,8 +84,8 @@
                                 <h3 class="card-title">{{ strtoupper('Transaction History') }}
                                     <span class="float-right">
                                         @if ($register_balance !== null)
-                                            {{ $register_balance->amount > 0 ? 'Available Balance : ' : 'Owing Balance : ' }}
-                                            <span class="badge badge-{{ $register_balance->amount > 0 ? 'success' : 'danger' }}">
+                                            {{ $register_balance->amount >= 0 ? 'Advanced Balance : ' : 'Owing Balance : ' }}
+                                            <span class="badge badge-{{ $register_balance->amount >= 0 ? 'success' : 'danger' }}">
                                                 {{ abs(number_format($register_balance->amount, 2)) }} BDT
                                             </span>
                                         @else

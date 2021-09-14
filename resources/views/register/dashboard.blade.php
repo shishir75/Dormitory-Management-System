@@ -71,15 +71,6 @@
                             <span class="info-box-icon bg-gray"><i class="fa fa-user-plus"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Balance</span>
-                                <span class="info-box-number">
-                                    @if ($reg_balance !== null)
-                                        {{ number_format($reg_balance->amount, 2) }} BDT
-                                    @else
-                                        0.00 BDT
-                                    @endif
-
-                                </span>
 
                                 @if ($reg_balance !== null)
                                     <span class="info-box-text">{{ $reg_balance->amount >= 0 ? 'Hall Bill Advanced' : 'Hall Bill Owing' }}</span>
