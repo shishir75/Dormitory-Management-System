@@ -99,6 +99,48 @@
                             <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
 
                             <div class="info-box-content">
+                                <span class="info-box-text">Total Students</span>
+                                <span class="info-box-number">{{ $current_students + $pending_approval_students + $ex_students }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Hall Office Balance</span>
+                                <span class="info-box-number">{{ number_format($hall_office_balance->amount, 2) }} BDT</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Dining Balance</span>
+                                <span class="info-box-number">{{ number_format($dining_balance->amount, 2) }} BDT</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
+
+                            <div class="info-box-content">
                                 <span class="info-box-text">Pending Hall Bill to Register</span>
                                 <span class="info-box-number">{{ number_format($hall->pending_bill, 2) }} BDT</span>
                             </div>
