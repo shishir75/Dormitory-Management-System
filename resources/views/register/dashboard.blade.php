@@ -26,7 +26,89 @@
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fa fa-book"></i></span>
 
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Halls</span>
+                                <span class="info-box-number">{{ $halls_count }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fa fa-clock-o"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Sessions</span>
+                                <span class="info-box-number">{{ $sessions_count }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning"><i class="fa fa-user"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Total Departments</span>
+                                <span class="info-box-number">{{ $dept_count }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-gray"><i class="fa fa-user-plus"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Balance</span>
+                                <span class="info-box-number">{{ $reg_balance->amount }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fa fa-users"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Current Students</span>
+                                <span class="info-box-number">{{ $active_students }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <!-- /.col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Available Seat</span>
+                                <span class="info-box-number">{{ $available_seats }} of {{ $total_seats }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+
+                </div>
                 <!-- /.row -->
             </div>
             <!-- /.container-fluid -->

@@ -15,7 +15,6 @@ class HallTableSeeder extends Seeder
     {
         DB::table( 'halls' )->insert( [
             'name'            => 'Rabindranath Tagore Hall',
-            'slug'            => 'rabindranath-tagore-hall',
             'short_name'      => 'RTH',
             'for_male_female' => "M",
             'total_seat'      => 1000,
@@ -24,7 +23,6 @@ class HallTableSeeder extends Seeder
 
         DB::table( 'halls' )->insert( [
             'name'            => 'Sheikh Hasina Hall',
-            'slug'            => 'sheikh-hasina-hall',
             'short_name'      => 'SHH',
             'for_male_female' => "F",
             'total_seat'      => 1000,
@@ -36,8 +34,7 @@ class HallTableSeeder extends Seeder
         for ( $i = 0; $i < 20; $i++ ) {
             DB::table( 'halls' )->insert( [
                 'name'            => $name = $faker->unique()->name,
-                'slug'            => $slug = Str::slug( $name ),
-                'short_name'      => $slug,
+                'short_name'      => Str::slug( $name ),
                 'for_male_female' => $faker->randomElement( ["M", "F"] ),
                 'total_seat'      => 1000,
                 'available_seat'  => $faker->randomElement( [50, 60, 70, 80, 90, 100, 110, 120] ),

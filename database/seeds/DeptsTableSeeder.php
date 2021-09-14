@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class DeptsTableSeeder extends Seeder
 {
@@ -15,27 +14,21 @@ class DeptsTableSeeder extends Seeder
     {
 
         DB::table( 'depts' )->insert( [
-            'name'        => 'Institute of Information Technology',
-            'slug'        => 'Institute-of-Information-Technology',
-            'short_name'  => "IIT",
-            'is_semester' => true,
+            'name'       => 'Institute of Information Technology',
+            'short_name' => "IIT",
         ] );
 
         DB::table( 'depts' )->insert( [
-            'name'        => 'Department of Mathamatics',
-            'slug'        => 'Department-of-Mathamatics',
-            'short_name'  => "MATH",
-            'is_semester' => false,
+            'name'       => 'Department of Mathamatics',
+            'short_name' => "MATH",
         ] );
 
         $faker = Faker\Factory::create();
 
         for ( $i = 0; $i < 3; $i++ ) {
             DB::table( 'depts' )->insert( [
-                'name'        => $name = $faker->unique()->firstNameMale,
-                'slug'        => Str::slug( $name ),
-                'short_name'  => $name,
-                'is_semester' => $faker->randomElement( ['True', 'False'] ),
+                'name'       => $name = $faker->unique()->firstNameMale,
+                'short_name' => $name,
             ] );
 
         }
