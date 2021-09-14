@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Register;
 
+use App\Http\Controllers\Controller;
 use App\Models\Session;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class SessionController extends Controller
@@ -17,8 +17,9 @@ class SessionController extends Controller
      */
     public function index()
     {
-        $sessions = Session::latest()->get();
-        return view('register.session.index', compact('sessions'));
+        $sessions = Session::orderBy( 'id', 'desc' )->get();
+
+        return view( 'register.session.index', compact( 'sessions' ) );
     }
 
     /**
@@ -28,7 +29,7 @@ class SessionController extends Controller
      */
     public function create()
     {
-        return view('register.session.create');
+        return view( 'register.session.create' );
     }
 
     /**
@@ -37,24 +38,24 @@ class SessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store( Request $request )
     {
-        $inputs = $request->except('_token');
+        $inputs = $request->except( '_token' );
         $rules = [
-            'name' => 'required | unique:sessions'
+            'name' => 'required | unique:sessions',
         ];
-        $validator = Validator::make($inputs, $rules);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
+        $validator = Validator::make( $inputs, $rules );
+        if ( $validator->fails() ) {
+            return redirect()->back()->withErrors( $validator )->withInput();
         }
 
         $session = new Session();
-        $session->name = $request->input('name');
+        $session->name = $request->input( 'name' );
         $session->save();
 
-        Toastr::success('Session created successfully', 'Success!');
-        return redirect()->route('register.session.index');
+        Toastr::success( 'Session created successfully', 'Success!' );
+
+        return redirect()->route( 'register.session.index' );
     }
 
     /**
@@ -63,7 +64,7 @@ class SessionController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function show(Session $session)
+    public function show( Session $session )
     {
         //
     }
@@ -74,9 +75,9 @@ class SessionController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function edit(Session $session)
+    public function edit( Session $session )
     {
-        return view('register.session.edit', compact('session'));
+        return view( 'register.session.edit', compact( 'session' ) );
     }
 
     /**
@@ -86,23 +87,23 @@ class SessionController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Session $session)
+    public function update( Request $request, Session $session )
     {
-        $inputs = $request->except('_token');
+        $inputs = $request->except( '_token' );
         $rules = [
-            'name' => 'required'
+            'name' => 'required',
         ];
-        $validator = Validator::make($inputs, $rules);
-        if ($validator->fails())
-        {
-            return redirect()->back()->withErrors($validator)->withInput();
+        $validator = Validator::make( $inputs, $rules );
+        if ( $validator->fails() ) {
+            return redirect()->back()->withErrors( $validator )->withInput();
         }
 
-        $session->name = $request->input('name');
+        $session->name = $request->input( 'name' );
         $session->save();
 
-        Toastr::success('Session updated successfully', 'Success!');
-        return redirect()->route('register.session.index');
+        Toastr::success( 'Session updated successfully', 'Success!' );
+
+        return redirect()->route( 'register.session.index' );
     }
 
     /**
@@ -111,10 +112,11 @@ class SessionController extends Controller
      * @param  \App\Models\Dept  $dept
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Session $session)
+    public function destroy( Session $session )
     {
         $session->delete();
-        Toastr::success('Hall session successfully', 'Success!');
-        return redirect()->route('register.session.index');
+        Toastr::success( 'Hall session successfully', 'Success!' );
+
+        return redirect()->route( 'register.session.index' );
     }
 }

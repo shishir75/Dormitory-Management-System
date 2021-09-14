@@ -44,7 +44,7 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Session Name</label>
+                                                <label>Session Name (e.g : 2014-15)</label>
                                                 <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter Session Name">
                                             </div>
                                         </div>

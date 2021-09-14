@@ -62,14 +62,14 @@
                                                 <a href="{{ route('register.session.edit', $session->id) }}" class="btn btn-info">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $session->id }})">
+                                                {{-- <button class="btn btn-danger" type="button" onclick="deleteItem({{ $session->id }})">
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
                                                 <form id="delete-form-{{ $session->id }}" action="{{ route('register.session.destroy', $session->id) }}" method="post"
                                                       style="display:none;">
                                                     @csrf
                                                     @method('DELETE')
-                                                </form>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach
