@@ -55,8 +55,6 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Sex</th>
-                                        {{-- <th>Dept Name</th> --}}
-                                        <th>Session</th>
                                         <th>Reg No</th>
                                         <th>Hall Name</th>
                                         <th>Room No</th>
@@ -74,8 +72,6 @@
                                         <th>Serial</th>
                                         <th>Name</th>
                                         <th>Sex</th>
-                                        {{-- <th>Dept Name</th> --}}
-                                        <th>Session</th>
                                         <th>Reg No</th>
                                         <th>Hall Name</th>
                                         <th>Room No</th>
@@ -88,14 +84,13 @@
                                         <tr id="sid{{$student->id}}">
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $student->name }}</td>
-                                            <td>{{ $student->sex }}</td>
-                                            <td>{{ $student->session->name }}</td>
+                                            <td>{{ $student->sex === 'M' ? 'Male' : 'Female' }}</td>
                                             <td>{{ $student->reg_no }}</td>
                                             <td>
                                                 @if($student->hall_id == null)
                                                     <p class="badge badge-warning">Hall not allocated yet</p>
                                                 @else
-                                                    {{ $student->hall->name }}
+                                                    {{ $student->hall->short_name }}
                                                 @endif
                                             </td>
                                             <td>
@@ -171,16 +166,15 @@
           const swalWithBootstrapButtons = swal.mixin({
               confirmButtonClass: 'btn btn-success',
               cancelButtonClass: 'btn btn-danger',
-              buttonsStyling: false,
+              buttonsStyling: true,
           })
 
           swalWithBootstrapButtons({
               title: 'Are you sure?',
-              text: "You won't be able to revert this!",
               type: 'warning',
               showCancelButton: true,
               confirmButtonText: 'Yes, Change it!',
-              cancelButtonText: 'No, cancel!',
+              cancelButtonText: 'No, Cancel!',
               reverseButtons: true
           }).then((result) => {
               if (result.value) {
