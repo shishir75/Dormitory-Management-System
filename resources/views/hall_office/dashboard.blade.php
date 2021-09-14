@@ -152,6 +152,111 @@
 
                 </div>
                 <!-- /.row -->
+
+
+                 <!-- Main row -->
+				<div class="row">
+					<!-- Left col -->
+					<div class="col-md-5">
+						<!-- DIRECT CHAT -->
+						<div class="card direct-chat direct-chat-warning">
+							<div class="card-header">
+								<h3 class="card-title">Latest Transactions</h3>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body p-0">
+								<table class="table table-striped table-bordered table-valign-middle text-center">
+									@if ($transactions->count() > 0)
+                                        <thead>
+                                            <tr>
+                                                <th>S.N</th>
+                                                <th>Title</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th>Time</th>
+                                            </tr>
+                                        </thead>
+                                    @endif
+
+									<tbody>
+                                        @if ($transactions->count() > 0)
+                                            @foreach($transactions as $key => $latest_transaction)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $latest_transaction->name }}</td>
+                                                    <td><span class="badge badge-{{ $latest_transaction->type == 'Credit' ? 'success' : 'danger' }}">{{ $latest_transaction->type }}</span></td>
+                                                    <td>{{ number_format($latest_transaction->amount, 2) }} BDT</td>
+                                                    <td>{{ $latest_transaction->created_at->diffInMinutes() <= 1440 ?  $latest_transaction->created_at->diffForHumans() : $latest_transaction->created_at->format('jS F Y') }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <h5 class="text-danger text-center my-3">No Transaction Found</h5>
+                                        @endif
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!--/.direct-chat -->
+					</div>
+					<!-- /.col -->
+
+					<div class="col-md-7">
+
+                        <!-- DIRECT CHAT -->
+                        <div class="card direct-chat direct-chat-warning">
+                            <div class="card-header">
+                                <h3 class="card-title">Latest Hall Bills by Students</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <table class="table table-striped table-bordered table-valign-middle text-center">
+                                    @if ($hall_bills->count() > 0)
+                                        <thead>
+                                            <tr>
+                                                <th>S.N</th>
+                                                <th>Student Name</th>
+                                                <th>Session</th>
+                                                <th>From Month</th>
+                                                <th>To Month</th>
+                                                <th>Amount</th>
+                                                <th>Bought Time</th>
+                                            </tr>
+                                        </thead>
+                                    @endif
+
+                                    <tbody>
+                                        @if ($hall_bills->count() > 0)
+                                            @foreach($hall_bills as $key => $hall_bill)
+                                                <tr>
+                                                    <td>{{ $key + 1 }}</td>
+                                                    <td>{{ $hall_bill->student->name }}</td>
+                                                    <td>{{ $hall_bill->student->session->name }}</td>
+                                                    <td>{{ $hall_bill->start_month->format('M-Y') }}</td>
+                                                    <td>{{ $hall_bill->end_month->format('M-Y') }}</td>
+                                                    <td>{{ number_format($hall_bill->amount, 2) }} BDT</td>
+                                                    <td>{{ $hall_bill->created_at->diffInMinutes() <= 1440 ?  $hall_bill->created_at->diffForHumans() : $hall_bill->created_at->format('jS F Y') }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <h5 class="text-danger text-center my-3">No Coupon Found</h5>
+                                        @endif
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--/.direct-chat -->
+
+					</div>
+					<!-- /.col -->
+				</div>
+
+
+
+
+
+
+
             </div>
             <!-- /.container-fluid -->
         </div>

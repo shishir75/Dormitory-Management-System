@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Balance;
 use App\Models\Dining;
 use App\Models\Hall;
+use App\Models\HallBill;
 use App\Models\Student;
 use App\Models\Transaction;
 use App\Models\User;
@@ -26,7 +27,11 @@ class DashboardController extends Controller
         $hall_office_balance = Balance::where( 'user_id', Auth::user()->id )->where( 'hall_id', $hall->id )->first();
         $transactions = Transaction::with( 'user' )->where( 'user_id', Auth::user()->id )->latest()->take( 10 )->get();
 
-        return view( "hall_office.dashboard", compact( 'hall', 'current_students', 'pending_approval_students', 'ex_students', 'dining_balance', 'hall_office_balance', 'transactions' ) );
+        $hall_bills = HallBill::with( 'student' )->where( 'hall_id', $hall->id )->latest()->take( 10 )->get();
+
+        //dd( $hall_bills->count() );
+
+        return view( "hall_office.dashboard", compact( 'hall', 'current_students', 'pending_approval_students', 'ex_students', 'dining_balance', 'hall_office_balance', 'transactions', 'hall_bills' ) );
     }
 
 }

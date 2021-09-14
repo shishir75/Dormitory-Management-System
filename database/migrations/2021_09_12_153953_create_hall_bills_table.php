@@ -16,6 +16,7 @@ class CreateHallBillsTable extends Migration
         Schema::create( 'hall_bills', function ( Blueprint $table ) {
             $table->bigIncrements( 'id' );
             $table->unsignedBigInteger( 'student_id' );
+            $table->unsignedBigInteger( 'hall_id' )->default( 1 );
             $table->dateTime( 'start_month' );
             $table->dateTime( 'end_month' );
             $table->float( 'amount' );

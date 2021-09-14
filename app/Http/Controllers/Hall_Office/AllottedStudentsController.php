@@ -288,6 +288,7 @@ class AllottedStudentsController extends Controller
 
             $hall_bill = new HallBill();
             $hall_bill->student_id = $student->id;
+            $hall_bill->hall_id = $student->hall_id;
 
             $student_inital_created_month = date( 'Y-m', strtotime( $student->created_at ) );
             $student_inital_created_at = $student_inital_created_month . "-01 12:00:00";
