@@ -42,6 +42,8 @@ Route::group( ['as' => 'register.', 'prefix' => 'register', 'namespace' => 'Regi
     Route::resource( 'session', 'SessionController' );
     Route::get( 'change-password', 'PasswordController@index' )->name( 'change-password.index' );
     Route::put( 'change-password', 'PasswordController@update' )->name( 'change-password.update' );
+    Route::get( 'receive-bill', 'ReceivedMoneyController@index' )->name( 'received_money.index' );
+    Route::post( 'receive-bill', 'ReceivedMoneyController@store' )->name( 'received_money.store' );
 
 } );
 

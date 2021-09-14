@@ -122,6 +122,15 @@
                     </ul>
                 </li>
 
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('register.received_money.index') }}" class="nav-link {{ Request::is('register/receive-bill') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Hall Bills
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-header">MENU</li>
 
                     <li class="nav-item has-treeview">
