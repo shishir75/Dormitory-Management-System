@@ -72,7 +72,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Balance</span>
-                                <span class="info-box-number">{{ $reg_balance->amount }}</span>
+                                <span class="info-box-number">{{ number_format($reg_balance->amount, 2) }} BDT</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -99,7 +99,7 @@
                             <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Available Seat</span>
+                                <span class="info-box-text">Available Seats</span>
                                 <span class="info-box-number">{{ $available_seats }} of {{ $total_seats }}</span>
                             </div>
                             <!-- /.info-box-content -->
