@@ -32,8 +32,8 @@
                             <span class="info-box-icon bg-info"><i class="fa fa-book"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Courses</span>
-                                <span class="info-box-number"></span>
+                                <span class="info-box-text">Current Students</span>
+                                <span class="info-box-number">{{ $current_students }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -45,8 +45,8 @@
                             <span class="info-box-icon bg-success"><i class="fa fa-clock-o"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Sessions</span>
-                                <span class="info-box-number"></span>
+                                <span class="info-box-text">Waiting for Halls Approval Students</span>
+                                <span class="info-box-number">{{ $waiting_for_hall_approval_students }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -58,8 +58,8 @@
                             <span class="info-box-icon bg-warning"><i class="fa fa-user"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Teachers</span>
-                                <span class="info-box-number"></span>
+                                <span class="info-box-text">Ex-Students</span>
+                                <span class="info-box-number">{{ $ex_students }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -71,8 +71,8 @@
                             <span class="info-box-icon bg-gray"><i class="fa fa-user-plus"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Course Teacher</span>
-                                <span class="info-box-number"></span>
+                                <span class="info-box-text">Available Seats</span>
+                                <span class="info-box-number">{{ $available_seats }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -85,8 +85,8 @@
                             <span class="info-box-icon bg-info"><i class="fa fa-users"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Year Head</span>
-                                <span class="info-box-number"></span>
+                                <span class="info-box-text">Total Halls</span>
+                                <span class="info-box-number">{{ $halls }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -99,8 +99,8 @@
                             <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Students</span>
-                                <span class="info-box-number"></span>
+                                <span class="info-box-text">Total Students</span>
+                                <span class="info-box-number">{{ $current_students + $waiting_for_hall_approval_students + $ex_students }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
