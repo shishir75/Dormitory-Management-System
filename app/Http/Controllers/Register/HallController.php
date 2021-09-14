@@ -57,7 +57,7 @@ class HallController extends Controller
         $hall->short_name = $request->input( 'short_name' );
         $hall->for_male_female = $request->input( 'for_male_female' );
         $hall->total_seat = $request->input( 'total_seat' );
-        $hall->available_seat = 0;
+        $hall->available_seat = $request->input( 'total_seat' );
         $hall->save();
 
         Toastr::success( 'Hall created successfully', 'Success!' );

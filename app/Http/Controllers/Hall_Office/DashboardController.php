@@ -3,83 +3,20 @@
 namespace App\Http\Controllers\Hall_Office;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Hall;
+use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view( "hall_office.dashboard" );
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+        $current_students = Student::where( 'hall_id', $hall->id )->where( 'status', 1 )->count();
+        $pending_approval_students = Student::where( 'hall_id', $hall->id )->where( 'status', 2 )->count();
+        $ex_students = Student::where( 'hall_id', $hall->id )->where( 'status', 3 )->count();
+
+        return view( "hall_office.dashboard", compact( 'hall', 'current_students', 'pending_approval_students', 'ex_students' ) );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store( Request $request )
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show( $id )
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit( $id )
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update( Request $request, $id )
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy( $id )
-    {
-        //
-    }
 }
