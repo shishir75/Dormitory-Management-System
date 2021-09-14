@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-info"><i class="fa fa-book"></i></span>
+                            <span class="info-box-icon bg-success"><i class="fa fa-coffee"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Coupons Sold</span>
@@ -42,7 +42,7 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="fa fa-clock-o"></i></span>
+                            <span class="info-box-icon bg-primary"><i class="fa fa-clock-o"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Dining Events</span>
@@ -55,7 +55,7 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-warning"><i class="fa fa-user"></i></span>
+                            <span class="info-box-icon bg-info"><i class="fa fa-bitcoin"></i></span>
 
                             <div class="info-box-content">
                                 @if ($balance !== null)
@@ -65,7 +65,7 @@
                                     </span>
                                 @else
                                     <span class="info-box-text">Available Balance</span>
-                                    <span class="info-box-number badge badge-danger">0.00 BDT</span>
+                                    <span class="info-box-number text-danger">0.00 BDT</span>
                                 @endif
 
                             </div>
