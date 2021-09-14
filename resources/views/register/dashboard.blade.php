@@ -72,7 +72,14 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Balance</span>
-                                <span class="info-box-number">{{ number_format($reg_balance->amount, 2) }} BDT</span>
+                                <span class="info-box-number">
+                                    @if ($reg_balance !== null)
+                                        {{ number_format($reg_balance->amount, 2) }} BDT
+                                    @else
+                                        0.00 BDT
+                                    @endif
+
+                                </span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

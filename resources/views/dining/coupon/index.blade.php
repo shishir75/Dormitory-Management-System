@@ -120,7 +120,7 @@
                                     @foreach($coupon_dates as $key => $coupon)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $coupon->coupon_date }}</td>
+                                            <td>{{ $coupon->coupon_date->format('d-M-Y') }}</td>
                                             <td>
                                                 @if ($coupon->type === 'L')
                                                     <span class="badge badge-success">Lunch</span>

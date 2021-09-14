@@ -110,11 +110,20 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
+                            <span class="info-box-icon bg-success"><i class="fa fa-bitcoin"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Hall Office Balance</span>
-                                <span class="info-box-number">{{ number_format($hall_office_balance->amount, 2) }} BDT</span>
+                                @if ($hall_office_balance !== null)
+                                    <span class="info-box-text">{{ $hall_office_balance->amount > 0 ? 'Hall Available Balance' : 'Hall Owing Balance' }}</span>
+                                    <span class="info-box-number text-{{ $hall_office_balance->amount > 0 ? 'success' : 'danger' }}">
+                                        {{ abs(number_format($hall_office_balance->amount, 2)) }} BDT
+                                    </span>
+                                @else
+                                    <span class="info-box-text">Available Balance</span>
+                                    <span class="info-box-number text-danger">
+                                        0.00 BDT
+                                    </span>
+                                @endif
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -124,11 +133,20 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
+                            <span class="info-box-icon bg-success"><i class="fa fa-coffee"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Dining Balance</span>
-                                <span class="info-box-number">{{ number_format($dining_balance->amount, 2) }} BDT</span>
+                                @if ($dining_balance !== null)
+                                    <span class="info-box-text">{{ $dining_balance->amount > 0 ? 'Dining Available Balance' : 'Dining Owing Balance' }}</span>
+                                    <span class="info-box-number text-{{ $dining_balance->amount > 0 ? 'success' : 'danger' }}">
+                                        {{ abs(number_format($dining_balance->amount, 2)) }} BDT
+                                    </span>
+                                @else
+                                    <span class="info-box-text">Dining Available Balance</span>
+                                    <span class="info-box-number text-danger">
+                                        0.00 BDT
+                                    </span>
+                                @endif
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -138,7 +156,7 @@
                     <!-- /.col -->
                     <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
-                            <span class="info-box-icon bg-success"><i class="fa fa-graduation-cap"></i></span>
+                            <span class="info-box-icon bg-success"><i class="fa fa-dollar"></i></span>
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Pending Hall Bill to Register</span>
