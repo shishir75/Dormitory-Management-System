@@ -92,9 +92,12 @@ class StudentController extends Controller
 
                                 $hall_short_name = $value[4];
                                 $find_hall = Hall::where( "short_name", $hall_short_name )->first();
-                                $student->hall_id = $find_hall->id;
 
+                                $student->hall_id = $find_hall->id;
                                 $student->save();
+
+                                $find_hall->available_seat -= 1;
+                                $find_hall->save();
                             }
 
                         }
