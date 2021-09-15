@@ -35,9 +35,13 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                        @else
+                        @elseif ($student->status === 2)
                             <div class="alert alert-danger text-center"  role="alert">
-                                Your Student Validty is Expired! Plz Pay All Dues & Leave Seat. Thanks!!
+                                Your Student Validity is Expired! Plz Pay All Dues & Leave Seat. Thanks!!
+                            </div>
+                        @else
+                            <div class="alert alert-info text-center"  role="alert">
+                                Thanks For Being with Us. You are now our Ex Student. You are now on view mode only.
                             </div>
                         @endif
 
@@ -78,9 +82,13 @@
                                 <span class="info-box-text">Allotted Room No</span>
                                 <span class="info-box-number">
                                     @if ($student->room_no !== null)
-                                        {{ $student->room_no }}
+                                        <span class="text-success">{{ $student->room_no }}</span>
                                     @else
-                                        <span class="text-danger">Room Not Allotted</span>
+                                        @if ($student->status === 3)
+                                            <span class="text-danger">Leave</span>
+                                        @else
+                                            <span class="text-danger">Room Not Allotted</span>
+                                        @endif
                                     @endif
 
                                 </span>

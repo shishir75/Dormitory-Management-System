@@ -47,9 +47,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary float-right mb-3" data-toggle="modal" data-target="#purchaseCoupon">
-                            Purchase a Coupon
-                        </button>
+                        @if ($student->status !== 3)
+                            <button type="button" class="btn btn-primary float-right mb-3" data-toggle="modal" data-target="#purchaseCoupon">
+                                Purchase a Coupon
+                            </button>
+                        @endif
 
                         <!-- Modal -->
                         <div class="modal fade" id="purchaseCoupon" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -86,7 +88,7 @@
 
 
                     <!-- left column -->
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-4">
                         <!-- general form elements -->
                         <div class="card card-info">
                             <div class="card-header">
@@ -105,7 +107,9 @@
                                         <th>Date</th>
                                         <th>Amount</th>
                                         <th>Status</th>
-                                        <th>Cancel</th>
+                                        @if ($student->status !== 3)
+                                            <th>Cancel</th>
+                                        @endif
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -120,31 +124,43 @@
                                                     <span class="badge badge-info">Dinner</span>
                                                 @endif
                                             </td>
-                                            <td >{{ $coupon_detail->coupon->coupon_date }}</td>
+                                            <td >{{ $coupon_detail->coupon->coupon_date->format('d-M-Y') }}</td>
                                             <td>{{ $coupon_detail->coupon->unit_price }} BDT</td>
                                             <td>
                                                 @if ($coupon_detail->is_valid == 'unused')
-                                                    <span class="my-2 p-2 badge badge-success">Unused</span>
+
+                                                    @php
+                                                        $coupon_date =(int) $coupon_detail->coupon->coupon_date->format('Ymd');
+                                                        $current_date =(int) date('Ymd');
+                                                    @endphp
+
+                                                    @if ($current_date > $coupon_date )
+                                                        <span class="my-2 p-2 badge badge-danger">Expired</span>
+                                                    @else
+                                                        <span class="my-2 p-2 badge badge-success">Unused</span>
+                                                    @endif
+
                                                 @elseif ($coupon_detail->is_valid == 'used')
                                                     <span class="my-2 p-2 badge badge-danger">Used</span>
                                                 @endif
                                             </td>
 
-                                            <td>
-                                                @if ($coupon_detail->is_valid == 'unused')
-                                                    <button class="btn btn-danger" type="button" onclick="deleteItem({{ $coupon_detail->id }})">
-                                                        <i class="fa fa-trash" aria-hidden="true"> Cancel</i>
-                                                    </button>
-                                                    <form id="delete-form-{{ $coupon_detail->id }}" action="{{ route('student.coupon.update', $coupon_detail->id) }}" method="post"
-                                                        style="display:none;">
-                                                        @csrf
-                                                        @method('PUT')
-                                                    </form>
-                                                @else
-                                                    <span class="my-2 p-2 badge badge-warning h6">Unable to Cancel</span>
-                                                @endif
-
-                                            </td>
+                                            @if ($student->status !== 3)
+                                                <td>
+                                                    @if ($coupon_detail->is_valid == 'unused')
+                                                        <button class="btn btn-danger" type="button" onclick="deleteItem({{ $coupon_detail->id }})">
+                                                            <i class="fa fa-trash" aria-hidden="true"> Cancel</i>
+                                                        </button>
+                                                        <form id="delete-form-{{ $coupon_detail->id }}" action="{{ route('student.coupon.update', $coupon_detail->id) }}" method="post"
+                                                            style="display:none;">
+                                                            @csrf
+                                                            @method('PUT')
+                                                        </form>
+                                                    @else
+                                                        <span class="my-2 p-2 badge badge-warning h6">Unable to Cancel</span>
+                                                    @endif
+                                                </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                     </tbody>
