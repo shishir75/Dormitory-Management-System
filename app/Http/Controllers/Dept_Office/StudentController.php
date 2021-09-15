@@ -261,6 +261,12 @@ class StudentController extends Controller
 
     public function download( $dept_id, $session_id )
     {
-        return view( 'dept_office.student.print' );
+        $dept = Dept::findOrFail( $dept_id );
+
+        $session = Session::findOrFail( $session_id );
+
+        $students = Student::where( 'dept_id', $dept->id )->where( 'session_id', $session->id )->where( 'status', 1 )->orderBy( 'reg_no' )->get();
+
+        return view( 'dept_office.student.print', compact( 'students', 'dept', 'session' ) );
     }
 }

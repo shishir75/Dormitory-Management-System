@@ -14,7 +14,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Studentship Finish Students List Notice</title>
+    <title>Passed Students List for {{ $dept->short_name}} - {{ $session->name }}</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('assets/backend/plugins/font-awesome/css/font-awesome.min.css') }}">
@@ -43,54 +43,51 @@
             <div class="col-md-12 mt-4">
                 <div class="col-12 text-center mb-4">
                     <div class="row">
-                        <div class="col-4 text-right">
+                        <div class="col-3 text-right">
                             <img width="50" height="50" src="{{ asset('assets/backend/img/logo.png') }}" alt="JU Logo">
                         </div>
-                        <div class="col-4 text-center pl-4">
-                            <h4>Jahangirnagar University</h4>
-                            <h5>Savar, Dhaka</h5>
+                        <div class="col-6 text-center ">
+                            <h4>{{ $dept->name }}</h4>
+                            <h5>Jahangirnagar University</h5>
+                            <h6>Savar, Dhaka - 1342</h6>
                         </div>
                     </div>
 
-                    {{-- <h4>{{ $semester->name  }} Result {{ $year }}</h4>
-                    <h5>Subject : {{ $students[0]->dept->short_name }} </h5>
-                    <h5>Session : {{ $session->name }}</h5> --}}
-                    <div class="row">
+                    <div class="row my-4">
                         <div class="col-6 offset-3">
                             <h5 class="text-center">
-                                Passed Students List (According to Exam Roll)
+                                Passed Students List (According to Registration No)
                             </h5>
                         </div>
                         <div class="col-3">
-                            <span class="btn btn-sm btn-outline-dark float-right">Grading Scale : 4.00</span>
+                            <span class="btn btn-sm btn-outline-dark float-right">Date : {{ date('F d, Y') }}</span>
                         </div>
                     </div>
+                    <h4>Session : {{ $session->name }}</h4>
                 </div>
 
                 <table id="example1" class="table table-bordered table-striped text-center">
                     <thead>
                     <tr>
                         <th>Serial</th>
-                        <th>Hall Name</th>
-                        <th>Class Roll</th>
-                        <th>Exam Roll</th>
                         <th>Student Name</th>
-                        <th>GPA</th>
+                        <th>Sex</th>
+                        <th>Reg. No</th>
+                        <th>Hall No</th>
+                        <th>Room No</th>
                     </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach($students as $key => $student)
+                        @foreach($students as $key => $student)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $student->hall }}</td>
-                                <td>{{ $student->class_roll }}</td>
-                                <td>{{ $student->exam_roll }}</td>
-                                <td>{{ $student->name  }}</td>
-                                <td>
-
-                                </td>
+                                <td>{{ $student->name }}</td>
+                                <td>{{ $student->sex === "M" ? 'Male' : 'Female' }}</td>
+                                <td>{{ $student->reg_no }}</td>
+                                <td>{{ $student->hall->name  }}</td>
+                                <td>{{ $student->room_no === null ? 'N/A' : $student->room_no }}</td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
 
                 </table>
@@ -98,33 +95,27 @@
             </div>
             <!--/.col (left) -->
 
-            {{-- <div class="col-4 offset-8 text-right" style="margin-top: 60px;">
-                @if(isset($check_approval) && $check_approval->status == 1)
-                    <img class="text-center" width="100" height="60" src="{{ asset('assets/backend/img/sign.png') }}" alt="Exam Controller Sign">
-                @endif
-                <p>Examination Controller, JU</p>
-                <p>
-                    Date :
-                    @if(isset($check_approval) && $check_approval->status == 1)
-                        {{ $check_approval->created_at->format('F d, Y') }}
-                    @endif
-                </p>
-            </div> --}}
+            <div class="col-6 offset-6 text-right" style="margin-top: 50px;">
+                <p class="mt-4"> .......................... </p>
+                <p>Chairman / Director</p>
+                <p>{{ $dept->name }}</p>
+                <p>Jahangirnagar University, Savar, Dhaka 1342</p>
+            </div>
 
         </div>
         <!-- /.row -->
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
 <!-- /.content -->
 <!-- /.content-wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-<script src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') }}"></script>
-<!-- Bootstrap -->
-<script src="{{ asset('assets/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- AdminLTE -->
-<script src="{{ asset('assets/backend/js/adminlte.js') }}"></script>
+    <script src="{{ asset('https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ asset('assets/backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE -->
+    <script src="{{ asset('assets/backend/js/adminlte.js') }}"></script>
 
 <script>
     window.print();
@@ -132,8 +123,4 @@
 
 
 </body>
-
-
-
-
-</html>>
+</html>
