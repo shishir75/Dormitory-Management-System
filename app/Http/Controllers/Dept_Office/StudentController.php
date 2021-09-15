@@ -248,12 +248,12 @@ class StudentController extends Controller
                 DB::table( 'students' )
                     ->where( "dept_id", $dept->id )
                     ->where( "id", $student_id )
-                    ->update( ['room_no' => null, 'status' => 2] );
+                    ->update( ['status' => 2] );
             } else {
                 DB::table( 'students' )
                     ->where( "dept_id", $dept->id )
                     ->where( "id", $student_id )
-                    ->update( ['room_no' => null, 'status' => 1] );
+                    ->update( ['status' => 1] );
             }
         }
         Toastr::success( 'Status updated successfully', 'Success' );

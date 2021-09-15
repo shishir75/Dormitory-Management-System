@@ -34,7 +34,7 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ strtoupper('Allotted Students list of '.$hall->name ) }}</h3>
+                                <h3 class="card-title">{{ strtoupper('Pending Students list of '.$hall->name ) }}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -44,6 +44,8 @@
                                         <th>Serial</th>
                                         <th>Student Name</th>
                                         <th>Session</th>
+                                        <th>Dept Name</th>
+                                        <th>Room No</th>
                                         <th>Due Hall Bill</th>
                                         <th>Approval</th>
                                         <th>Actions</th>
@@ -54,6 +56,8 @@
                                         <th>Serial</th>
                                         <th>Student Name</th>
                                         <th>Session</th>
+                                        <th>Dept Name</th>
+                                        <th>Room No</th>
                                         <th>Due Hall Bill</th>
                                         <th>Approval</th>
                                         <th>Actions</th>
@@ -65,6 +69,8 @@
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $student->name }}</td>
                                                 <td>{{ $student->session->name }}</td>
+                                                <td>{{ $student->dept->short_name }}</td>
+                                                <td>{{ $student->room_no === null ? 'N/A' : $student->room_no }}</td>
                                                 <td>
 
                                                     @php
