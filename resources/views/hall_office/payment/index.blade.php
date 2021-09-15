@@ -90,7 +90,7 @@
                                 <h3 class="card-title">{{ strtoupper('Transactions History of '. $hall->name ) }} OFFICE
                                     <span class="float-right">
                                         @if ($hall_office_balance !== null)
-                                            {{ $hall_office_balance->amount > 0 ? 'Available Balance : ' : 'Owing Balance : ' }}
+                                            {{ $hall_office_balance->amount > 0 ? 'Available Balance (Hall): ' : 'Owing Balance (Hall): ' }}
                                             <span class="badge badge-{{ $hall_office_balance->amount > 0 ? 'success' : 'danger' }}">
                                                 {{ abs(number_format($hall_office_balance->amount, 2)) }} BDT
                                             </span>
