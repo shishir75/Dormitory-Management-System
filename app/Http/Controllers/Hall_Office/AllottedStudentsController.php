@@ -375,7 +375,31 @@ class AllottedStudentsController extends Controller
 
     public function pendingStudentsUpdate( Request $request, $student_id )
     {
-        return $student_id;
+        $student = Student::findOrFail( $student_id );
+
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+
+        $hall_room = HallRoom::where( 'hall_id', $hall->id )->where( 'room_no', $student->room_no )->first();
+
+        if ( $student->hall_id === $hall->id ) {
+            $student->status = 3;
+            $student->room_no = null;
+            $student->save();
+
+            if ( $hall_room !== null ) {
+                $hall_room->available_seat += 1;
+                $hall_room->save();
+            }
+
+            Toastr::success( 'Student Leaving Approval Successful', 'Success!!!' );
+
+            return redirect()->back();
+
+        } else {
+            Toastr::error( 'Unauthorized Access Denied!!!', 'Error!!!' );
+
+            return redirect()->back();
+        }
     }
 
 }
