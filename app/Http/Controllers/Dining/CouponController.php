@@ -164,9 +164,10 @@ class CouponController extends Controller
     {
         $coupon_detail = CouponDetail::with( 'coupon' )->findOrFail( $id );
 
-        $current_date = Carbon::now()->format( "Y-m-d" );
+        $coupon_date = (int) $coupon_detail->coupon->coupon_date->format( 'Ymd' );
+        $current_date = (int) date( 'Ymd' );
 
-        if ( $current_date === $coupon_detail->coupon->coupon_date ) {
+        if ( $current_date === $coupon_date ) {
             if ( $coupon_detail->is_valid === 'unused' ) {
                 $coupon_detail->is_valid = 'used';
             } else {

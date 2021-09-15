@@ -93,23 +93,23 @@
                                             </td>
                                             <td>
                                                 @if($student->room_no == null)
-                                                    <p class="badge badge-warning">Not Allocated</p>
+                                                    @if ($student->status === 3)
+                                                        <p class="badge badge-danger">Leave</p>
+                                                    @else
+                                                        <p class="badge badge-warning">Not Allocated</p>
+                                                    @endif
                                                 @else
                                                     {{ $student->room_no }}
                                                 @endif
                                             </td>
                                             <td>
-                                                <a class="btn btn-sm btn-info" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
-                                                    <i class="fa fa-user-plus fa-lg"></i>
-                                                </a>
-                                                {{-- @if($student->room_no == null)
-                                                    <!-- Button trigger modal -->
-                                                    <a class="btn btn-sm btn-warning" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
+                                                @if ($student->status === 3)
+                                                    <p class="badge badge-danger">Leave</p>
+                                                @else
+                                                    <a class="btn btn-sm btn-info" data-toggle="modal" data-id="{{ $student->id }}" data-target="#showData-{{ $student->id}}">
                                                         <i class="fa fa-user-plus fa-lg"></i>
                                                     </a>
-                                                @else
-                                                    <p class="badge badge-success"><i class="fa fa-check-circle fa-lg"></i></p>
-                                                @endif --}}
+                                                @endif
 
                                                 <!-- Allocation Modal -->
                                                 <div class="modal fade" id="showData-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -159,22 +159,31 @@
                                                     }
                                                 @endphp
 
-                                                @if ($balance == null)
-                                                    <p class="badge badge-danger">0.00 BDT</p>
-                                                @elseif ($balance->amount > 0)
-                                                    <p class="badge badge-success">
-                                                        {{ number_format($balance->amount, 2) }} BDT
-                                                    </p>
+                                                @if ($student->status === 3)
+                                                    <p class="badge badge-danger">Leave</p>
                                                 @else
-                                                    <p class="badge badge-danger">
-                                                        {{ number_format($balance->amount, 2) }} BDT
-                                                    </p>
+                                                    @if ($balance == null)
+                                                        <p class="badge badge-danger">0.00 BDT</p>
+                                                    @elseif ($balance->amount > 0)
+                                                        <p class="badge badge-success">
+                                                            {{ number_format($balance->amount, 2) }} BDT
+                                                        </p>
+                                                    @else
+                                                        <p class="badge badge-danger">
+                                                            {{ number_format($balance->amount, 2) }} BDT
+                                                        </p>
+                                                    @endif
                                                 @endif
                                             </th>
                                             <th>
-                                                <a class="btn btn-sm btn-success" data-toggle="modal" data-id="{{ $student->id }}" data-target="#addBalance-{{ $student->id}}">
-                                                    <i class="fa fa-plus-square fa-lg"></i>
-                                                </a>
+
+                                                @if ($student->status === 3)
+                                                    <p class="badge badge-danger">Leave</p>
+                                                @else
+                                                    <a class="btn btn-sm btn-success" data-toggle="modal" data-id="{{ $student->id }}" data-target="#addBalance-{{ $student->id}}">
+                                                        <i class="fa fa-plus-square fa-lg"></i>
+                                                    </a>
+                                                @endif
 
                                                  <!-- Add Balance Modal -->
                                                  <div class="modal fade" id="addBalance-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="addBalance" aria-hidden="true">
@@ -246,18 +255,25 @@
 
                                                 @endphp
 
-                                                @if ($due_bill_sign === true)
-                                                    <span class="badge badge-danger">{{ $due_bill }} BDT</span>
+                                                @if ($student->status === 3)
+                                                    <p class="badge badge-danger">Leave</p>
                                                 @else
-                                                    <span class="badge badge-success">{{ $due_bill }} BDT</span>
+                                                    @if ($due_bill_sign === true)
+                                                        <span class="badge badge-danger">{{ $due_bill }} BDT</span>
+                                                    @else
+                                                        <span class="badge badge-success">{{ $due_bill }} BDT</span>
+                                                    @endif
                                                 @endif
-
                                             </th>
                                             <th>
-                                                <!-- Button trigger modal -->
-                                                <a class="btn btn-sm btn-success" data-toggle="modal" data-id="{{ $student->id }}" data-target="#payBill-{{ $student->id}}">
-                                                    <i class="fa fa-dollar fa-lg"></i>
-                                                </a>
+                                                @if ($student->status === 3)
+                                                    <p class="badge badge-danger">Leave</p>
+                                                @else
+                                                    <!-- Button trigger modal -->
+                                                    <a class="btn btn-sm btn-success" data-toggle="modal" data-id="{{ $student->id }}" data-target="#payBill-{{ $student->id}}">
+                                                        <i class="fa fa-dollar fa-lg"></i>
+                                                    </a>
+                                                @endif
 
                                                 <!-- Add Balance Modal -->
                                                 <div class="modal fade" id="payBill-{{ $student->id}}" tabindex="-1" role="dialog" aria-labelledby="payBill" aria-hidden="true">

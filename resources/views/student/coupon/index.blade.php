@@ -135,13 +135,13 @@
                                                     @endphp
 
                                                     @if ($current_date > $coupon_date )
-                                                        <span class="my-2 p-2 badge badge-danger">Expired</span>
+                                                        <span class="badge badge-danger">Expired</span>
                                                     @else
-                                                        <span class="my-2 p-2 badge badge-success">Unused</span>
+                                                        <span class="badge badge-success">Unused</span>
                                                     @endif
 
                                                 @elseif ($coupon_detail->is_valid == 'used')
-                                                    <span class="my-2 p-2 badge badge-danger">Used</span>
+                                                    <span class="badge badge-danger">Used</span>
                                                 @endif
                                             </td>
 

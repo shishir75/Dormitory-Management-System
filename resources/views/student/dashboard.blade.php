@@ -239,7 +239,24 @@
 
                                                     </td>
                                                     <td>{{ number_format($coupon->coupon->unit_price, 2) }} BDT</td>
-                                                    <td><span class="badge badge-{{ $coupon->is_valid == 'unused' ? 'success' : 'danger' }}">{{ ucwords($coupon->is_valid) }}</span></td>
+                                                    <td>
+                                                        @if ($coupon->is_valid == 'unused')
+
+                                                            @php
+                                                                $coupon_date =(int) $coupon->coupon->coupon_date->format('Ymd');
+                                                                $current_date =(int) date('Ymd');
+                                                            @endphp
+
+                                                            @if ($current_date > $coupon_date )
+                                                                <span class="badge badge-danger">Expired</span>
+                                                            @else
+                                                                <span class="badge badge-success">Unused</span>
+                                                            @endif
+
+                                                        @elseif ($coupon->is_valid == 'used')
+                                                            <span class="badge badge-danger">Used</span>
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $coupon->created_at->diffInMinutes() <= 1440 ?  $coupon->created_at->diffForHumans() : $coupon->created_at->format('jS F Y') }}</td>
                                                 </tr>
                                             @endforeach

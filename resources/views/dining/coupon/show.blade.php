@@ -35,7 +35,13 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Students list of <span class="badge badge-success">{{ $coupon_details[0]->coupon->coupon_date  }}</span>
+                                <h3 class="card-title">Food Coupon Taker list of
+                                    <span class="badge badge-success">
+                                        {{ $coupon_details[0]->coupon->coupon_date->format('d-M-Y')  }}
+                                    </span>
+                                    <span class="badge badge-info">
+                                        {{ $coupon_details[0]->coupon->type === "L" ? 'Lunch' : 'Dinner'}}
+                                    </span>
                                     <span class="badge badge-info float-right">{{ $dining->name }}</span>
                                 </h3>
                             </div>
@@ -70,13 +76,26 @@
                                             <td>{{ $coupon_detail->student->name }}</td>
                                             <td>{{ $coupon_detail->student->session->name }}</td>
                                             <td>{{ $coupon_detail->coupon_no }}</td>
-                                            @if ($coupon_detail->is_valid === 'unused')
-                                                <td class="my-2 badge badge-success">Unused</td>
-                                            @else
-                                                <td class="my-2 badge badge-danger">Used</td>
-                                            @endif
                                             <td>
-                                                <button class="btn btn-danger" type="button" onclick="deleteItem({{ $coupon_detail->id }})">
+                                                @if ($coupon_detail->is_valid == 'unused')
+
+                                                    @php
+                                                        $coupon_date =(int) $coupon_detail->coupon->coupon_date->format('Ymd');
+                                                        $current_date =(int) date('Ymd');
+                                                    @endphp
+
+                                                    @if ($current_date > $coupon_date )
+                                                        <span class="badge badge-danger">Expired</span>
+                                                    @else
+                                                        <span class="badge badge-success">Unused</span>
+                                                    @endif
+
+                                                @elseif ($coupon_detail->is_valid == 'used')
+                                                    <span class="badge badge-danger">Used</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-sm btn-danger" type="button" onclick="deleteItem({{ $coupon_detail->id }})">
                                                      Change
                                                 </button>
                                                 <form id="delete-form-{{ $coupon_detail->id }}" action="{{ route('dining.coupon.update', $coupon_detail->id) }}" method="post"
