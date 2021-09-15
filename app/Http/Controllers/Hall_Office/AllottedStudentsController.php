@@ -373,4 +373,9 @@ class AllottedStudentsController extends Controller
         return view( 'hall_office.pending', compact( 'hall', 'students' ) );
     }
 
+    public function pendingStudentsUpdate( Request $request, $student_id )
+    {
+        return $student_id;
+    }
+
 }

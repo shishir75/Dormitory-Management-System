@@ -74,7 +74,7 @@
                                                 <td>
 
                                                     @php
-                                                    $student = App\Models\Student::findOrFail($student->id);
+                                                    //$student = App\Models\Student::findOrFail($student->id);
 
                                                     $hall_bill = App\Models\HallBill::where('student_id', $student->id)->latest()->first();
 
@@ -118,12 +118,15 @@
                                                     @if ($due_bill_sign === true)
                                                         <span class="badge badge-danger">Pay Due Bill First</span>
                                                     @else
-                                                        <a href="{{ route('hall_office.allotted-students.show', $student->name) }}" class="btn btn-sm btn-warning">
+                                                        <button class="btn btn-sm btn-warning" type="button" onclick="deleteItem({{ $student->id }})">
                                                             Approval
-                                                        </a>
+                                                        </button>
+                                                        <form id="delete-form-{{ $student->id }}" action="{{ route('hall_office.pending_students.update', $student->id) }}" method="post"
+                                                            style="display:none;">
+                                                            @csrf
+                                                            @method('PUT')
+                                                        </form>
                                                     @endif
-
-
 
                                                 </td>
                                                 <td>
@@ -155,5 +158,64 @@
 
 
 @push('js')
+
+  <!-- DataTables -->
+  <script src="{{ asset('assets/backend/plugins/datatables/jquery.dataTables.js') }}"></script>
+  <script src="{{ asset('assets/backend/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
+  <!-- SlimScroll -->
+  <script src="{{ asset('assets/backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+  <!-- FastClick -->
+  <script src="{{ asset('assets/backend/plugins/fastclick/fastclick.js') }}"></script>
+   <!-- Sweet Alert Js -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.1/dist/sweetalert2.all.min.js"></script>
+
+
+   <script>
+    $(function () {
+        $("#example1").DataTable();
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    function deleteItem(id) {
+        const swalWithBootstrapButtons = swal.mixin({
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            buttonsStyling: true,
+        })
+
+        swalWithBootstrapButtons({
+            title: 'Are you sure?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes!',
+            cancelButtonText: 'No!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                event.preventDefault();
+                document.getElementById('delete-form-'+id).submit();
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons(
+                    'Cancelled',
+                    'Your data is safe :)',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
 
 @endpush
