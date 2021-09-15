@@ -55,9 +55,8 @@
 
                     <div class="row my-4">
                         <div class="col-6 offset-3">
-                            <h5 class="text-center">
-                                Passed Students List (According to Registration No)
-                            </h5>
+                            <h5 class="text-center">Passed Students List</h5>
+                            <p class="text-center">(According to Registration No)</p>
                         </div>
                         <div class="col-3">
                             <span class="btn btn-sm btn-outline-dark float-right">Date : {{ date('F d, Y') }}</span>

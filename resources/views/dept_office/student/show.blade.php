@@ -49,7 +49,7 @@
 
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped text-center">
-                                    <a type="button" target="_blank" href="{{ route('dept_office.student.download', [$students[0]->dept_id, $students[0]->session_id]) }}" class="btn btn-success mb-3 text-white">Print Data</a>
+                                    <a type="button" target="_blank" href="{{ route('dept_office.student.download', $students[0]->session_id) }}" class="btn btn-success mb-3 text-white">Print Unapproved Data</a>
                                     <button type="button" class="btn btn-warning float-right mb-3" id="changeAllSelectedRecords">Change Status for Selected</button>
                                     <thead>
                                     <tr>
@@ -96,7 +96,11 @@
                                             </td>
                                             <td>
                                                 @if($student->room_no == null)
-                                                    <p class="badge badge-warning">Room not allocated yet</p>
+                                                    @if ($student->status == 3)
+                                                        <p class="badge badge-danger">Leave</p>
+                                                    @else
+                                                        <p class="badge badge-warning">Room not allocated yet</p>
+                                                    @endif
                                                 @else
                                                     {{ $student->room_no }}
                                                 @endif
@@ -104,8 +108,10 @@
                                             <td>
                                                 @if($student->status == 1)
                                                     <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
-                                                @else
+                                                @elseif ($student->status == 2)
                                                     <p class="badge badge-warning"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
+                                                @else
+                                                    <p class="badge badge-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
                                                 @endif
                                             </td>
                                             <td>

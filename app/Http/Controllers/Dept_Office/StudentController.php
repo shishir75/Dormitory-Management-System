@@ -259,9 +259,9 @@ class StudentController extends Controller
         Toastr::success( 'Status updated successfully', 'Success' );
     }
 
-    public function download( $dept_id, $session_id )
+    public function download( $session_id )
     {
-        $dept = Dept::findOrFail( $dept_id );
+        $dept = Dept::where( 'name', Auth::user()->name )->first();
 
         $session = Session::findOrFail( $session_id );
 
