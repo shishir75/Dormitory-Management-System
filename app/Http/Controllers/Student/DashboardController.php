@@ -27,18 +27,26 @@ class DashboardController extends Controller
         $hall_bill = HallBill::where( 'student_id', $student->id )->latest()->first();
 
         if ( $hall_bill === null ) {
-            $hall_bill_start = $student->created_at;
-            $hall_bill_end = Carbon::now();
+            $hall_bill_start = $student->created_at->format( 'Y-m' ) . "-01 12:00:00";
+            $hall_bill_end = date( 'Y-m', strtotime( '+1 month' ) ) . "-01 12:00:00";
+
+            $from = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill_start );
+            $to = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill_end );
+            $diff_in_months = $from->diffInMonths( $to );
+
+            $due_bill = (int) (  ( $diff_in_months ) * 20 );
+
         } else {
-            $hall_bill_start = $hall_bill->start_month;
-            $hall_bill_end = $hall_bill->end_month;
+
+            $hall_bill_start = $hall_bill->end_month;
+            $hall_bill_end = date( 'Y-m' ) . "-01 12:00:00";
+
+            $from = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill_start );
+            $to = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill_end );
+            $diff_in_months = $from->diffInMonths( $to );
+
+            $due_bill = (int) (  ( $diff_in_months ) * 20 );
         }
-
-        $from = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill_start );
-        $to = Carbon::createFromFormat( 'Y-m-d H:s:i', $hall_bill_end );
-        $diff_in_months = $from->diffInMonths( $to );
-
-        $due_bill = (int) (  ( $diff_in_months + 1 ) * 20 );
 
         $end_date_as_integer = (int) date( 'Ym', strtotime( $from ) );
         $current_date_as_integer = (int) date( 'Ym', strtotime( $to ) );
@@ -50,8 +58,6 @@ class DashboardController extends Controller
         }
 
         $latest_transactions = Transaction::where( 'user_id', Auth::user()->id )->latest()->take( 10 )->get();
-
-        //dd( $latest_transactions->count() );
 
         return view( 'student.dashboard', compact( 'student', 'balance', 'coupons', 'due_bill', 'latest_transactions', 'coupon_count', 'due_bill_sign' ) );
     }
