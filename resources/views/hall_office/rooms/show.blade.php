@@ -51,7 +51,6 @@
                                         <th>Reg No</th>
                                         <th>Room No</th>
                                         <th>Student Status</th>
-                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -71,14 +70,13 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                @if($student->status == true)
-                                                    <p class="badge badge-success"><i class="fa fa-check-circle"></i></p>
+                                                @if ($student->status == 1)
+                                                    <i class="fa fa-check-circle fa-lg text-success"></i>
+                                                @elseif ($student->status == 2)
+                                                    <i class="fa fa-exclamation-circle fa-lg text-warning"></i>
                                                 @else
-                                                <p class="badge badge-warning"><i class="fa fa-times-circle" aria-hidden="true"></i></p>
+                                                    <i class="fa fa-times-circle fa-lg text-danger"></i>
                                                 @endif
-                                            </td>
-                                            <td>
-
                                             </td>
                                         </tr>
                                     @endforeach
