@@ -14,7 +14,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Passed Students List for {{ $dept->short_name}} - {{ $session->name }}</title>
+    <title>Pending Approval Students List for {{ $hall->name}}</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="{{ asset('assets/backend/plugins/font-awesome/css/font-awesome.min.css') }}">
@@ -47,7 +47,7 @@
                             <img width="50" height="50" src="{{ asset('assets/backend/img/logo.png') }}" alt="JU Logo">
                         </div>
                         <div class="col-6 text-center ">
-                            <h4>{{ $dept->name }}</h4>
+                            <h4>{{ $hall->name }}</h4>
                             <h5>Jahangirnagar University</h5>
                             <h6>Savar, Dhaka - 1342</h6>
                         </div>
@@ -55,15 +55,13 @@
 
                     <div class="row my-4">
                         <div class="col-6 offset-3">
-                            <h5 class="text-center">
-                                Passed Students List (According to Registration No)
-                            </h5>
+                            <h5 class="text-center">Pending Approval Students List </h5>
+                            <p class="text-center">(According to Registration No)</p>
                         </div>
                         <div class="col-3">
                             <span class="btn btn-sm btn-outline-dark float-right">Date : {{ date('F d, Y') }}</span>
                         </div>
                     </div>
-                    <h4>Session : {{ $session->name }}</h4>
                     <h5>Status: <span class="text-success">Passed : Awaiting for Hall Clearance.</span></h5>
                 </div>
 
@@ -72,9 +70,9 @@
                     <tr>
                         <th>Serial</th>
                         <th>Student Name</th>
-                        <th>Sex</th>
-                        <th>Reg. No</th>
-                        <th>Hall No</th>
+                        <th>Session</th>
+                        <th>Registration No</th>
+                        <th>Department Name</th>
                         <th>Room No</th>
                     </tr>
                     </thead>
@@ -83,9 +81,9 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $student->name }}</td>
-                                <td>{{ $student->sex === "M" ? 'Male' : 'Female' }}</td>
+                                <td>{{ $student->session->name }}</td>
                                 <td>{{ $student->reg_no }}</td>
-                                <td>{{ $student->hall->name  }}</td>
+                                <td>{{ $student->dept->name  }}</td>
                                 <td>{{ $student->room_no === null ? 'N/A' : $student->room_no }}</td>
                             </tr>
                         @endforeach
@@ -98,8 +96,8 @@
 
             <div class="col-6 offset-6 text-right" style="margin-top: 50px;">
                 <p class="mt-4"> .......................... </p>
-                <p>Chairman / Director</p>
-                <p>{{ $dept->name }}</p>
+                <p>Provost</p>
+                <p>{{ $hall->name }}</p>
                 <p>Jahangirnagar University, Savar, Dhaka 1342</p>
             </div>
 

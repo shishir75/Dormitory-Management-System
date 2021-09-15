@@ -402,4 +402,13 @@ class AllottedStudentsController extends Controller
         }
     }
 
+    public function download()
+    {
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+
+        $students = Student::where( 'hall_id', $hall->id )->where( 'status', 2 )->orderBy( 'reg_no' )->get();
+
+        return view( 'hall_office.print', compact( 'hall', 'students' ) );
+    }
+
 }

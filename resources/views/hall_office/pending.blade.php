@@ -34,7 +34,11 @@
                         <!-- general form elements -->
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">{{ strtoupper('Pending Students list of '.$hall->name ) }}</h3>
+                                <h3 class="card-title">
+                                    {{ strtoupper('Pending Students list of '.$hall->name ) }}
+                                    <a type="button" target="_blank" href="{{ route('hall_office.pending_students.download') }}" class="btn btn-sm btn-primary text-white float-right">Print Data</a>
+                                </h3>
+
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
