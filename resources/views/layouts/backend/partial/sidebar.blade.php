@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
-	<a href="{{ route('home') }}" class="brand-link">
-		<img src="{{ asset('assets/backend/img/logo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+	<a href="#" class="brand-link">
+		<img src="{{ asset('assets/backend/img/logo.png') }}" alt="JU Logo" class="brand-image img-circle elevation-3"
 		     style="opacity: .8">
 		<span class="brand-text font-weight-light">DMS</span>
 	</a>
@@ -51,7 +51,7 @@
 					</li>
 					<li class="nav-item has-treeview {{ Request::is('register/dept*') ? 'menu-open' : '' }}">
 						<a href="#" class="nav-link {{ Request::is('register/dept*') ? 'active' : '' }}">
-							<i class="nav-icon fa fa-sliders"></i>
+							<i class="nav-icon fa fa-file-text"></i>
 							<p>
 								Departments
 								<i class="right fa fa-angle-left"></i>
@@ -100,7 +100,7 @@
 
                 <li class="nav-item has-treeview {{ Request::is('register/hall*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Request::is('register/hall*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashcube"></i>
+                        <i class="nav-icon fa fa-home"></i>
                         <p>
                             Halls
                             <i class="right fa fa-angle-left"></i>
@@ -124,7 +124,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('register.received_money.index') }}" class="nav-link {{ Request::is('register/receive-bill') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-money"></i>
                         <p>
                             Hall Bills
                         </p>
@@ -135,7 +135,7 @@
 
                     <li class="nav-item has-treeview">
                         <a href="{{ route('register.change-password.index') }}" class="nav-link {{ Request::is('register/change-password*') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-dashboard"></i>
+                            <i class="nav-icon fa fa-cogs"></i>
                             <p>
                                 Change Password
                             </p>
@@ -154,7 +154,7 @@
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="{{ route('dept_office.halls.index') }}" class="nav-link {{ Request::is('dept-office/halls') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-dashboard"></i>
+                            <i class="nav-icon fa fa-home"></i>
                             <p>
                                 Halls
                             </p>
@@ -163,7 +163,7 @@
 
                     <li class="nav-item has-treeview {{ Request::is('dept-office/student*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ Request::is('dept-office/student*') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-graduation-cap"></i>
+                            <i class="nav-icon fa fa-users"></i>
                             <p>
                                 Students
                                 <i class="right fa fa-angle-left"></i>
@@ -189,7 +189,7 @@
 
                     <li class="nav-item has-treeview">
                         <a href="{{ route('dept_office.change-password.index') }}" class="nav-link {{ Request::is('dept-office/change-password*') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-dashboard"></i>
+                            <i class="nav-icon fa fa-cogs"></i>
                             <p>
                                 Change Password
                             </p>
@@ -210,7 +210,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('hall_office.allotted-students.index') }}" class="nav-link {{ Request::is('hall-office/allotted-students*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-users"></i>
                         <p>
                             Allotted Students
                         </p>
@@ -219,7 +219,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('hall_office.pending_students') }}" class="nav-link {{ Request::is('hall-office/pending-students') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-clock-o"></i>
                         <p>
                             Pending Students
                         </p>
@@ -228,7 +228,7 @@
 
                 <li class="nav-item has-treeview {{ Request::is('hall-office/rooms*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('hall-office/rooms*') ? 'active' : '' }}">
-						<i class="nav-icon fa fa-graduation-cap"></i>
+						<i class="nav-icon fa fa-home"></i>
 						<p>
 							Rooms
 							<i class="right fa fa-angle-left"></i>
@@ -252,7 +252,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('hall_office.payment.index') }}" class="nav-link {{ Request::is('hall-office/payment*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-money"></i>
                         <p>
                             Make Dining Payment
                         </p>
@@ -263,7 +263,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('hall_office.change-password.index') }}" class="nav-link {{ Request::is('hall-office/change-password*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-cogs"></i>
                         <p>
                             Change Password
                         </p>
@@ -283,7 +283,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('student.coupon.index') }}" class="nav-link {{ Request::is('student/coupon*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-coffee"></i>
                         <p>
                             Food Coupons
                         </p>
@@ -291,7 +291,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="{{ route('student.transaction') }}" class="nav-link {{ Request::is('student/transaction') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-dollar"></i>
                         <p>
                             Transactions
                         </p>
@@ -302,7 +302,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('student.change-password.index') }}" class="nav-link {{ Request::is('student/change-password*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-cogs"></i>
                         <p>
                             Change Password
                         </p>
@@ -321,7 +321,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('dining.coupon.index') }}" class="nav-link {{ Request::is('dining/coupon*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-coffee"></i>
                         <p>
                             Food Coupons
                         </p>
@@ -330,7 +330,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('dining.transaction') }}" class="nav-link {{ Request::is('dining/transaction') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-dollar"></i>
                         <p>
                             Transactions
                         </p>
@@ -341,7 +341,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('dining.change-password.index') }}" class="nav-link {{ Request::is('dining/change-password*') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-dashboard"></i>
+                        <i class="nav-icon fa fa-cogs"></i>
                         <p>
                             Change Password
                         </p>
