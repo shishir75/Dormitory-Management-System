@@ -72,6 +72,7 @@ Route::group( ['as' => 'hall_office.', 'prefix' => 'hall-office', 'namespace' =>
     Route::post( 'pay-hall-bill/{student_id}', 'AllottedStudentsController@pay_hall_bill' )->name( 'allotted-students.pay-hall-bill' );
     Route::get( 'change-password', 'PasswordController@index' )->name( 'change-password.index' );
     Route::put( 'change-password', 'PasswordController@update' )->name( 'change-password.update' );
+    Route::get( 'pending-students', 'AllottedStudentsController@pendingStudents' )->name( 'pending_students' );
 
 } );
 

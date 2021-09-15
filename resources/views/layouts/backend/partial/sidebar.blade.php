@@ -217,6 +217,15 @@
                     </a>
                 </li>
 
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('hall_office.pending_students') }}" class="nav-link {{ Request::is('hall-office/pending-students') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            Pending Students
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-item has-treeview {{ Request::is('hall-office/rooms*') ? 'menu-open' : '' }}">
 					<a href="#" class="nav-link {{ Request::is('hall-office/rooms*') ? 'active' : '' }}">
 						<i class="nav-icon fa fa-graduation-cap"></i>

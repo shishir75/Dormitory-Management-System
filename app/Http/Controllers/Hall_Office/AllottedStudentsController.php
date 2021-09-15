@@ -364,4 +364,13 @@ class AllottedStudentsController extends Controller
             return redirect()->back();
         }
     }
+
+    public function pendingStudents()
+    {
+        $hall = Hall::where( 'name', Auth::user()->name )->first();
+        $students = Student::where( "hall_id", $hall->id )->where( 'status', 2 )->get();
+
+        return view( 'hall_office.pending', compact( 'hall', 'students' ) );
+    }
+
 }
