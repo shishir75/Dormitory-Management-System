@@ -265,7 +265,7 @@ class StudentController extends Controller
 
         $session = Session::findOrFail( $session_id );
 
-        $students = Student::where( 'dept_id', $dept->id )->where( 'session_id', $session->id )->where( 'status', 1 )->orderBy( 'reg_no' )->get();
+        $students = Student::where( 'dept_id', $dept->id )->where( 'session_id', $session->id )->where( 'status', 2 )->orderBy( 'reg_no' )->get();
 
         return view( 'dept_office.student.print', compact( 'students', 'dept', 'session' ) );
     }

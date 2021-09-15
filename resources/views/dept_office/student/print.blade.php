@@ -64,6 +64,7 @@
                         </div>
                     </div>
                     <h4>Session : {{ $session->name }}</h4>
+                    <h5>Status: <span class="text-success">Passed : Awaiting for Hall Clearance.</span></h5>
                 </div>
 
                 <table id="example1" class="table table-bordered table-striped text-center">
