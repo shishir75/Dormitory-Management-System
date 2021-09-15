@@ -57,7 +57,7 @@ Route::group( ['as' => 'dept_office.', 'prefix' => 'dept-office', 'namespace' =>
     Route::get( 'halls', 'HallsController@index' )->name( 'halls.index' );
     Route::get( 'change-password', 'PasswordController@index' )->name( 'change-password.index' );
     Route::put( 'change-password', 'PasswordController@update' )->name( 'change-password.update' );
-
+    Route::get( 'download/{dept_id}/{session_id}', 'StudentController@download' )->name( 'student.download' );
 } );
 
 // Hall Office Route Group

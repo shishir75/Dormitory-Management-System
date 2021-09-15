@@ -258,4 +258,9 @@ class StudentController extends Controller
         }
         Toastr::success( 'Status updated successfully', 'Success' );
     }
+
+    public function download( $dept_id, $session_id )
+    {
+        return view( 'dept_office.student.print' );
+    }
 }

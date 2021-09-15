@@ -49,6 +49,7 @@
 
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped text-center">
+                                    <a type="button" target="_blank" href="{{ route('dept_office.student.download', [$students[0]->dept_id, $students[0]->session_id]) }}" class="btn btn-success mb-3 text-white">Print Data</a>
                                     <button type="button" class="btn btn-warning float-right mb-3" id="changeAllSelectedRecords">Change Status for Selected</button>
                                     <thead>
                                     <tr>
