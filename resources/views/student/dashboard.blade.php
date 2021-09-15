@@ -132,8 +132,8 @@
                             <span class="info-box-icon bg-gray"><i class="fa fa-btc"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">{{ $due_bill_sign === false ? "Holding Hall Bill" : "Due Hall Bill" }}</span>
-                                <span class="info-box-number">{{ number_format($due_bill, 2)}} BDT</span>
+                                <span class="info-box-text">{{ $due_bill_sign === false ? "Advanced Paid Hall Bill" : "Due Hall Bill" }}</span>
+                                <span class="info-box-number text-{{ $due_bill_sign === false ? 'success' : 'danger' }}">{{ number_format($due_bill, 2)}} BDT</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
