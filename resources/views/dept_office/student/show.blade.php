@@ -33,7 +33,7 @@
                         <div class="card card-info">
                             <div class="card-header">
                                 <h3 class="card-title">Show Students for Session {{ $students[0]->session->name}}
-                                    <button type="button" onclick="deleteItem({{ $students[0]->session->id }})" class="btn btn-sm btn-danger text-white float-right">Change Status For All Students</button>
+                                    {{-- <button type="button" onclick="deleteItem({{ $students[0]->session->id }})" class="btn btn-sm btn-danger text-white float-right">Change Status For All Students</button> --}}
                                 </h3>
                                 <form id="change-batch-form-{{ $students[0]->session->id }}" action="{{ route('dept_office.student.change_all_status', $students[0]->session->id) }}" method="post"
                                     style="display:none;">

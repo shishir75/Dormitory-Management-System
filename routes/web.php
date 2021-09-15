@@ -52,7 +52,7 @@ Route::group( ['as' => 'dept_office.', 'prefix' => 'dept-office', 'namespace' =>
 
     Route::get( 'dashboard', 'DashboardController@index' )->name( 'dashboard' );
     Route::resource( 'student', 'StudentController' );
-    Route::put( 'change_all_status/{id}', 'StudentController@change_all_status' )->name( "student.change_all_status" );
+    //Route::put( 'change_all_status/{id}', 'StudentController@change_all_status' )->name( "student.change_all_status" );
     Route::put( 'change_status_selected', 'StudentController@changeStatusForSelectedStudents' )->name( 'student.change_status_selected' );
     Route::get( 'halls', 'HallsController@index' )->name( 'halls.index' );
     Route::get( 'change-password', 'PasswordController@index' )->name( 'change-password.index' );

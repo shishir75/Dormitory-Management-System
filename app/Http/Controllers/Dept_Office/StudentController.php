@@ -211,29 +211,30 @@ class StudentController extends Controller
         return redirect()->route( 'dept_office.student.index' );
     }
 
-    public function change_all_status( $session_id )
-    {
-        $dept = Dept::where( 'name', Auth::user()->name )->first();
-        $session = Session::findOrFail( $session_id );
+    // public function change_all_status( $session_id )
+    // {
+    //     $dept = Dept::where( 'name', Auth::user()->name )->first();
+    //     $session = Session::findOrFail( $session_id );
 
-        $check = Student::where( "dept_id", $dept->id )->where( "session_id", $session->id )->first();
+    //     $check = Student::where( "dept_id", $dept->id )->where( "session_id", $session->id )->first();
 
-        if ( $check->status == 1 ) {
-            DB::table( 'students' )
-                ->where( "dept_id", $dept->id )
-                ->where( "session_id", $session->id )
-                ->update( ['room_no' => false, 'status' => 2] );
-        } else {
-            DB::table( 'students' )
-                ->where( "dept_id", $dept->id )
-                ->where( "session_id", $session->id )
-                ->update( ['room_no' => false, 'status' => 1] );
-        }
+    //     if ( $check->status == 1 ) {
+    //         DB::table( 'students' )
+    //             ->where( "dept_id", $dept->id )
+    //             ->where( "session_id", $session->id )
+    //             ->update( ['status' => 2] );
 
-        Toastr::success( 'Status updated successfully', 'Success' );
+    //     } elseif ( $check->status == 2 ) {
+    //         DB::table( 'students' )
+    //             ->where( "dept_id", $dept->id )
+    //             ->where( "session_id", $session->id )
+    //             ->update( ['status' => 1] );
+    //     }
 
-        return redirect()->back();
-    }
+    //     Toastr::success( 'Status updated successfully', 'Success' );
+
+    //     return redirect()->back();
+    // }
 
     public function changeStatusForSelectedStudents( Request $request )
     {
@@ -242,18 +243,21 @@ class StudentController extends Controller
         $dept = Dept::where( 'name', Auth::user()->name )->first();
 
         foreach ( $ids as $student_id ) {
-            $check = Student::find( $student_id );
+            $student = Student::find( $student_id );
 
-            if ( $check->status == 1 ) {
+            if ( $student->status == 1 ) {
                 DB::table( 'students' )
                     ->where( "dept_id", $dept->id )
                     ->where( "id", $student_id )
                     ->update( ['status' => 2] );
-            } else {
+
+            } elseif ( $student->status == 2 ) {
                 DB::table( 'students' )
                     ->where( "dept_id", $dept->id )
                     ->where( "id", $student_id )
                     ->update( ['status' => 1] );
+            } else {
+                continue;
             }
         }
         Toastr::success( 'Status updated successfully', 'Success' );
